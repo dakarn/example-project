@@ -8,10 +8,15 @@ class AddWordValidator extends AbstractValidator
 {
 	private $errors = [
 		'Не заполнен текст.',
+		'Неверный запрос.',
 	];
 
 	public function validate(): bool
 	{
+		if (!$this->isPost()) {
+			$this->stackErrors['text'] = $this->errors[1];
+		}
+
 		if (empty($_POST['text'])) {
 			$this->stackErrors['text'] = $this->errors[0];
 		}
