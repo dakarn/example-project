@@ -10,8 +10,13 @@ namespace Queue;
 
 use AMQPConnection;
 
-class QueueStrategy
+class QueueStrategy implements QueueStrategyInterface
 {
+	const QUEUE_TYPE = [
+		'sender',
+		'receiver',
+	];
+
 	/**
 	 * @var AMQPConnection
 	 */
@@ -47,17 +52,21 @@ class QueueStrategy
 	 */
 	protected $type;
 
-	public function __construct(array $configConnect, string $type)
+	public function __construct(array $configConnect)
 	{
 		$this->configConnect = $configConnect;
 	}
 
-	public function build()
+	public function build(): self
 	{
+		$this->isBuild = true;
+
 		$this->connection();
 		$this->createChannel();
 		$this->createExchange();
 		$this->createQueue();
+
+		return $this;
 	}
 
 	public function setParams(Queue $params): self
@@ -84,8 +93,8 @@ class QueueStrategy
 	{
 		$this->exchange = new \AMQPExchange($this->channel);
 
-		$this->exchange->setName('hello-queue');
-		$this->exchange->setType(AMQP_EX_TYPE_DIRECT);
+		$this->exchange->setName($this->params->getExchangeName());
+		$this->exchange->setType($this->params->getType());
 		$this->exchange->declareExchange();
 
 		return $this;
@@ -95,10 +104,45 @@ class QueueStrategy
 	{
 		$this->queueInst = new \AMQPQueue($this->channel);
 
-		$this->queueInst->setName('hello-queue');
-		$this->queueInst->bind('hello-queue', 'sendMail');
+		$this->queueInst->setName($this->params->getName());
+
+		if ($this->isReceiver()) {
+			$this->queueInst->bind($this->params->getExchangeName(), $this->params->getRoutingKey());
+		}
 
 		return $this;
+	}
+
+	public function send(): self
+	{
+		if ($this->isSender()) {
+			$this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
+			$this->amqp->disconnect();
+		}
+
+		return $this;
+	}
+
+	public function isSender(): bool
+	{
+		return $this->type === self::QUEUE_TYPE[0];
+	}
+
+	public function setAsSender(): self
+	{
+		$this->type = self::QUEUE_TYPE[0];
+		return $this;
+	}
+
+	public function setAsReceiver(): self
+	{
+		$this->type = self::QUEUE_TYPE[1];
+		return $this;
+	}
+
+	public function isReceiver(): bool
+	{
+		return $this->type === self::QUEUE_TYPE[1];
 	}
 
 	public function sendSuccess(\AMQPEnvelope $msg)

@@ -1,6 +1,10 @@
 <?php
 
 return [
+	'routerFiles' => [
+		'routers',
+		'api',
+	],
 	'useCSRFToken' => true,
 	'service' => [
 		'autoLoad' => true,

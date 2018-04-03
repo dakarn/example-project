@@ -19,10 +19,10 @@ class QueueManager
 
 	private $handlersTask = [];
 
-	public function getStrategy(string $type = 'receiver'): QueueStrategy
+	public function getStrategy(): QueueStrategy
 	{
 		if (!$this->strategy instanceof QueueStrategy) {
-			$this->strategy = new QueueStrategy(Config::get('rabbit'), $type);
+			$this->strategy = new QueueStrategy(Config::get('rabbit'));
 		}
 
 		return $this->strategy;

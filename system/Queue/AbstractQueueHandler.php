@@ -42,7 +42,10 @@ abstract class AbstractQueueHandler
 		$this->before();
 
 		$strategy = QueueManager::create()->getStrategy();
-		$strategy->setParams($this->queueParam)->build();
+		$strategy
+			->setAsReceiver()
+			->setParams($this->queueParam)
+			->build();
 
 		$instanceConnect = $strategy->getCreationObject();
 		$this->amqp      = $instanceConnect['amqp'];

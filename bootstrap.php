@@ -30,7 +30,8 @@ switch(PHP_SAPI) {
 		$appKernel
 			->installMiddlewares()
 			->installProviders();
-		$runCommand = System\Router\Routing::findRoute(\System\Config::get('router_maps'), System\Kernel\GETParam::getPath());
+
+		$runCommand = System\Router\Routing::findRoute(\System\Config::getRouters(), System\Kernel\GETParam::getPath());
 		break;
 	case 'cli':
 		$applicationTypes = new System\TypesApp\ConsoleApp();

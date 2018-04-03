@@ -13,6 +13,7 @@ use Exception\FileException;
 class Config
 {
 	const EXTENSION_CONFIG = '.php';
+	const DIR_ROUTERS      = 'routers/';
 
 	private static $bufferConfigFiles = [];
 
@@ -41,6 +42,18 @@ class Config
 		}
 
 		throw FileException::notFound([$config]);
+	}
+
+	public static function getRouters(): array
+	{
+		$routers = self::get('common', 'routerFiles');
+		$item = [];
+
+		foreach ($routers as $router) {
+			$item = array_merge($item, include_once(CONFIG_APP_PATH . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG));
+		}
+
+		return $item;
 	}
 
 	private static function getByParam(array $config, string $param, string $default)
