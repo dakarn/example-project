@@ -27,7 +27,9 @@ switch(PHP_SAPI) {
 	default:
 		$applicationTypes = new System\TypesApp\WebApp();
 
-		$appKernel->installMiddlewares()->installProviders();
+		$appKernel
+			->installMiddlewares()
+			->installProviders();
 		$runCommand = System\Router\Routing::findRoute(\System\Config::get('router_maps'), System\Kernel\GETParam::getPath());
 		break;
 	case 'cli':

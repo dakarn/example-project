@@ -7,7 +7,7 @@
  */
 namespace Queue;
 
-final class Queue implements QueueInterface
+class Queue implements QueueInterface
 {
 	private $type;
 

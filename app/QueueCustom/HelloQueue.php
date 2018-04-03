@@ -6,11 +6,11 @@
  * Time: 23:55
  */
 
-namespace QueueApp;
+namespace QueueCustom;
 
-use Queue\QueueInterface;
+use Queue\Queue;
 
-class HelloQueue implements QueueInterface
+class HelloQueue extends Queue
 {
 
 }
