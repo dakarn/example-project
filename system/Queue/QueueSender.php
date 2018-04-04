@@ -8,32 +8,36 @@
 
 namespace Queue;
 
-class QueueSender
+class QueueSender extends AbstractQueueStrategy
 {
-	/**
-	 * @var Queue
-	 */
-	private $queue;
-
-	/** @var  QueueStrategy */
-	private $strategy;
-
-	public function __construct(Queue $queue, array $configConnect)
+	public function setParams(Queue $params): self
 	{
-		$this->queue = $queue;
-		$this->build();
+		$this->params = $params;
+		return $this;
 	}
 
 	public function build()
 	{
-		$this->strategy = QueueManager::create()->getStrategy()
-			->setAsSender()
-			->setParams($this->queue)
-			->build();
+		$this->amqp = new \AMQPConnection($this->configConnect);
+		$this->amqp->connect();
+
+		$this->channel = new \AMQPChannel($this->amqp);
+
+		$this->exchange = new \AMQPExchange($this->channel);
+
+		$this->exchange->setName($this->params->getExchangeName());
+		$this->exchange->setType($this->params->getType());
+		$this->exchange->declareExchange();
+
+		$this->queueInst = new \AMQPQueue($this->channel);
+		$this->queueInst->setName($this->params->getName());
+
+		return $this;
 	}
 
 	public function send()
 	{
-		$this->strategy->send();
+		$this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
+		$this->amqp->disconnect();
 	}
 }

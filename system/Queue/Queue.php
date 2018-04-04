@@ -33,6 +33,12 @@ class Queue implements QueueInterface
 		return $this;
 	}
 
+	public function setDataAsArray(array $data): Queue
+	{
+		$this->dataForSend = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+		return $this;
+	}
+
 	public function setExchangeName(string $exchangeName): Queue
 	{
 		$this->exchangeName = $exchangeName;

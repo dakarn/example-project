@@ -41,9 +41,8 @@ abstract class AbstractQueueHandler
 	{
 		$this->before();
 
-		$strategy = QueueManager::create()->getStrategy();
+		$strategy = QueueManager::create()->getReceiverStrategy();
 		$strategy
-			->setAsReceiver()
 			->setParams($this->queueParam)
 			->build();
 
@@ -64,9 +63,9 @@ abstract class AbstractQueueHandler
 				if ($msg = $this->queueInst->get()) {
 
 					if ($this->run($msg)) {
-						QueueManager::create()->getStrategy()->sendSuccess($msg);
+						QueueManager::create()->getReceiverStrategy()->sendSuccess($msg);
 					} else {
-						QueueManager::create()->getStrategy()->sendFailed($msg);
+						QueueManager::create()->getReceiverStrategy()->sendFailed($msg);
 					}
 				}
 			}
