@@ -4,7 +4,7 @@ session_start();
 
 define('PATH_SYSTEM', __DIR__ . '/system/');
 define('PATH_APP', __DIR__  . '/app/');
-//fgfgfgfggfg
+
 include(PATH_SYSTEM .'System/DefineSetup.php');
 include(LOADER_CLASS);
 include(APP_EVENT);
