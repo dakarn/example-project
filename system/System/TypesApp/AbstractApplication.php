@@ -69,7 +69,7 @@ abstract class AbstractApplication
 	public function isRepeatRun()
 	{
 		if ($this->wasRun) {
-			throw new \LogicException('Application was run already. Repeating run is impossible!');
+			throw new \LogicException('Application was run already. A repeat run is impossible!');
 		}
 
 		$this->wasRun = true;

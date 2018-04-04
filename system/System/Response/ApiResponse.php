@@ -10,5 +10,13 @@ namespace System\Response;
 
 class ApiResponse extends JsonResponse
 {
+	public function success(): self
+	{
 
+	}
+
+	public function fail(): self
+	{
+
+	}
 }
