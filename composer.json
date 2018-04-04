@@ -2,5 +2,10 @@
   "name": "example-project",
   "description": "The Laravel Framework.",
   "version": "1.0",
-  "type": "library"
+  "type": "library",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "4.0-dev"
+    }
+  }
 }
