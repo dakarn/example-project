@@ -1,0 +1,13 @@
+{
+  "name": "example-project",
+  "description": "The Laravel Framework.",
+  "version": "1.0",
+  "type": "library",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url":  "git@github.com:dakarn/example-project.git",
+      "minimum-stability": "dev"
+    }
+  ]
+}
