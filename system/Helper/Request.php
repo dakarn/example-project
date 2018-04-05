@@ -89,6 +89,11 @@ class Request
 		return $_GET[$key] ?? '';
 	}
 
+	public function isAjax(): bool
+	{
+		return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+	}
+
 	public function getQueryString(): string
 	{
 		return $_SERVER['QUERY_STRING'];
@@ -99,9 +104,9 @@ class Request
 		return $_SERVER['REQUEST_URI'];
 	}
 
-	public function getCookie()
+	public function getCookie(): Cookie
 	{
-		return !empty($this->cookies) ?: Cookie::create();
+		return Cookie::create();
 	}
 
 	public function getSession(): Session

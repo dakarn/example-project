@@ -4,6 +4,7 @@ return [
 	'routerFiles' => [
 		'routers',
 		'api',
+		'default',
 	],
 	'useCSRFToken' => true,
 	'service' => [

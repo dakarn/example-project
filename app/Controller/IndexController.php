@@ -14,6 +14,8 @@ class IndexController extends AbstractController
 	{
 		$dictRepos = new DictionaryRepository();
 
+		//$this->redirectToRoute('indexer', ['id' => 5, 'red' => 4]);
+
 		$send = (new Queue())
 			->setName('hello-queue')
 			->setFlags('')

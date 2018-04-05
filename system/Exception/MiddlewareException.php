@@ -22,6 +22,6 @@ class MiddlewareException extends \Exception
 
 	public static function failedResult(array $arguments = []): self
 	{
-		return new self('Current middleware "' . $arguments[0]  . ' " returned a failed result!');
+		return new self('Current middleware returned a failed result!');
 	}
 }

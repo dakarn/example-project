@@ -43,6 +43,11 @@ class AppKernel
 			'class'     => MiddlewareApp\MiddlewareCheckAuth::class,
 		];
 
+		$this->middlewares[] = [
+			'autoStart' => false,
+			'class'     => MiddlewareApp\MiddlewareCheckAjax::class,
+		];
+
 		return $this;
 	}
 

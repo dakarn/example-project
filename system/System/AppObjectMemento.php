@@ -19,7 +19,7 @@ class AppObjectMemento
 
 	private static $listObject = [];
 
-	public static function get(string $class): object
+	public static function get(string $class)
 	{
 		if (!empty(self::$listObject[$class])) {
 			return self::$listObject[$class];

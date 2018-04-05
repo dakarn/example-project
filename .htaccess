@@ -2,7 +2,6 @@ AddDefaultCharset UTF-8
 Options -Indexes
 DirectoryIndex index.php bootstrap.php index.html
 RewriteEngine on
-RewriteBase /elasticsearch
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)/?$ bootstrap\.php?options=$1

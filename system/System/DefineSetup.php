@@ -7,8 +7,15 @@
  */
 
 define('TEMPLATE', PATH_APP . 'Templates');
+
 if (isset($_SERVER['HTTP_HOST'])) {
-	define('URL', 'http://' . $_SERVER['HTTP_HOST'] . '/elasticsearch/');
+	define('IS_DOMAIN', true);
+
+	if (IS_DOMAIN) {
+		define('URL', 'http://' . $_SERVER['HTTP_HOST'].'/');
+	} else {
+		define('URL', 'http://' . $_SERVER['HTTP_HOST'] .'/elasticsearch/');
+	}
 }
 
 define('LOADER_CLASS', PATH_SYSTEM . 'System/Kernel/LoaderClass.php');

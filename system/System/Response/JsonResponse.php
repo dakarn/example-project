@@ -8,7 +8,6 @@
 
 namespace System\Response;
 
-
 class JsonResponse implements ResponseInterface
 {
 	public function __construct(array $text)

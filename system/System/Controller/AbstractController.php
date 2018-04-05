@@ -9,9 +9,13 @@
 namespace System\Controller;
 
 use Exception\ControllerException;
-use Helper\Response;
+use Helper\Cookie;
+use Helper\Request;
+use System\Response\Response;
+use Helper\Session;
 use System\AppObjectMemento;
 use System\Config;
+use System\EventListener\EventManager;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Router\Routing;
@@ -22,12 +26,19 @@ use System\Router\RouteData;
 
 abstract class AbstractController implements ControllerInterface
 {
+	protected $eventManager;
+
+	public function __construct(EventManager $eventManager)
+	{
+		$this->eventManager = $eventManager;
+	}
+
 	protected function redirect(string $url)
 	{
 		(new Response())->redirect($url);
 	}
 
-	protected function notFound()
+	protected function notFound(): Render
 	{
 		return new Render(Config::get('common', 'errors')['404']);
 	}
@@ -37,12 +48,12 @@ abstract class AbstractController implements ControllerInterface
 		LoggerAware::setlogger(new Logger())->log($level, $message);
 	}
 
-	public function __before(RouteData $route)
+	public function __before(RouteData $route): bool
 	{
 		return true;
 	}
 
-	public function __after(RouteData $route)
+	public function __after(RouteData $route): bool
 	{
 		return false;
 	}
@@ -52,17 +63,37 @@ abstract class AbstractController implements ControllerInterface
 
 	}
 
-	protected function invokeController(string $controllerClass, string $action)
+	protected function request(): Request
+	{
+		return Request::create();
+	}
+
+	protected function response(): Response
+	{
+		return new Response;
+	}
+
+	protected function session(): Session
+	{
+		return $this->request()->getSession();
+	}
+
+	protected function cookie(): Cookie
+	{
+		return $this->request()->getCookie();
+	}
+
+	protected function invokeRouter(string $invokeRouter)
 	{
 		$routerList = Routing::getRouterList();
-		$router     = $routerList->get($controllerClass . $action);
+		$router     = $routerList->get($invokeRouter);
 
 		if (!empty($router)) {
 			$app = AppObjectMemento::get(AppObjectMemento::APP);
 			return $app->runController($router);
 		}
 
-		throw ControllerException::notFound([$controllerClass]);
+		throw ControllerException::notFound([$invokeRouter]);
 	}
 
 	protected function get(string $nameService): ServiceInterface
@@ -78,8 +109,12 @@ abstract class AbstractController implements ControllerInterface
 		return new Render($template, $param);
 	}
 
-	protected function redirectToRoute(string $route, array $arguments = [], int $status = 302)
+	protected function redirectToRoute(string $routeName, array $arguments = [], int $status = 302): void
 	{
-		(new Response())->redirectToRoute($route);
+		(new Response())->redirectToRoute($routeName, $arguments, $status);
+	}
+
+	public function __destruct()
+	{
 	}
 }

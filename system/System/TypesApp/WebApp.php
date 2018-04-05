@@ -60,13 +60,14 @@ class WebApp extends AbstractApplication
 		$action    = $router->getAction() . self::PREFIX_ACTION;
 
 		try {
-			$controller = new $className();
 			$routeData  = $this->setRouteData($action, $router);
 
 			$this->eventManager->runEvent(EventTypes::BEFORE_CONTROLLER, [
 				'controller' => $routeData->getControllerName(),
 				'action'     => $routeData->getActionName(),
 			]);
+
+			$controller = new $className($this->eventManager);
 
 			if (!$controller->__before($routeData)) {
 				$this->defaultTemplate(null);

@@ -35,7 +35,7 @@ abstract class AbstractList
 
 	public function get($key)
 	{
-		return isset($this->list[$key]) ?? null;
+		return isset($this->list[$key]) ? $this->list[$key] : null;
 	}
 
 	public function getAll($key): array

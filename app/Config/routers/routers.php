@@ -4,12 +4,14 @@ use MiddlewareApp\MiddlewareCheckAuth;
 
 return [
 	[
+		'name'       => 'search',
 		'path'       => 'search-word',
 		'controller' => 'Controller:IndexController',
 		'action'     => 'searchWord',
 		'allow'      => ['POST'],
 	],
 	[
+		'name'       => 'addIndex',
 		'path'       => 'addIndex',
 		'controller' => 'Controller:ElasticController',
 		'action'     => 'addIndex',
@@ -18,12 +20,14 @@ return [
 		'enterData'  => []
 	],
 	[
+		'name'       => 'removeIndex',
 		'path'       => 'removeIndex',
 		'controller' => 'Controller:ElasticController',
 		'action'     => 'removeIndex',
 		'allow'      => ['GET'],
 	],
 	[
+		'name'       => 'indexer',
 		'path'       => 'indexer/{id}/{red}',
 		'controller' => 'Controller:ElasticController',
 		'action'     => 'indexer',
@@ -35,12 +39,14 @@ return [
 		],
 	],
 	[
+		'name'       => 'enterCommand',
 		'path'       => 'enterCommand',
 		'controller' => 'Controller:ElasticController',
 		'action'     => 'enterCommand',
 		'allow'      => ['GET'],
 	],
 	[
+		'name'       => 'randomWord',
 		'path'       => 'random-word/{id}',
 		'controller' => 'Controller:IndexController',
 		'action'     => 'dictionary',
@@ -50,11 +56,5 @@ return [
 		'param'      => [
 			'id' => '\d{1,5}',
 		],
-	],
-	[
-		'default'    => '',
-		'controller' => 'Controller:IndexController',
-		'action'     => 'index',
-		'allow'      => ['GET'],
 	],
 ];

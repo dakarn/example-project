@@ -8,6 +8,7 @@
 
 namespace System\Controller;
 
+use System\EventListener\EventManager;
 use System\Router\RouteData;
 
 interface ControllerInterface
@@ -15,4 +16,8 @@ interface ControllerInterface
 	public function __before(RouteData $route);
 
 	public function __after(RouteData $route);
+
+	public function __construct(EventManager $eventManager);
+
+	public function __destruct();
 }

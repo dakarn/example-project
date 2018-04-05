@@ -10,5 +10,8 @@ namespace Exception;
 
 class RoutingException extends \Exception
 {
-
+	public static function notFound(array $arguments = []): self
+	{
+		return new self('');
+	}
 }

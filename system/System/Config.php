@@ -46,13 +46,18 @@ class Config
 
 	public static function getRouters(): array
 	{
+		if (isset(self::$bufferConfigFiles['routers'])) {
+			return self::$bufferConfigFiles['routers'];
+		}
+
 		$routers = self::get('common', 'routerFiles');
-		$item = [];
+		$item    = [];
 
 		foreach ($routers as $router) {
 			$item = array_merge($item, include_once(CONFIG_APP_PATH . self::DIR_ROUTERS . $router . self::EXTENSION_CONFIG));
 		}
 
+		self::$bufferConfigFiles['routers'] = $item;
 		return $item;
 	}
 

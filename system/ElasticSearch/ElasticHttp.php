@@ -9,6 +9,7 @@
 namespace ElasticSearch;
 
 use ElasticSearch\ElasticResult;
+use Exception\HttpException;
 use System\Config;
 
 class ElasticHttp
@@ -84,7 +85,13 @@ class ElasticHttp
 
 	public function query(array $query): ElasticResult
 	{
-		return (new ElasticResult($this->doRequest($query)));
+		$result = $this->doRequest($query);
+
+		if (empty($result)) {
+			throw new HttpException('Unable to connect with Elastic Search!');
+		}
+
+		return (new ElasticResult($result));
 	}
 
 	private function doRequest(array $query): string

@@ -11,7 +11,7 @@ class Routing
 {
 	private static $isFound = false;
 
-	public static function findRoute($routers, $path): Router
+	public static function findRoute(array $routers, string $path): Router
 	{
 		$path = self::cutSlash($path);
 
@@ -40,20 +40,20 @@ class Routing
 		return new Router([]);
 	}
 
-	public static function fillRouterList()
+	public static function fillRouterList(): void
 	{
-		$routers    = Config::get('router_maps');
+		$routers    = Config::getRouters();
 		$routerList = new RouterList();
 
 		foreach ($routers as $key => $value) {
 			$router = new Router($value);
-			$routerList->add($router->getController() . $router->getAction(), $router);
+			$routerList->add($router->getName(), $router);
 		}
 
 		AppObjectMemento::set(AppObjectMemento::ROUTERS, $routerList);
 	}
 
-	public static function getRouterList()
+	public static function getRouterList(): RouterList
 	{
 		if (!AppObjectMemento::has(AppObjectMemento::ROUTERS)) {
 			self::fillRouterList();
@@ -62,16 +62,7 @@ class Routing
 		return AppObjectMemento::get(AppObjectMemento::ROUTERS);
 	}
 
-	private static function cutSlash(string $path): string
-	{
-		if (substr($path, -1) == '/') {
-			$path = substr($path, 0 , -1);
-		}
-
-		return $path;
-	}
-
-	private static function findRouterByRegex(Router $router, string $path)
+	public static function findRouterByRegex(Router $router, string $path): bool
 	{
 		$regexPath  = $router->getPath();
 		$nameParams = [];
@@ -84,8 +75,34 @@ class Routing
 		if (preg_match('|^' . $regexPath . '$|', $path, $result)) {
 			GETParam::setParamForController($nameParams, $result);
 			self::$isFound = true;
+			return true;
 		}
+
+		return false;
 	}
+
+	public static function replaceRegexToParam(string $path, array $params, array $params1): string
+	{
+		$path1 = $path;
+
+		foreach ($params as $index => $param) {
+			$params[$index] = $params1[$index];
+			$path1          = str_replace('{' . $index . '}', $params[$index], $path1);
+		}
+
+		return $path1;
+	}
+
+	private static function cutSlash(string $path): string
+	{
+		if (substr($path, -1) == '/') {
+			$path = substr($path, 0 , -1);
+		}
+
+		return $path;
+	}
+
+
 
 	private static function isAllowMethod(array $allow): bool
 	{
