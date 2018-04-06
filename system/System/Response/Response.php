@@ -10,38 +10,48 @@ namespace System\Response;
 
 use Exception\ResponseException;
 use Exception\RoutingException;
-use Helper\File;
 use System\Router\Routing;
 
 class Response
 {
+	private $responseType;
+
 	private $response;
 
 	private $data;
 
-	public function __construct($data = '', ResponseInterface $response = null)
+	private $param;
+
+	public function __construct($data = null, string $responseType = '', array $param = [])
 	{
-		if (!empty($data)) {
-			$this->response = $response;
-		}
+		$this->param        = $param;
+		$this->data         = $data;
+		$this->responseType = $responseType;
+
+		$this->render();
 	}
 
-	public function renderFile(File $file)
+	public function render(): void
 	{
-
-	}
-
-	public function render($data): ResponseInterface
-	{
-		if ($this->response instanceof ResponseInterface) {
-			$this->data     = $data;
-			$response = $this->response;
-			$result   = new $response($this->data);
-			echo $result;
-			return $result;
+		switch ($this->responseType) {
+			case 'simple':
+				$this->response = new SimpleResponse();
+				break;
+			case 'json':
+				$this->response = new JsonResponse();
+				break;
+			case 'api':
+				$this->response = new ApiResponse();
+				break;
+			case 'xml':
+				$this->response = new XMLResponse();
+				break;
+			default:
+				throw ResponseException::invalidResponse();
+				break;
 		}
 
-		throw ResponseException::notImplementedResponse();
+		echo $this->response->render($this->data, $this->param);
 	}
 
 	public function redirect(string $url): void

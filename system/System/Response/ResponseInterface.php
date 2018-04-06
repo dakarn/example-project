@@ -10,5 +10,5 @@ namespace System\Response;
 
 interface ResponseInterface
 {
-
+	public function render($data, array $param);
 }

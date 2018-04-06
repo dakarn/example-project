@@ -12,7 +12,7 @@ class AbstractLogger
 {
 	private $strategy = null;
 
-	protected function getStrategy()
+	protected function getStrategy(): LoggerStorageInterface
 	{
 		if ($this->strategy === null) {
 			$this->strategy = LoggerStorage::create();

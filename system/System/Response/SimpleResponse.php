@@ -10,8 +10,8 @@ namespace System\Response;
 
 class SimpleResponse implements ResponseInterface
 {
-	public function __construct(string $text)
+	public function render($data, array $param)
 	{
-		echo $text;
+		echo $data;
 	}
 }

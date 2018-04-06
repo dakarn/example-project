@@ -8,6 +8,7 @@
 
 namespace Queue;
 
+use Queue\Strategy\RabbitReceiverStrategy;
 use System\Config;
 use Traits\SingletonTrait;
 
@@ -19,10 +20,10 @@ class QueueManager
 
 	private $handlersTask = [];
 
-	public function getReceiverStrategy(): QueueReceiverStrategy
+	public function getReceiverStrategy(): RabbitReceiverStrategy
 	{
-		if (!$this->strategy instanceof QueueReceiverStrategy) {
-			$this->strategy = new QueueReceiverStrategy(Config::get('rabbit'));
+		if (!$this->strategy instanceof RabbitReceiverStrategy) {
+			$this->strategy = new RabbitReceiverStrategy(Config::get('rabbit'));
 		}
 
 		return $this->strategy;
@@ -58,9 +59,9 @@ class QueueManager
 		return true;
 	}
 
-	public function sender(Queue $queue): QueueSender
+	public function sender(Queue $queue): RabbitQueueSender
 	{
-		return (new QueueSender(Config::get('rabbit')))
+		return (new RabbitQueueSender(Config::get('rabbit')))
 			->setParams($queue)
 			->build();
 	}

@@ -10,5 +10,8 @@ namespace System\Response;
 
 class XMLResponse implements ResponseInterface
 {
-
+	public function render($data, array $param)
+	{
+		echo $data;
+	}
 }

@@ -6,11 +6,12 @@
  * Time: 0:48
  */
 
-namespace Queue;
+namespace Queue\Strategy;
 
 use AMQPConnection;
+use Queue\Queue;
 
-class QueueReceiverStrategy extends AbstractQueueStrategy
+class RabbitReceiverStrategy extends AbstractQueueStrategy
 {
 	public function setParams(Queue $params): self
 	{

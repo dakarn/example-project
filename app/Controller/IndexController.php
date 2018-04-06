@@ -7,6 +7,7 @@ use Queue\QueueManager;
 use Validator\AddWordValidator;
 use System\Controller\AbstractController;
 use Model\Dictionary\DictionaryRepository;
+use Widget\WidgetFactory;
 
 class IndexController extends AbstractController
 {
@@ -14,7 +15,7 @@ class IndexController extends AbstractController
 	{
 		$dictRepos = new DictionaryRepository();
 
-		//$this->redirectToRoute('indexer', ['id' => 5, 'red' => 4]);
+		WidgetFactory::run('test');
 
 		$send = (new Queue())
 			->setName('hello-queue')

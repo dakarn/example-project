@@ -10,4 +10,13 @@ namespace System\Validators;
 
 interface AbstractValidatorInterface
 {
+	public function getErrors(): array;
+
+	public function getError(string $field): string;
+
+	public function getErrorsApi(): array;
+
+	public function isPost(): bool;
+
+	public function isGet(): bool;
 }

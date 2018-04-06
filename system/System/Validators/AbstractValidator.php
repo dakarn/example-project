@@ -19,6 +19,21 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 
 	private $get  = 'GET';
 
+	public function getErrorsApi(): array
+	{
+		$errors = [
+			'errors' => []
+		];
+
+		foreach ($this->stackErrors as $errorItem => $errorText) {
+			$errors['errors'][] = [
+				$errorItem => $errorText
+			];
+		}
+
+		return $errors;
+	}
+
 	public function getErrors(): array
 	{
 		return $this->stackErrors;
@@ -27,6 +42,11 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	public function getError(string $field): string
 	{
 		return $this->stackErrors[$field] ?? '';
+	}
+
+	public function isValid(): bool
+	{
+		return empty($this->stackErrors);
 	}
 
 	public function isCSRFToken(): bool

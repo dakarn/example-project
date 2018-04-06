@@ -8,7 +8,9 @@
 
 namespace Queue;
 
-class QueueSender extends AbstractQueueStrategy
+use Queue\Strategy\AbstractQueueStrategy;
+
+class RabbitQueueSender extends AbstractQueueStrategy
 {
 	public function setParams(Queue $params): self
 	{

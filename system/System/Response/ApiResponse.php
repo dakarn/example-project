@@ -10,13 +10,36 @@ namespace System\Response;
 
 class ApiResponse extends JsonResponse
 {
-	public function success(): self
-	{
+	private $data;
 
+	private $success = [
+		'success' => true,
+	];
+
+	private $fail = [
+		'success' => false,
+	];
+
+	public function render($data, array $param): void
+	{
+		$this->data = $data;
+
+		if ($param[0] === 'success') {
+			$this->success();
+		} else if ($param[0] === 'failed') {
+			$this->fail();
+		}
+
+		parent::render($this->data, $param);
 	}
 
-	public function fail(): self
+	public function success(): void
 	{
+		$this->data = $this->success + $this->data;
+	}
 
+	public function fail(): void
+	{
+		$this->data = $this->fail + $this->data;
 	}
 }

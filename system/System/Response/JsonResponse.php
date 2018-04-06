@@ -10,8 +10,8 @@ namespace System\Response;
 
 class JsonResponse implements ResponseInterface
 {
-	public function __construct(array $text)
+	public function render($data, array $param)
 	{
-		echo json_encode($text, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+		echo json_encode($data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 	}
 }

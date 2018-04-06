@@ -14,7 +14,7 @@ class AddWordValidator extends AbstractValidator
 	public function validate(): bool
 	{
 		if (!$this->isPost()) {
-			$this->stackErrors['text'] = $this->errors[1];
+			$this->stackErrors['query'] = $this->errors[1];
 		}
 
 		if (empty($_POST['text'])) {

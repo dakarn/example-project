@@ -12,7 +12,7 @@ class ResponseException extends \Exception
 {
 	public static function invalidResponse(array $arguments = []): self
 	{
-		return new self('');
+		return new self('This response invalid type!');
 	}
 
 	public static function notImplementedResponse(array $arguments = []): self

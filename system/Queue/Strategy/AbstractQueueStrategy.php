@@ -6,9 +6,10 @@
  * Time: 1:14
  */
 
-namespace Queue;
+namespace Queue\Strategy;
 
 use AMQPConnection;
+use Queue\Queue;
 
 abstract class AbstractQueueStrategy
 {

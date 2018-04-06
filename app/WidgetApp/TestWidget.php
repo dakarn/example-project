@@ -1,0 +1,19 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: user
+ * Date: 06.04.2018
+ * Time: 15:48
+ */
+
+namespace WidgetApp;
+
+use Widget\AbstractWidget;
+
+class TestWidget extends AbstractWidget
+{
+	public function run(): string
+	{
+		return '';
+	}
+}

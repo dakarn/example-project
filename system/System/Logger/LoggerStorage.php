@@ -8,22 +8,15 @@
 
 namespace System\Logger;
 
-class LoggerStorage
+use Traits\SingletonTrait;
+
+class LoggerStorage implements LoggerStorageInterface
 {
-	private static $instance;
+	use SingletonTrait;
 
 	private $log = [];
 
-	public static function create()
-	{
-		if (!self::$instance instanceof LoggerStorage) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-	}
-
-	public function addLog(string $level, string $message)
+	public function addLog(string $level, string $message): LoggerStorageInterface
 	{
 		$this->log[] = [
 			'time'    => date('d.m.y H:i:s', time()),
@@ -39,7 +32,7 @@ class LoggerStorage
 		return $this->log;
 	}
 
-	public function releaseLog()
+	public function releaseLog(): void
 	{
 		foreach ($this->log as $log) {
 			error_log('Log' . $log['level'] . ' - ' . $log['time'] . ' - ' . $log['message']);

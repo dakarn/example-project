@@ -9,27 +9,27 @@
 namespace Controller\Api;
 
 use System\Controller\AbstractController;
-use System\Response\ApiResponse;
+use System\Response\Response;
 
 class ApiController extends AbstractController
 {
 	public function addAction()
 	{
-		return new ApiResponse([]);
+		return new Response([], 'api', ['success']);
 	}
 
 	public function getAction()
 	{
-		return new ApiResponse([]);
+		return new Response(['errors' => ['text' => 'empty']], 'api', ['failed']);
 	}
 
 	public function updateAction()
 	{
-		return new ApiResponse([]);
+		return new Response([], 'api', ['success']);
 	}
 
 	public function deleteAction()
 	{
-		return new ApiResponse([]);
+		return new Response([], 'api', ['success']);
 	}
 }
