@@ -15,6 +15,11 @@ class ResponseException extends \Exception
 		return new self('This response invalid type!');
 	}
 
+	public static function notSetupResponse(array $arguments = []): self
+	{
+		return new self('Unable execute middleware with index 0. Need minimum one middleware!');
+	}
+
 	public static function notImplementedResponse(array $arguments = []): self
 	{
 		return new self('This variable response do not implemented ResponseInterface!');

@@ -9,12 +9,13 @@
 namespace MiddlewareApp;
 
 use Helper\Request;
+use Http\RequestInterface;
 use Middleware\RequestHandler;
 use Middleware\MiddlewareInterface;
 
 class MiddlewareCheckingBot implements MiddlewareInterface
 {
-	public function process(Request $request, RequestHandler $handler)
+	public function process(RequestInterface $request, RequestHandler $handler)
 	{
 		return $handler->handle($request, $handler);
 	}

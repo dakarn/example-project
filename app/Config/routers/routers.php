@@ -15,7 +15,7 @@ return [
 		'path'       => 'addIndex',
 		'controller' => 'Controller:ElasticController',
 		'action'     => 'addIndex',
-		'middleware' => MiddlewareCheckAuth::class,
+		'middleware' => [MiddlewareCheckAuth::class],
 		'allow'      => ['GET', 'POST'],
 		'enterData'  => []
 	],
@@ -52,7 +52,7 @@ return [
 		'action'     => 'dictionary',
 		'allow'      => ['GET', 'POST', 'PUT'],
 		'regex'      => true,
-		'middleware' => MiddlewareCheckAuth::class,
+		'middleware' => [MiddlewareCheckAuth::class],
 		'param'      => [
 			'id' => '\d{1,5}',
 		],

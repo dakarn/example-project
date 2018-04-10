@@ -9,8 +9,9 @@
 namespace Middleware;
 
 use Http\RequestInterface;
+use System\Response\Response;
 
 interface RequestHandlerInterface
 {
-	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true);
+	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true): Response;
 }

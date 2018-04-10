@@ -9,6 +9,7 @@
 namespace System\TypesApp;
 
 use Exception\MiddlewareException;
+use Exception\ResponseException;
 use Middleware\RequestHandler;
 use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
@@ -93,14 +94,16 @@ class WebApp extends AbstractApplication
 		}
 	}
 
-	public function runMiddleware(Router $router): bool
+	public function runMiddleware(Router $router): Response
 	{
 		if (!empty($router->getMiddleware())) {
-			StorageMiddleware::addOne(['class' => $router->getMiddleware()]);
+			foreach ($router->getMiddleware() as $middleware) {
+				StorageMiddleware::addOne(['class' => $middleware]);
+			}
 		}
 
 		if (!isset(StorageMiddleware::get()[0])) {
-			return true;
+			throw ResponseException::invalidResponse();
 		}
 
 		/** @var RequestHandler $runHandler */

@@ -26,7 +26,7 @@ class Router
 
 	private $isRegex;
 
-	private $middleware;
+	private $middleware = [];
 
 	private $name;
 
@@ -45,7 +45,7 @@ class Router
 		$this->enterData  = $router['enterData'] ?? [];
 		$this->default    = $router['default'] ?? '';
 		$this->allow      = $router['allow'] ?? [];
-		$this->middleware = $router['middleware'] ?? '';
+		$this->middleware = $router['middleware'] ?? [];
 		$this->isRegex    = $router['regex'] ?? false;
 		$this->name       = $router['name'] ?? '';
 
@@ -72,7 +72,7 @@ class Router
 		return $this->path;
 	}
 
-	public function getMiddleware(): string
+	public function getMiddleware(): array
 	{
 		return $this->middleware;
 	}

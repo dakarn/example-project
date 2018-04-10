@@ -32,11 +32,16 @@ class Response
 
 	private $template;
 
-	public function __construct($data = null, string $responseType = '', array $param = [])
+	public function __construct($data = null, string $responseType = 'simple', array $param = [])
 	{
 		$this->param        = $param;
 		$this->data         = $data;
 		$this->responseType = $responseType;
+	}
+
+	public function getData()
+	{
+		return $this->data;
 	}
 
 	public function render(): Response

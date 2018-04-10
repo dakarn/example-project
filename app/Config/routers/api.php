@@ -9,7 +9,7 @@ return [
 		'controller' => 'Controller:Api:ApiController',
 		'action'     => 'get',
 		'allow'      => ['GET'],
-		'middleware' => MiddlewareCheckAjax::class,
+		'middleware' => [MiddlewareCheckAjax::class],
 	],
 	[
 		'name'       => 'api-add',
@@ -17,7 +17,7 @@ return [
 		'controller' => 'Controller:Api:ApiController',
 		'action'     => 'add',
 		'allow'      => ['PUT'],
-		'middleware' => MiddlewareCheckAjax::class,
+		'middleware' => [MiddlewareCheckAjax::class],
 	],
 	[
 		'name'       => 'api-update',
@@ -25,7 +25,7 @@ return [
 		'controller' => 'Controller:Api:ApiController',
 		'action'     => 'update',
 		'allow'      => ['POST'],
-		'middleware' => MiddlewareCheckAjax::class,
+		'middleware' => [MiddlewareCheckAjax::class],
 	],
 	[
 		'name'       => 'api-delete',
@@ -33,7 +33,7 @@ return [
 		'controller' => 'Controller:Api:ApiController',
 		'action'     => 'delete',
 		'allow'      => ['DELETE'],
-		'middleware' => MiddlewareCheckAjax::class,
+		'middleware' => [MiddlewareCheckAjax::class],
 	],
 	[
 		'name'       => 'search-word-api',
@@ -41,6 +41,6 @@ return [
 		'controller' => 'Controller:Api:ApiController',
 		'action'     => 'searchWord',
 		'allow'      => ['POST'],
-		'middleware' => MiddlewareCheckAjax::class,
+		'middleware' => [MiddlewareCheckAjax::class],
 	],
 ];

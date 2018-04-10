@@ -9,10 +9,11 @@
 namespace Middleware;
 
 use Http\RequestInterface;
+use System\Response\Response;
 
 class MiddlewareValidGETParam implements MiddlewareInterface
 {
-	public function process(RequestInterface $request, RequestHandler $handler)
+	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
 		return $handler->handle($request, $handler, true);
 	}
