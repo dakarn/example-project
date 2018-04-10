@@ -33,7 +33,7 @@ class DictionaryStorage
 
 	public function searchDictionaryByText(Dictionary $dictionary): bool
 	{
-
+		return true;
 	}
 
 	public function deleteWord(int $id): bool

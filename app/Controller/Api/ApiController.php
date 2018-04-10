@@ -8,8 +8,10 @@
 
 namespace Controller\Api;
 
+use Model\Dictionary\DictionaryRepository;
 use System\Controller\AbstractController;
 use System\Response\Response;
+use Validator\SearchWordValidator;
 
 class ApiController extends AbstractController
 {
@@ -30,6 +32,21 @@ class ApiController extends AbstractController
 
 	public function deleteAction()
 	{
+		return new Response([], 'api', ['success']);
+	}
+
+	public function searchWordAction()
+	{
+		$dictRepos = new DictionaryRepository();
+		$validator = new SearchWordValidator();
+
+		if ($validator->isPost()) {
+			if (!$validator->isValid()) {
+			}
+
+			$dictRepos->searchWord($_POST);
+		}
+
 		return new Response([], 'api', ['success']);
 	}
 }

@@ -20,6 +20,7 @@ use System\Logger\LogLevel;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Render;
+use System\Response\Response;
 use System\Response\ResponseInterface;
 use System\Router\RouteData;
 use System\Controller\AbstractController;
@@ -42,7 +43,7 @@ class WebApp extends AbstractApplication
 		$this->isRepeatRun();
 
 		if (!$router->isFilled()) {
-			throw new \InvalidArgumentException('Parameters for run Application is empty!');
+			throw new \InvalidArgumentException('A route with this address is not installed on the system!');
 		}
 
 		if (!$this->runMiddleware($router)) {

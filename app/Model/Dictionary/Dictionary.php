@@ -24,12 +24,12 @@ class Dictionary
 
 	public function __construct(array $data)
 	{
-		$this->id        = $data['id'];
-		$this->text      = $data['text'];
-		$this->translate = $data['translate'];
-		$this->type      = $data['type'];
-		$this->audioFile = $data['audioFile'];
-		$this->level     = $data['level'];
+		$this->id        = $data['id'] ?? 0;
+		$this->text      = $data['text'] ?? '';
+		$this->translate = $data['translate'] ?? '';
+		$this->type      = $data['type'] ?? 0;
+		$this->audioFile = $data['audioFile'] ?? '';
+		$this->level     = $data['level'] ?? 0;
 	}
 
 	public function getId(): int

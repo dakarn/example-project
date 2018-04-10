@@ -32,6 +32,19 @@ class FlashText
 		return false;
 	}
 
+	public static function hasByType(string $type): bool
+	{
+		$sessions = Request::create()->getSession()->getAsArray('flashText');
+
+		foreach ($sessions as $session) {
+			if ($session['type'] === $type) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	public static function get(string $type): array
 	{
 		$response = [];
@@ -53,7 +66,6 @@ class FlashText
 		$session->delete('flashText');
 
 		FlashTextRender::render($data);
-
 	}
 
 	public static function remove()

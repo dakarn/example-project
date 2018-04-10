@@ -55,7 +55,6 @@ class DictionaryRepository
 
 		$this->getDictionaryStorage()
 			->searchDictionaryByText($dictionary);
-
 	}
 
 	public function addWord(array $data): bool

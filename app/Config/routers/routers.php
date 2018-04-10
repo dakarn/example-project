@@ -8,7 +8,7 @@ return [
 		'path'       => 'search-word',
 		'controller' => 'Controller:IndexController',
 		'action'     => 'searchWord',
-		'allow'      => ['POST'],
+		'allow'      => ['POST', 'GET'],
 	],
 	[
 		'name'       => 'addIndex',

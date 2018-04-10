@@ -4,9 +4,9 @@ namespace Controller;
 
 use Queue\Queue;
 use Queue\QueueManager;
-use Validator\AddWordValidator;
 use System\Controller\AbstractController;
 use Model\Dictionary\DictionaryRepository;
+use Validator\SearchWordValidator;
 use Widget\WidgetFactory;
 
 class IndexController extends AbstractController
@@ -46,18 +46,16 @@ class IndexController extends AbstractController
 	public function searchWordAction()
 	{
 		$dictRepos = new DictionaryRepository();
-		$validator = new AddWordValidator();
+		$validator = new SearchWordValidator();
 
-		if (!$validator->validate()) {
-			return $this->render('index.html', [
-				'errors'       => $validator->getErrors(),
-				'dictionaries' => $dictRepos->getAllDictionaries()
-			]);
+		if ($validator->isPost()) {
+			if (!$validator->isValid()) {
+				return $this->render('search-word.html');
+			}
+
+			$dictRepos->searchWord($_POST);
 		}
 
-		$dictRepos = new DictionaryRepository();
-		$dictRepos->searchWord($_POST);
-
-		return $this->render('index.html');
+		return $this->render('search-word.html');
 	}
 }

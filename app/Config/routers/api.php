@@ -35,4 +35,12 @@ return [
 		'allow'      => ['DELETE'],
 		'middleware' => MiddlewareCheckAjax::class,
 	],
+	[
+		'name'       => 'search-word-api',
+		'path'       => 'api/search-word',
+		'controller' => 'Controller:Api:ApiController',
+		'action'     => 'searchWord',
+		'allow'      => ['POST'],
+		'middleware' => MiddlewareCheckAjax::class,
+	],
 ];

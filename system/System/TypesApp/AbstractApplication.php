@@ -9,6 +9,7 @@
 namespace System\TypesApp;
 
 use System\EventListener\EventManager;
+use System\Response\Response;
 use System\Router\Router;
 
 abstract class AbstractApplication
@@ -84,6 +85,8 @@ abstract class AbstractApplication
 	{
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
 			throw $e;
+		} else {
+			(new Response())->redirect(URL);
 		}
 	}
 

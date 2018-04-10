@@ -9,10 +9,10 @@ class Render
 	public function __construct($template, array $params = [])
 	{
 		if (!file_exists($this->path . $template)) {
-			return include_once($this->path . Config::get('errors')['404']);
+			include_once($this->path . Config::get('common','errors')['404']);
+		} else {
+			extract($params);
+			include($this->path . $template);
 		}
-
-		extract($params);
-		include($this->path . $template);
 	}
 }

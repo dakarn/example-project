@@ -28,7 +28,9 @@ class Response
 		$this->data         = $data;
 		$this->responseType = $responseType;
 
-		$this->render();
+		if ($data !== null) {
+			$this->render();
+		}
 	}
 
 	public function render(): void

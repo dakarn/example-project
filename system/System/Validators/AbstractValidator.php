@@ -9,15 +9,19 @@
 namespace System\Validators;
 
 use Helper\CSRFToken;
+use Helper\FlashText;
 use Helper\Request;
 
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
 	protected $stackErrors = [];
 
+	public $useFlashErrors = false;
+
 	private $post = 'POST';
 
 	private $get  = 'GET';
+
 
 	public function getErrorsApi(): array
 	{
@@ -34,6 +38,19 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $errors;
 	}
 
+	public function setFlashErrors(): self
+	{
+		if (!$this->useFlashErrors) {
+			return $this;
+		}
+
+		foreach ($this->stackErrors as $errorText) {
+			FlashText::add('danger', $errorText);
+		}
+
+		return $this;
+	}
+
 	public function getErrors(): array
 	{
 		return $this->stackErrors;
@@ -42,11 +59,6 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	public function getError(string $field): string
 	{
 		return $this->stackErrors[$field] ?? '';
-	}
-
-	public function isValid(): bool
-	{
-		return empty($this->stackErrors);
 	}
 
 	public function isCSRFToken(): bool
@@ -68,5 +80,13 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return Request::create()->getMethod() === $this->get;
 	}
 
-	abstract public function validate(): bool;
+	public function isValid(): bool
+	{
+		$this->validate();
+		$this->setFlashErrors();
+
+		return empty($this->stackErrors);
+	}
+
+	abstract public function validate();
 }

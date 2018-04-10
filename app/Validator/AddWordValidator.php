@@ -11,6 +11,8 @@ class AddWordValidator extends AbstractValidator
 		'Неверный запрос.',
 	];
 
+	public $useFlashErrors = true;
+
 	public function validate(): bool
 	{
 		if (!$this->isPost()) {
