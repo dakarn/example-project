@@ -8,9 +8,10 @@
 
 namespace Helper;
 
+use Http\RequestInterface;
 use Traits\SingletonTrait;
 
-class Request
+class Request implements RequestInterface
 {
 	use SingletonTrait;
 

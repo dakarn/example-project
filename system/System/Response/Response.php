@@ -10,30 +10,36 @@ namespace System\Response;
 
 use Exception\ResponseException;
 use Exception\RoutingException;
+use Helper\Cookie;
+use Helper\Request;
+use System\Render;
 use System\Router\Routing;
 
 class Response
 {
 	private $responseType;
 
+	/**
+	 * @var ResponseInterface
+	 */
 	private $response;
 
 	private $data;
 
 	private $param;
 
+	private $headers = [];
+
+	private $template;
+
 	public function __construct($data = null, string $responseType = '', array $param = [])
 	{
 		$this->param        = $param;
 		$this->data         = $data;
 		$this->responseType = $responseType;
-
-		if ($data !== null) {
-			$this->render();
-		}
 	}
 
-	public function render(): void
+	public function render(): Response
 	{
 		switch ($this->responseType) {
 			case 'simple':
@@ -51,6 +57,38 @@ class Response
 			default:
 				throw ResponseException::invalidResponse();
 				break;
+		}
+
+		echo $this->response->render($this->data, $this->param);
+		return $this;
+	}
+
+	public function withHeader(string $name, string $value): Response
+	{
+		$this->headers[$name] = $value;
+		return $this;
+	}
+
+	public function withCookie(string $name, string $value): Response
+	{
+		Cookie::create()->set($name, $value);
+		return $this;
+	}
+
+	public function withTemplate(string $template): Response
+	{
+		$this->template = $template;
+		return $this;
+	}
+
+	public function flush()
+	{
+		foreach ($this->headers as $headerKey => $header) {
+			header($headerKey . ': ' . $header, false);
+		}
+
+		if (!empty($this->template)) {
+			$this->data = new Render($this->template);
 		}
 
 		echo $this->response->render($this->data, $this->param);
@@ -73,6 +111,5 @@ class Response
 		}
 
 		throw RoutingException::notFound([$routerName]);
-
 	}
 }

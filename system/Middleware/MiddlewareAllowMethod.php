@@ -8,11 +8,12 @@
 
 namespace Middleware;
 
-use Helper\Request;
+use Http\RequestInterface;
+use System\Response\ResponseInterface;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {
-	public function process(Request $request, RequestHandler $handler)
+	public function process(RequestInterface $request, RequestHandler $handler): ResponseInterface
 	{
 		return $handler->handle($request, $handler, true);
 	}

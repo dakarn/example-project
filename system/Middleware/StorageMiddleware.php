@@ -10,25 +10,25 @@ namespace Middleware;
 
 class StorageMiddleware
 {
-	private static $list = [];
+	private static $middlewareList = [];
 
 	private static $currPos = 0;
 
 	public static function add(array $middlewares)
 	{
-		self::$list    = [];
+		self::$middlewareList    = [];
 		self::$currPos = 0;
 
 		foreach ($middlewares as $middleware) {
 			if ($middleware['autoStart'] === true) {
-				self::$list[] = $middleware;
+				self::$middlewareList[] = $middleware;
 			}
 		}
 	}
 
 	public static function addOne(array $middleware)
 	{
-		self::$list[] = $middleware;
+		self::$middlewareList[] = $middleware;
 	}
 
 	public static function currPosition(): int
@@ -43,11 +43,11 @@ class StorageMiddleware
 
 	public static function count(): int
 	{
-		return count(self::$list);
+		return count(self::$middlewareList);
 	}
 
 	public static function get(): array
 	{
-		return self::$list;
+		return self::$middlewareList;
 	}
 }

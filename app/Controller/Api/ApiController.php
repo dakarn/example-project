@@ -17,22 +17,22 @@ class ApiController extends AbstractController
 {
 	public function addAction()
 	{
-		return new Response([], 'api', ['success']);
+		return (new Response([], 'api', ['success']))->render();
 	}
 
 	public function getAction()
 	{
-		return new Response(['errors' => ['text' => 'empty']], 'api', ['failed']);
+		return (new Response([], 'api', ['success']))->render();
 	}
 
 	public function updateAction()
 	{
-		return new Response([], 'api', ['success']);
+		return (new Response([], 'api', ['success']))->render();
 	}
 
 	public function deleteAction()
 	{
-		return new Response([], 'api', ['success']);
+		return (new Response([], 'api', ['success']))->render();
 	}
 
 	public function searchWordAction()
@@ -47,6 +47,6 @@ class ApiController extends AbstractController
 			$dictRepos->searchWord($_POST);
 		}
 
-		return new Response([], 'api', ['success']);
+		return (new Response([], 'api', ['success']))->render();
 	}
 }

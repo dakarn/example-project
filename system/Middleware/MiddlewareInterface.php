@@ -8,9 +8,9 @@
 
 namespace Middleware;
 
-use Helper\Request;
+use Http\RequestInterface;
 
 interface MiddlewareInterface
 {
-	public function process(Request $request, RequestHandler $handler);
+	public function process(RequestInterface $request, RequestHandler $handler);
 }

@@ -68,9 +68,9 @@ abstract class AbstractController implements ControllerInterface
 		return Request::create();
 	}
 
-	protected function response(): Response
+	protected function response($data = null, string $responseType = '', array $param = []): Response
 	{
-		return new Response;
+		return new Response($data, $responseType, $param);
 	}
 
 	protected function session(): Session

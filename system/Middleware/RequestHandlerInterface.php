@@ -8,9 +8,9 @@
 
 namespace Middleware;
 
-use Helper\Request;
+use Http\RequestInterface;
 
 interface RequestHandlerInterface
 {
-	public function handle(Request $request, RequestHandler $handler, $isSuccess = true);
+	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true);
 }

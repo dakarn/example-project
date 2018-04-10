@@ -8,15 +8,21 @@
 
 namespace Middleware;
 
-use Helper\Request;
+use Http\RequestInterface;
+use System\Response\Response;
+use System\Response\ResponseInterface;
 
 class RequestHandler implements RequestHandlerInterface
 {
-	public function handle(Request $request, RequestHandler $handler, $isSuccess = true)
+	private $response;
+
+	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true): ResponseInterface
 	{
 		if (!$isSuccess) {
 			return false;
 		}
+
+		$this->response = new Response();
 
 		$curr = StorageMiddleware::currPosition();
 
