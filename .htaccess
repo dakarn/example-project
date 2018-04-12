@@ -1,7 +1,7 @@
 AddDefaultCharset UTF-8
 Options -Indexes
-DirectoryIndex index.php bootstrap.php index.html
+DirectoryIndex index.php index.html
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)/?$ bootstrap\.php?options=$1
+RewriteRule ^(.*)/?$ index\.php?options=$1

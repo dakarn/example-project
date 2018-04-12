@@ -23,22 +23,18 @@ $event = $event->installEvents(new \System\EventListener\EventManager());
 
 $appKernel = new \AppKernel();
 
-switch(PHP_SAPI) {
+switch(true) {
+	case IS_WEB:
+		include_once PATH_SYSTEM . 'web.php';
+		break;
+	case IS_CLI:
+		include_once PATH_SYSTEM . 'cli.php';
+		break;
 	default:
-		$applicationTypes = new System\TypesApp\WebApp();
-
-		$appKernel
-			->installMiddlewares()
-			->installProviders();
-
-		$runCommand = System\Router\Routing::findRoute(\System\Config::getRouters(), System\Kernel\GETParam::getPath());
-		break;
-	case 'cli':
-		$applicationTypes = new System\TypesApp\ConsoleApp();
-		break;
+		throw \Exception\KernelException::unknownEnvironment();
 }
 
-$application = $applicationTypes
+$application = $applicationInstance
 	->setEnvironment('DEV')
 	->setAppEvent($event)
 	->setAppKernel($appKernel);

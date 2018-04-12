@@ -39,9 +39,7 @@ class LoaderClass
 			include_once($pathForInclude);
 
 			if (!class_exists($class)) {
-
 				if (!interface_exists($class)) {
-
 					if (!trait_exists($class)) {
 						throw ObjectException::notFound([$class]);
 					}

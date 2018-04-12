@@ -20,7 +20,7 @@ class ApiResponse extends JsonResponse
 		'success' => false,
 	];
 
-	public function render($data, array $param): void
+	public function render($data, array $param)
 	{
 		$this->data = $data;
 

@@ -14,4 +14,9 @@ class KernelException extends \Exception
 	{
 		return new self('This object "' . $arguments[0] . '" not found in the AppMemento!');
 	}
+
+	public static function unknownEnvironment(array $arguments = []): self
+	{
+		return new self('This environment not support this application. Only CLI or WEB!');
+	}
 }
