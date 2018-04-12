@@ -6,7 +6,7 @@
  * Time: 1:35
  */
 
-namespace Controller\Api;
+namespace Controller\Api\V1;
 
 use Model\Dictionary\DictionaryRepository;
 use System\Controller\AbstractController;

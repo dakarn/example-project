@@ -21,6 +21,11 @@ class WidgetFactory
 			throw WidgetException::notFound([$widgetName]);
 		}
 
-		return new $classWidget();
+		return new $classWidget['class']();
+	}
+
+	private static function setDependencyInjection(array $classWidget)
+	{
+		return $classWidget['arguments'];
 	}
 }

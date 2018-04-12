@@ -1,6 +1,9 @@
 <?php
 
 return [
-	'test' => \WidgetApp\TestWidget::class
+	'test' => [
+		'class' => \WidgetApp\TestWidget::class,
+		'arguments' => []
+	]
 ];
 
