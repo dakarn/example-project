@@ -10,9 +10,9 @@ class SearchWordValidator extends AbstractValidator
 		'Не заполнен текст.',
 	];
 
-	public $useFlashErrors = true;
+	public $isUseFlashErrors = true;
 
-	public function validate()
+	public function validate(): void
 	{
 		if (empty($_POST['text'])) {
 			$this->stackErrors['text'] = $this->errors[0];

@@ -19,4 +19,6 @@ interface AbstractValidatorInterface
 	public function isPost(): bool;
 
 	public function isGet(): bool;
+
+	public function isValid(): bool;
 }

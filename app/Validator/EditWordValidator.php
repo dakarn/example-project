@@ -12,7 +12,7 @@ class EditWordValidator extends AbstractValidator
 		'Данные для страницы не введены.',
 	];
 
-	public function validate(): bool
+	public function validate(): void
 	{
 		$errors = [];
 
@@ -27,12 +27,5 @@ class EditWordValidator extends AbstractValidator
 		if (empty($_POST['text'])) {
 			$errors[] = $this->errors[2];
 		}
-
-		if (count($errors) > 0) {
-			return false;
-		}
-
-		return true;
-
 	}
 }

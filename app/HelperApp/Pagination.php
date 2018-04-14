@@ -24,6 +24,11 @@ class Pagination
 
 	}
 
+	public function getPage()
+	{
+
+	}
+
 	public function setCount($count)
 	{
 		$this->count = $count;

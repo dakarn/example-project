@@ -16,7 +16,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 {
 	protected $stackErrors = [];
 
-	public $useFlashErrors = false;
+	public $isUseFlashErrors = false;
 
 	private $post = 'POST';
 
@@ -40,7 +40,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 
 	public function setFlashErrors(): self
 	{
-		if (!$this->useFlashErrors) {
+		if (!$this->isUseFlashErrors) {
 			return $this;
 		}
 

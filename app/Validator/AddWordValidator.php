@@ -11,9 +11,9 @@ class AddWordValidator extends AbstractValidator
 		'Неверный запрос.',
 	];
 
-	public $useFlashErrors = true;
+	public $isUseFlashErrors = true;
 
-	public function validate(): bool
+	public function validate(): void
 	{
 		if (!$this->isPost()) {
 			$this->stackErrors['query'] = $this->errors[1];
@@ -22,11 +22,5 @@ class AddWordValidator extends AbstractValidator
 		if (empty($_POST['text'])) {
 			$this->stackErrors['text'] = $this->errors[0];
 		}
-
-		if (!empty($this->stackErrors)) {
-			return false;
-		}
-
-		return true;
 	}
 }
