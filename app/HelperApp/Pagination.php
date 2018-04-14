@@ -1,6 +1,6 @@
 <?php
 
-namespace Helper;
+namespace HelperApp;
 
 use System\Database\DB;
 use Traits\SingletonTrait;

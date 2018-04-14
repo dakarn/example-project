@@ -1,6 +1,35 @@
 {
   "name": "example-project",
-  "description": "The Laravel Framework.",
+  "description": "es-framework",
   "version": "1.0",
-  "type": "library"
+  "type": "application",
+  "autoload": {
+    "psr-4": {
+      "ElasticSearch\\": "system/ElasticSearch",
+      "Exception\\": "system/Exception",
+      "Helper\\": "system/Helper",
+      "Http\\": "system/Http",
+      "Middleware\\": "system/Middleware",
+      "Providers\\": "system/Providers",
+      "Queue\\": "system/Queue",
+      "System\\": "system/System",
+      "Traits\\": "system/Traits",
+      "Widget\\": "system/Widget",
+      "Controller\\": "app/Controller",
+      "Console\\": "app/Console",
+      "Event\\": "app/Event",
+      "HelperApp\\": "app/HelperApp",
+      "MiddlewareApp\\": "app/Middleware",
+      "Model\\": "app/Model",
+      "QueueCustom\\": "app/QueueCustom",
+      "Service\\": "app/Service",
+      "Validator\\": "app/Validator",
+      "WidgetApp\\": "app/WidgetApp"
+    },
+    "files": [
+      "system/System/DefineSetup.php",
+      "app/AppEvent.php",
+      "app/AppKernel.php"
+    ]
+  }
 }

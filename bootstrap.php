@@ -1,20 +1,21 @@
 <?php
 
-session_start();
-
 define('PATH_SYSTEM', __DIR__ . '/system/');
 define('PATH_APP', __DIR__  . '/app/');
-
-include(PATH_SYSTEM .'System/DefineSetup.php');
-include(LOADER_CLASS);
-include(APP_EVENT);
-include(APP_KERNEL);
+define('PSR_4', true);
+define('CUSTOM_LOADER', false);
 
 $application = null;
 $runCommand  = null;
 
-$loader = new System\Kernel\LoaderClass();
-$loader->loader();
+switch (true) {
+	case PSR_4:
+		include_once 'vendor/autoload.php';
+		break;
+	case CUSTOM_LOADER:
+		include_once 'system/autoload.php';
+		break;
+}
 
 $event = new \AppEvent();
 $event = $event->installEvents(new \System\EventListener\EventManager());

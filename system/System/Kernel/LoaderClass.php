@@ -24,6 +24,13 @@ class LoaderClass
 
 	const EXTENSION = '.php';
 
+	public function __construct()
+	{
+		include(PATH_SYSTEM .'System/DefineSetup.php');
+		include(APP_EVENT);
+		include(APP_KERNEL);
+	}
+
 	public function loader()
 	{
 		spl_autoload_register(function ($class) {

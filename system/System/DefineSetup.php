@@ -18,7 +18,6 @@ if (isset($_SERVER['HTTP_HOST'])) {
 	}
 }
 
-define('LOADER_CLASS', PATH_SYSTEM . 'System/Kernel/LoaderClass.php');
 define('CONFIG_APP_PATH', PATH_APP . 'Config/');
 define('APP_EVENT', PATH_APP . 'AppEvent.php');
 define('APP_KERNEL', PATH_APP . 'AppKernel.php');
