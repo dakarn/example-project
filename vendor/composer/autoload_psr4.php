@@ -17,7 +17,7 @@ return array(
     'Providers\\' => array($baseDir . '/system/Providers'),
     'Model\\' => array($baseDir . '/app/Model'),
     'Middleware\\' => array($baseDir . '/system/Middleware'),
-    'MiddlewareApp\\' => array($baseDir . '/app/Middleware'),
+    'MiddlewareApp\\' => array($baseDir . '/app/MiddlewareApp'),
     'Http\\' => array($baseDir . '/system/Http'),
     'Helper\\' => array($baseDir . '/system/Helper'),
     'HelperApp\\' => array($baseDir . '/app/HelperApp'),

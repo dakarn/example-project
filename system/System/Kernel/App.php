@@ -146,7 +146,7 @@ class App implements AppInterface
 
 			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
 			LoggerStorage::create()->releaseLog();
-			$this->eventManager->runEvent(EventTypes::THROW_EXCEPTION, ['exception' => $e]);
+			$this->eventManager->runEvent(EventTypes::APP_THROW_EXCEPTION, ['exception' => $e]);
 
 			$this->outputException($e);
 		}

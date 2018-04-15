@@ -28,14 +28,17 @@ abstract class AbstractController implements ControllerInterface
 {
 	protected $eventManager;
 
-	public function __construct(EventManager $eventManager)
+	protected $response;
+
+	public function __construct(EventManager $eventManager, Response $response)
 	{
 		$this->eventManager = $eventManager;
+		$this->response     = $response;
 	}
 
 	protected function redirect(string $url)
 	{
-		(new Response())->redirect($url);
+		$this->response->redirect($url);
 	}
 
 	protected function notFound(): Render
@@ -70,7 +73,7 @@ abstract class AbstractController implements ControllerInterface
 
 	protected function response($data = null, string $responseType = '', array $param = []): Response
 	{
-		return new Response($data, $responseType, $param);
+		return $this->response->setData($data, $responseType, $param);
 	}
 
 	protected function session(): Session
@@ -111,7 +114,7 @@ abstract class AbstractController implements ControllerInterface
 
 	protected function redirectToRoute(string $routeName, array $arguments = [], int $status = 302): void
 	{
-		(new Response())->redirectToRoute($routeName, $arguments, $status);
+		$this->response->redirectToRoute($routeName, $arguments, $status);
 	}
 
 	public function __destruct()

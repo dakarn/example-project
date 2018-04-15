@@ -10,7 +10,7 @@ namespace System\TypesApp;
 
 use System\Router\Router;
 
-class ConsoleApp extends AbstractApplication
+final class ConsoleApp extends AbstractApplication
 {
 	public function run(Router $router = null)
 	{

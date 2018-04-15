@@ -112,7 +112,7 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         ),
         'MiddlewareApp\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Middleware',
+            0 => __DIR__ . '/../..' . '/app/MiddlewareApp',
         ),
         'Http\\' => 
         array (

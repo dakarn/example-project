@@ -19,7 +19,7 @@
       "Console\\": "app/Console",
       "Event\\": "app/Event",
       "HelperApp\\": "app/HelperApp",
-      "MiddlewareApp\\": "app/Middleware",
+      "MiddlewareApp\\": "app/MiddlewareApp",
       "Model\\": "app/Model",
       "QueueCustom\\": "app/QueueCustom",
       "Service\\": "app/Service",

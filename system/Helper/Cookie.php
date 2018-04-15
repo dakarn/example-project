@@ -42,9 +42,9 @@ class Cookie
 		return $_COOKIE;
 	}
 
-	public function set(string $key, string $value): Cookie
+	public function set(string $key, string $value, string $path = '', int $expire = 0, string $domain = ''): Cookie
 	{
-		$_COOKIE[$key] = $value;
+		setcookie($key, $value, $expire, $path, $domain);
 		return $this;
 	}
 }

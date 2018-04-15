@@ -15,6 +15,8 @@ class MiddlewareAllowMethod implements MiddlewareInterface
 {
 	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
+		$handler->getResponse()->withCookie('dfdf', 'sdsd');
+
 		return $handler->handle($request, $handler, true);
 	}
 }

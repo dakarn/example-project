@@ -4,15 +4,27 @@ namespace System;
 
 class Render
 {
-	private $path = TEMPLATE . '/';
+	const PATH = TEMPLATE . '/';
+
+	private $template = '';
+
+	private $params = [];
 
 	public function __construct($template, array $params = [])
 	{
-		if (!file_exists($this->path . $template)) {
-			include_once($this->path . Config::get('common','errors')['404']);
+		if (!file_exists(self::PATH . $template)) {
+			$this->template = self::PATH . Config::get('common','errors')['404'];
 		} else {
-			extract($params);
-			include($this->path . $template);
+			$this->params   = $params;
+			$this->template = self::PATH . $template;
 		}
+	}
+
+	public function render()
+	{
+		return (function(){
+			extract($this->params);
+			include_once($this->template);
+		})();
 	}
 }

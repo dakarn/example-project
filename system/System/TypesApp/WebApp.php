@@ -28,8 +28,13 @@ use System\Controller\AbstractController;
 use System\Router\Router;
 use System\Kernel\GETParam;
 
-class WebApp extends AbstractApplication
+final class WebApp extends AbstractApplication
 {
+	/**
+	 * @var Response
+	 */
+	private $response;
+
 	public function setAppKernel(\AppKernel $appKernel): AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
@@ -47,10 +52,7 @@ class WebApp extends AbstractApplication
 			throw new \InvalidArgumentException('A route with this address is not installed on the system!');
 		}
 
-		if (!$this->runMiddleware($router)) {
-			throw MiddlewareException::failedResult();
-		}
-
+		$this->response = $this->runMiddleware($router);
 		$this->runController($router);
 	}
 
@@ -69,7 +71,7 @@ class WebApp extends AbstractApplication
 				'action'     => $routeData->getActionName(),
 			]);
 
-			$controller = new $className($this->eventManager);
+			$controller = new $className($this->eventManager, $this->response);
 
 			if (!$controller->__before($routeData)) {
 				$this->defaultTemplate(null);
@@ -77,20 +79,33 @@ class WebApp extends AbstractApplication
 			}
 
 			$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-			$result = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
+			$resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
 			$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
 
-			$this->defaultTemplate($result);
+			$this->defaultTemplate($resultAction);
 
 			$controller->__after($routeData);
 			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
+			$this->completeResponse($resultAction);
 		} catch(\Throwable $e) {
 
 			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
 			LoggerStorage::create()->releaseLog();
-			$this->eventManager->runEvent(EventTypes::THROW_EXCEPTION, ['exception' => $e]);
+			$this->eventManager->runEvent(EventTypes::APP_THROW_EXCEPTION, ['exception' => $e]);
 
 			$this->outputException($e);
+		}
+	}
+
+	public function completeResponse($resultAction)
+	{
+		$this->response->sendHeaders();
+
+		/** @var Render | Response $resultAction */
+		if ($resultAction instanceof Render) {
+			$this->response->setData($resultAction->render())->render();
+		} else {
+			$resultAction->render();
 		}
 	}
 

@@ -15,18 +15,26 @@ class RequestHandler implements RequestHandlerInterface
 {
 	private $response;
 
+	public function __construct()
+	{
+		$this->response = new Response();
+	}
+
+	public function getResponse(): Response
+	{
+		return $this->response;
+	}
+
 	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true): Response
 	{
 		if (!$isSuccess) {
-			return new Response();
+			return $this->response;
 		}
-
-		$this->response = new Response();
 
 		$curr = StorageMiddleware::currPosition();
 
 		if ($curr >= StorageMiddleware::count()) {
-			return new Response();
+			return $this->response;
 		}
 
 		$classMiddleware = StorageMiddleware::get()[$curr]['class'];

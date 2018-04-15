@@ -9,6 +9,7 @@
 namespace System\Controller;
 
 use System\EventListener\EventManager;
+use System\Response\Response;
 use System\Router\RouteData;
 
 interface ControllerInterface
@@ -17,7 +18,7 @@ interface ControllerInterface
 
 	public function __after(RouteData $route);
 
-	public function __construct(EventManager $eventManager);
+	public function __construct(EventManager $eventManager, Response $response);
 
 	public function __destruct();
 }

@@ -32,11 +32,10 @@ class Response
 
 	private $template;
 
-	public function __construct($data = null, string $responseType = 'simple', array $param = [])
+	private $cookies = [];
+
+	public function __construct()
 	{
-		$this->param        = $param;
-		$this->data         = $data;
-		$this->responseType = $responseType;
 	}
 
 	public function getData()
@@ -44,26 +43,17 @@ class Response
 		return $this->data;
 	}
 
+	public function setData($data = null, string $responseType = 'simple', array $param = []): Response
+	{
+		$this->param        = $param;
+		$this->data         = $data;
+		$this->responseType = $responseType;
+		return $this;
+	}
+
 	public function render(): Response
 	{
-		switch ($this->responseType) {
-			case 'simple':
-				$this->response = new SimpleResponse();
-				break;
-			case 'json':
-				$this->response = new JsonResponse();
-				break;
-			case 'api':
-				$this->response = new ApiResponse();
-				break;
-			case 'xml':
-				$this->response = new XMLResponse();
-				break;
-			default:
-				throw ResponseException::invalidResponse();
-				break;
-		}
-
+		$this->selectResponse();
 		echo $this->response->render($this->data, $this->param);
 		return $this;
 	}
@@ -76,7 +66,7 @@ class Response
 
 	public function withCookie(string $name, string $value): Response
 	{
-		Cookie::create()->set($name, $value);
+		$this->cookies[$name] = $value;
 		return $this;
 	}
 
@@ -86,17 +76,23 @@ class Response
 		return $this;
 	}
 
-	public function flush()
+	public function sendHeaders()
 	{
 		foreach ($this->headers as $headerKey => $header) {
 			header($headerKey . ': ' . $header, false);
 		}
 
-		if (!empty($this->template)) {
-			$this->data = new Render($this->template);
+		foreach ($this->cookies as $cookieKey => $cookie) {
+			Cookie::create()->set($cookieKey, $cookie);
 		}
+	}
+
+	public function flush(): self
+	{
+		$this->selectResponse();
 
 		echo $this->response->render($this->data, $this->param);
+		return $this;
 	}
 
 	public function redirect(string $url): void
@@ -116,5 +112,26 @@ class Response
 		}
 
 		throw RoutingException::notFound([$routerName]);
+	}
+
+	private function selectResponse(): void
+	{
+		switch ($this->responseType) {
+			case 'simple':
+				$this->response = new SimpleResponse();
+				break;
+			case 'json':
+				$this->response = new JsonResponse();
+				break;
+			case 'api':
+				$this->response = new ApiResponse();
+				break;
+			case 'xml':
+				$this->response = new XMLResponse();
+				break;
+			default:
+				throw ResponseException::invalidResponse();
+				break;
+		}
 	}
 }

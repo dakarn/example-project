@@ -20,7 +20,7 @@ class EventManager
 
 	public function hasEventListener(string $event): bool
 	{
-		return isset($this->events[$event]) ? true : false;
+		return isset($this->events[$event]);
 	}
 
 	public function replaceEventListener(string $event, EventListenerInterface $newClass)
@@ -30,15 +30,26 @@ class EventManager
 		}
 	}
 
-	public function removeEventListener(string $event)
+	public function getEvents(): array
+	{
+		return $this->events;
+	}
+
+	public function getEventsByType(string $typeEvent): array
+	{
+		return $this->events[$typeEvent] ?? [];
+	}
+
+	public function removeEventListener(string $event): void
 	{
 		unset($this->events[$event]);
 	}
 
-	public function runEvent(string $event, array $arguments = [])
+	public function runEvent(string $event, array $arguments = []): void
 	{
 		/** @var $classInstance EventListenerInterface */
 		if ($this->hasEventListener($event)) {
+
 			$className     = $this->events[$event];
 			$classInstance = new $className($arguments);
 			$classInstance->execute();

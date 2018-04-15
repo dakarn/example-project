@@ -28,7 +28,7 @@ class EventTypes
 
 	const APP_SHUT_DOWN      = 'appShutdown';
 
-	const THROW_EXCEPTION    = 'throwException';
+	const APP_THROW_EXCEPTION    = 'AppThrowException';
 
 	const AFTER_DB_CONNECT   = 'afterDBConnect';
 
