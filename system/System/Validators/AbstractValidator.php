@@ -10,7 +10,7 @@ namespace System\Validators;
 
 use Helper\CSRFToken;
 use Helper\FlashText;
-use Helper\Request;
+use Http\Request\Request;
 
 abstract class AbstractValidator implements AbstractValidatorInterface
 {

@@ -10,7 +10,6 @@ namespace Controller\Api\V1;
 
 use Model\Dictionary\DictionaryRepository;
 use System\Controller\AbstractController;
-use System\Response\Response;
 use Validator\SearchWordValidator;
 
 class ApiController extends AbstractController

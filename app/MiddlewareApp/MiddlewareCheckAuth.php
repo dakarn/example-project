@@ -8,8 +8,7 @@
 
 namespace MiddlewareApp;
 
-use Helper\Request;
-use Http\RequestInterface;
+use Http\Request\RequestInterface;
 use Middleware\MiddlewareInterface;
 use Middleware\RequestHandler;
 

@@ -9,7 +9,7 @@
 namespace System\Controller;
 
 use System\EventListener\EventManager;
-use System\Response\Response;
+use Http\Response\Response;
 use System\Router\RouteData;
 
 interface ControllerInterface

@@ -6,13 +6,11 @@
  * Time: 1:55
  */
 
-namespace System\Response;
+namespace Http\Response;
 
 use Exception\ResponseException;
 use Exception\RoutingException;
 use Helper\Cookie;
-use Helper\Request;
-use System\Render;
 use System\Router\Routing;
 
 class Response
@@ -46,7 +44,7 @@ class Response
 	public function setData($data = null, string $responseType = 'simple', array $param = []): Response
 	{
 		$this->param        = $param;
-		$this->data         = $data;
+		$this->data         = $this->data . $data;
 		$this->responseType = $responseType;
 		return $this;
 	}
@@ -54,6 +52,7 @@ class Response
 	public function render(): Response
 	{
 		$this->selectResponse();
+
 		echo $this->response->render($this->data, $this->param);
 		return $this;
 	}
@@ -85,14 +84,6 @@ class Response
 		foreach ($this->cookies as $cookieKey => $cookie) {
 			Cookie::create()->set($cookieKey, $cookie);
 		}
-	}
-
-	public function flush(): self
-	{
-		$this->selectResponse();
-
-		echo $this->response->render($this->data, $this->param);
-		return $this;
 	}
 
 	public function redirect(string $url): void

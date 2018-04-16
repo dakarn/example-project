@@ -6,7 +6,7 @@
  * Time: 22:59
  */
 
-namespace Http;
+namespace Http\Request;
 
 interface StreamInterface
 {

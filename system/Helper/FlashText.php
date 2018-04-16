@@ -8,6 +8,8 @@
 
 namespace Helper;
 
+use Http\Request\Request;
+
 class FlashText
 {
 	public static function add(string $type, string $text)

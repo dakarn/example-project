@@ -45,6 +45,7 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
             'Model\\' => 6,
             'Middleware\\' => 11,
             'MiddlewareApp\\' => 14,
+            'MicroServices\\' => 14,
         ),
         'H' => 
         array (
@@ -113,6 +114,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'MiddlewareApp\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/MiddlewareApp',
+        ),
+        'MicroServices\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/system/MicroServices',
         ),
         'Http\\' => 
         array (

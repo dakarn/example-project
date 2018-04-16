@@ -8,8 +8,8 @@
 
 namespace Middleware;
 
-use Http\RequestInterface;
-use System\Response\Response;
+use Http\Request\RequestInterface;
+use Http\Response\Response;
 
 interface RequestHandlerInterface
 {

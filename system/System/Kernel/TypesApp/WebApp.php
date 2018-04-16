@@ -6,23 +6,22 @@
  * Time: 14:53
  */
 
-namespace System\TypesApp;
+namespace System\Kernel\TypesApp;
 
-use Exception\MiddlewareException;
 use Exception\ResponseException;
 use Middleware\RequestHandler;
 use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
 use System\Config;
 use System\EventListener\EventTypes;
-use Helper\Request;
+use Http\Request\Request;
 use System\Logger\LoggerStorage;
 use System\Logger\LogLevel;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Render;
-use System\Response\Response;
-use System\Response\ResponseInterface;
+use Http\Response\Response;
+use Http\Response\ResponseInterface;
 use System\Router\RouteData;
 use System\Controller\AbstractController;
 use System\Router\Router;
@@ -34,6 +33,11 @@ final class WebApp extends AbstractApplication
 	 * @var Response
 	 */
 	private $response;
+
+	/**
+	 * @var Response | Render
+	 */
+	private $resultAction;
 
 	public function setAppKernel(\AppKernel $appKernel): AbstractApplication
 	{
@@ -79,14 +83,14 @@ final class WebApp extends AbstractApplication
 			}
 
 			$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-			$resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
+			$this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
 			$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
 
-			$this->defaultTemplate($resultAction);
+			$this->defaultTemplate($this->resultAction);
 
 			$controller->__after($routeData);
 			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
-			$this->completeResponse($resultAction);
+			$this->completeResponse($this->resultAction);
 		} catch(\Throwable $e) {
 
 			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
@@ -101,11 +105,10 @@ final class WebApp extends AbstractApplication
 	{
 		$this->response->sendHeaders();
 
-		/** @var Render | Response $resultAction */
 		if ($resultAction instanceof Render) {
 			$this->response->setData($resultAction->render())->render();
 		} else {
-			$resultAction->render();
+			$this->response->render();
 		}
 	}
 

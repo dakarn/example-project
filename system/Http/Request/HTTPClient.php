@@ -6,7 +6,7 @@
  * Time: 21:27
  */
 
-namespace Helper;
+namespace Http\Request;
 
 use Traits\SingletonTrait;
 

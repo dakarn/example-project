@@ -2,7 +2,7 @@
 
 namespace System\Router;
 
-use Helper\Request;
+use Http\Request\Request;
 use System\AppObjectMemento;
 use System\Kernel\GETParam;
 use System\Config;

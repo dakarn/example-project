@@ -6,7 +6,7 @@
  * Time: 0:54
  */
 
-namespace System\Response;
+namespace Http\Response;
 
 class JsonResponse implements ResponseInterface
 {

@@ -8,7 +8,7 @@
 
 namespace MiddlewareApp;
 
-use Helper\Request;
+use Http\Request\Request;
 use Middleware\RequestHandler;
 
 class MiddlewareCheckAjax

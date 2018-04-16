@@ -16,8 +16,8 @@ class StorageMiddleware
 
 	public static function add(array $middlewares)
 	{
-		self::$middlewareList    = [];
-		self::$currPos = 0;
+		self::$middlewareList = [];
+		self::$currPos        = 0;
 
 		foreach ($middlewares as $middleware) {
 			if ($middleware['autoStart'] === true) {
@@ -36,7 +36,7 @@ class StorageMiddleware
 		return self::$currPos;
 	}
 
-	public static function nextPosition()
+	public static function nextPosition(): void
 	{
 		self::$currPos++;
 	}

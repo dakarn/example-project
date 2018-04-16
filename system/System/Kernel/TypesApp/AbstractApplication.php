@@ -6,10 +6,10 @@
  * Time: 14:53
  */
 
-namespace System\TypesApp;
+namespace System\Kernel\TypesApp;
 
 use System\EventListener\EventManager;
-use System\Response\Response;
+use Http\Response\Response;
 use System\Router\Router;
 
 abstract class AbstractApplication

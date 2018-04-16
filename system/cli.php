@@ -1,3 +1,3 @@
 <?php
 
-$applicationInstance = new System\TypesApp\ConsoleApp();
+$applicationInstance = new System\Kernel\TypesApp\ConsoleApp();

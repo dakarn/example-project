@@ -18,6 +18,7 @@ return array(
     'Model\\' => array($baseDir . '/app/Model'),
     'Middleware\\' => array($baseDir . '/system/Middleware'),
     'MiddlewareApp\\' => array($baseDir . '/app/MiddlewareApp'),
+    'MicroServices\\' => array($baseDir . '/system/MicroServices'),
     'Http\\' => array($baseDir . '/system/Http'),
     'Helper\\' => array($baseDir . '/system/Helper'),
     'HelperApp\\' => array($baseDir . '/app/HelperApp'),

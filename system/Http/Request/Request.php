@@ -6,10 +6,11 @@
  * Time: 1:54
  */
 
-namespace Helper;
+namespace Http\Request;
 
-use Http\RequestInterface;
 use Traits\SingletonTrait;
+use Helper\Cookie;
+use Helper\Session;
 
 class Request implements RequestInterface
 {

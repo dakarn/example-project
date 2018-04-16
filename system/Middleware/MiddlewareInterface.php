@@ -8,7 +8,7 @@
 
 namespace Middleware;
 
-use Http\RequestInterface;
+use Http\Request\RequestInterface;
 
 interface MiddlewareInterface
 {

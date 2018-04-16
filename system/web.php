@@ -1,6 +1,6 @@
 <?php
 
-$applicationInstance = new System\TypesApp\WebApp();
+$applicationInstance = new System\Kernel\TypesApp\WebApp();
 
 $appKernel
 	->installMiddlewares()

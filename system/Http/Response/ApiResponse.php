@@ -6,7 +6,7 @@
  * Time: 21:31
  */
 
-namespace System\Response;
+namespace Http\Response;
 
 class ApiResponse extends JsonResponse
 {

@@ -19,7 +19,8 @@ class LoaderClass
 		'Queue',
 		'TypesApp',
 		'Widget',
-		'Http'
+		'Http',
+		'MicroServices'
 	];
 
 	const EXTENSION = '.php';

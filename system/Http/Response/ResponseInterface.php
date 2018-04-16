@@ -2,11 +2,11 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 28.03.2018
- * Time: 2:04
+ * Date: 10.04.2018
+ * Time: 22:59
  */
 
-namespace System\Response;
+namespace Http\Response;
 
 interface ResponseInterface
 {

@@ -6,7 +6,7 @@
  * Time: 14:55
  */
 
-namespace System\TypesApp;
+namespace System\Kernel\TypesApp;
 
 use System\Router\Router;
 

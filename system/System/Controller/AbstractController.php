@@ -10,8 +10,8 @@ namespace System\Controller;
 
 use Exception\ControllerException;
 use Helper\Cookie;
-use Helper\Request;
-use System\Response\Response;
+use Http\Request\Request;
+use Http\Response\Response;
 use Helper\Session;
 use System\AppObjectMemento;
 use System\Config;

@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 28.03.2018
- * Time: 12:38
+ * Date: 09.03.2018
+ * Time: 0:53
  */
 
-namespace System\Response;
+namespace Http\Response;
 
-class XMLResponse implements ResponseInterface
+class SimpleResponse implements ResponseInterface
 {
 	public function render($data, array $param)
 	{
