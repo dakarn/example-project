@@ -6,7 +6,7 @@
  * Time: 18:35
  */
 
-namespace Model\Dictionary;
+namespace App\Model\Dictionary;
 
 use System\Database\DB;
 

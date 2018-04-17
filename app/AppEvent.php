@@ -1,18 +1,12 @@
 
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 10.03.2018
- * Time: 1:45
- */
 
 use System\EventListener\EventManager;
 use System\EventListener\EventTypes;
-use Event\BeforeControllerEvent;
+use App\Event\BeforeControllerEvent;
 use System\AppObjectMemento;
 
-class AppEvent
+final class AppEvent
 {
 	public function installEvents(EventManager $eventManager): EventManager
 	{

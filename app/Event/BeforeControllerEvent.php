@@ -6,7 +6,7 @@
  * Time: 1:49
  */
 
-namespace Event;
+namespace App\Event;
 
 use System\EventListener\EventListenerInterface;
 

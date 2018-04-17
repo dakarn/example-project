@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 23.03.2018
- * Time: 22:31
- */
+
+namespace App;
 
 use Middleware\MiddlewareAllowMethod;
 use Middleware\MiddlewareValidGETParam;
 use System\AppObjectMemento;
 
-class AppKernel
+final class AppKernel
 {
 	private $middlewares = [];
 

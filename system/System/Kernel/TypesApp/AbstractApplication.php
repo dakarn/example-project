@@ -8,6 +8,7 @@
 
 namespace System\Kernel\TypesApp;
 
+use App\AppKernel;
 use System\EventListener\EventManager;
 use Http\Response\Response;
 use System\Router\Router;
@@ -18,6 +19,13 @@ abstract class AbstractApplication
 		'DEV'  => 'DEV',
 		'TEST' => 'TEST',
 		'PROD' => 'PROD',
+	];
+
+	const APP_TYPE = [
+		'Web'     => 'Web',
+		'Console' => 'Console',
+		'Queue'   => 'Queue',
+		'Api'     => 'Api',
 	];
 
 	const PREFIX_ACTION = 'Action';
@@ -32,9 +40,11 @@ abstract class AbstractApplication
 	protected $eventManager;
 
 	/**
-	 * @var \AppKernel
+	 * @var AppKernel
 	 */
 	protected $appKernel;
+
+	protected $applicationType = '';
 
 	public function setEnvironment($env): self
 	{
@@ -50,6 +60,27 @@ abstract class AbstractApplication
 		return $this;
 	}
 
+	public function setApplicationType(string $applicationType): self
+	{
+		$this->applicationType = $applicationType;
+		return $this;
+	}
+
+	public function isWebApp(): bool
+	{
+		return $this->getApplicationType() === self::APP_TYPE['Web'];
+	}
+
+	public function isConsoleApp(): bool
+	{
+		return $this->getApplicationType() === self::APP_TYPE['Console'];
+	}
+
+	public function getApplicationType(): string
+	{
+		return $this->applicationType;
+	}
+
 	public function setAppEvent(EventManager $eventManager): self
 	{
 		$this->eventManager = $eventManager;
@@ -61,7 +92,7 @@ abstract class AbstractApplication
 		return $this->eventManager;
 	}
 
-	public function setAppKernel(\AppKernel $appKernel): self
+	public function setAppKernel(AppKernel $appKernel): self
 	{
 		$this->appKernel = $appKernel;
 		return $this;
@@ -76,7 +107,7 @@ abstract class AbstractApplication
 		$this->wasRun = true;
 	}
 
-	public function getEnv(): string
+	public function getEnvironment(): string
 	{
 		return $this->env;
 	}
@@ -86,7 +117,9 @@ abstract class AbstractApplication
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
 			throw $e;
 		} else {
-			(new Response())->redirect(URL);
+			if($this->isWebApp()) {
+				(new Response())->redirect(URL);
+			}
 		}
 	}
 

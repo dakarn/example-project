@@ -6,7 +6,7 @@
  * Time: 1:14
  */
 
-namespace HelperApp;
+namespace App\HelperApp;
 
 class Url
 {

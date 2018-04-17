@@ -1,15 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 17.03.2018
- * Time: 16:15
- */
 
-namespace Controller;
+namespace App\Controller;
 
-use Model\Dictionary\Dictionary;
-use Model\Dictionary\DictionaryRepository;
+use App\Model\Dictionary\Dictionary;
+use App\Model\Dictionary\DictionaryRepository;
 use System\Config;
 use System\Controller\AbstractController;
 use ElasticSearch\ElasticSearch;

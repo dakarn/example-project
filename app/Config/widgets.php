@@ -2,7 +2,7 @@
 
 return [
 	'test' => [
-		'class' => \WidgetApp\TestWidget::class,
+		'class' => App\WidgetApp\TestWidget::class,
 		'arguments' => []
 	]
 ];

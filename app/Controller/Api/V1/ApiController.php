@@ -6,11 +6,11 @@
  * Time: 1:35
  */
 
-namespace Controller\Api\V1;
+namespace App\Controller\Api\V1;
 
-use Model\Dictionary\DictionaryRepository;
+use App\Model\Dictionary\DictionaryRepository;
 use System\Controller\AbstractController;
-use Validator\SearchWordValidator;
+use App\Validator\SearchWordValidator;
 
 class ApiController extends AbstractController
 {

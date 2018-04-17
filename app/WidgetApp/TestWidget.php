@@ -6,7 +6,7 @@
  * Time: 15:48
  */
 
-namespace WidgetApp;
+namespace App\WidgetApp;
 
 use Widget\AbstractWidget;
 

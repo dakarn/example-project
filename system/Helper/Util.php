@@ -8,6 +8,7 @@
 
 namespace Helper;
 
+use Exception\KernelException;
 class Util
 {
 	const DICTIONARY       = 'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM';
@@ -41,5 +42,17 @@ class Util
 		}
 
 		return $response;
+	}
+
+	public static function selectLoaderClass(): void
+	{
+		switch (true) {
+			case PSR_4:
+				include_once PATH_SYSTEM . '/../vendor/autoload.php';
+				break;
+			case CUSTOM_LOADER:
+				include_once PATH_SYSTEM . 'autoload.php';
+				break;
+		}
 	}
 }

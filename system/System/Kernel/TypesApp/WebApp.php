@@ -8,6 +8,7 @@
 
 namespace System\Kernel\TypesApp;
 
+use App\AppKernel;
 use Exception\ResponseException;
 use Middleware\RequestHandler;
 use Middleware\StorageMiddleware;
@@ -32,14 +33,14 @@ final class WebApp extends AbstractApplication
 	/**
 	 * @var Response
 	 */
-	private $response;
+	public $response;
 
 	/**
 	 * @var Response | Render
 	 */
 	private $resultAction;
 
-	public function setAppKernel(\AppKernel $appKernel): AbstractApplication
+	public function setAppKernel(AppKernel $appKernel): AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
 		StorageMiddleware::add($appKernel->getMiddlewares());
@@ -48,23 +49,22 @@ final class WebApp extends AbstractApplication
 		return $this;
 	}
 
-	public function run(Router $router = null)
+	public function run(Router $router = null): void
 	{
-		$this->isRepeatRun();
-
 		if (!$router->isFilled()) {
 			throw new \InvalidArgumentException('A route with this address is not installed on the system!');
 		}
 
 		$this->response = $this->runMiddleware($router);
 		$this->runController($router);
+		$this->flushResponse($this->resultAction);
 	}
 
 	public function runController(Router $router)
 	{
 		/** @var AbstractController $controller */
 
-		$className = '\\' . str_replace(':', '\\', $router->getController());
+		$className = 'App\\' . str_replace(':', '\\', $router->getController());
 		$action    = $router->getAction() . self::PREFIX_ACTION;
 
 		try {
@@ -90,7 +90,6 @@ final class WebApp extends AbstractApplication
 
 			$controller->__after($routeData);
 			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
-			$this->completeResponse($this->resultAction);
 		} catch(\Throwable $e) {
 
 			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
@@ -101,7 +100,7 @@ final class WebApp extends AbstractApplication
 		}
 	}
 
-	public function completeResponse($resultAction)
+	public function flushResponse($resultAction): void
 	{
 		$this->response->sendHeaders();
 

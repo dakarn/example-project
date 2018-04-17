@@ -16,21 +16,11 @@
       "System\\": "system/System",
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
-      "Controller\\": "app/Controller",
-      "Console\\": "app/Console",
-      "Event\\": "app/Event",
-      "HelperApp\\": "app/HelperApp",
-      "MiddlewareApp\\": "app/MiddlewareApp",
-      "Model\\": "app/Model",
-      "QueueCustom\\": "app/QueueCustom",
-      "Service\\": "app/Service",
-      "Validator\\": "app/Validator",
-      "WidgetApp\\": "app/WidgetApp"
+      "App\\": "app"
     },
     "files": [
       "system/System/DefineSetup.php",
-      "app/AppEvent.php",
-      "app/AppKernel.php"
+      "app/AppEvent.php"
     ]
   }
 }

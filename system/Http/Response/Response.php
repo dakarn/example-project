@@ -32,6 +32,8 @@ class Response
 
 	private $cookies = [];
 
+	private $status = [];
+
 	public function __construct()
 	{
 	}
@@ -72,6 +74,12 @@ class Response
 	public function withTemplate(string $template): Response
 	{
 		$this->template = $template;
+		return $this;
+	}
+
+	public function withStatus(string $code, string $text): Response
+	{
+		$this->status[$code] = $text;
 		return $this;
 	}
 

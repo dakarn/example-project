@@ -6,7 +6,7 @@
  * Time: 18:30
  */
 
-namespace Model\Dictionary;
+namespace App\Model\Dictionary;
 
 class DictionaryRepository
 {

@@ -18,6 +18,10 @@ if (isset($_SERVER['HTTP_HOST'])) {
 	}
 }
 
+if (!defined('IS_WEB')) {
+	define('IS_WEB', false);
+}
+
 define('CONFIG_APP_PATH', PATH_APP . 'Config/');
 define('APP_EVENT', PATH_APP . 'AppEvent.php');
 define('APP_KERNEL', PATH_APP . 'AppKernel.php');

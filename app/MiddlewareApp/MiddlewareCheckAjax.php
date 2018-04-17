@@ -6,7 +6,7 @@
  * Time: 15:10
  */
 
-namespace MiddlewareApp;
+namespace App\MiddlewareApp;
 
 use Http\Request\Request;
 use Middleware\RequestHandler;

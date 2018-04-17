@@ -5,7 +5,7 @@
  * Date: 01.04.2018
  * Time: 23:59
  */
-namespace Console\Queue;
+namespace App\Console\Queue;
 
 use Queue\AbstractQueueHandler;
 use Queue\Queue;

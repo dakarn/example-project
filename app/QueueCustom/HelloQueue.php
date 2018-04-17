@@ -6,7 +6,7 @@
  * Time: 23:55
  */
 
-namespace QueueCustom;
+namespace App\QueueCustom;
 
 use Queue\Queue;
 

@@ -2,21 +2,23 @@
 
 namespace System\Kernel;
 
+use Http\Request\Request;
+
 class GETParam
 {
 	private static $paramForController = [];
 
-	public static function setParamForController(array $nameParams, array $values)
+	public static function setParamForController(array $nameParams, array $values): void
 	{
 		array_shift($values);
 
 		foreach ($values as $index => $value) {
 			self::$paramForController[$nameParams[$index]] = $value;
-			$_GET[$nameParams[$index]] = $value;
+			self::addGET($nameParams[$index], $value);
 		}
 	}
 
-	public static function getParamForController()
+	public static function getParamForController(): array
 	{
 		return self::$paramForController;
 	}
@@ -26,12 +28,19 @@ class GETParam
 		return str_replace(basename(__DIR__), '', self::options());
 	}
 
+	public static function addGET(string $param, string $value): void
+	{
+		$_GET[$param] = $value;
+	}
+
 	public static function options(): string
 	{
-		if (!isset($_GET['options'])) {
-			$_GET['options'] = '';
+		$options = Request::create()->takeGet('options');
+
+		if (empty($options)) {
+			self::addGET('options', '');
 		}
 
-		return $_GET['options'];
+		return $options;
 	}
 }

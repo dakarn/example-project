@@ -6,7 +6,7 @@
  * Time: 17:24
  */
 
-namespace Service;
+namespace App\Service;
 
 use System\Service\ServiceInterface;
 

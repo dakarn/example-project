@@ -5,24 +5,19 @@ define('PATH_APP', __DIR__  . '/app/');
 define('PSR_4', true);
 define('CUSTOM_LOADER', false);
 
+include_once PATH_SYSTEM . 'Helper/Util.php';
+
 $application = null;
 $runCommand  = null;
 
-switch (true) {
-	case PSR_4:
-		include_once 'vendor/autoload.php';
-		break;
-	case CUSTOM_LOADER:
-		include_once 'system/autoload.php';
-		break;
-}
+\Helper\Util::selectLoaderClass();
 
-$event = new \AppEvent();
+$event = new AppEvent();
 $event = $event->installEvents(new \System\EventListener\EventManager());
 
 \System\Database\DB::setConfigure(new \System\Database\DatabaseConfigure(\System\Config::get('common', 'mysql')));
 
-$appKernel = new \AppKernel();
+$appKernel = new App\AppKernel();
 
 switch(true) {
 	case IS_WEB:
@@ -32,9 +27,9 @@ switch(true) {
 		include_once PATH_SYSTEM . 'cli.php';
 		break;
 	default:
-		throw \Exception\KernelException::unknownEnvironment();
-}
+		throw Exception\KernelException::unknownEnvironment();
 
+}
 $application = $applicationInstance
 	->setEnvironment('DEV')
 	->setAppEvent($event)

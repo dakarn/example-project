@@ -1,12 +1,12 @@
 <?php
 
-namespace Controller;
+namespace App\Controller;
 
 use Queue\Queue;
 use Queue\QueueManager;
 use System\Controller\AbstractController;
-use Model\Dictionary\DictionaryRepository;
-use Validator\SearchWordValidator;
+use App\Model\Dictionary\DictionaryRepository;
+use App\Validator\SearchWordValidator;
 use Widget\WidgetFactory;
 
 class IndexController extends AbstractController

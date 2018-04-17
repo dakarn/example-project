@@ -9,18 +9,12 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
     public static $files = array (
         '780dfa3d3b72ab353797eae70dab5629' => __DIR__ . '/../..' . '/system/System/DefineSetup.php',
         'f0cee336c41cc7fd253014ee2296c5ae' => __DIR__ . '/../..' . '/app/AppEvent.php',
-        '7bc7394ce718f1c9ee90fbf27a14f4e9' => __DIR__ . '/../..' . '/app/AppKernel.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'W' => 
         array (
             'Widget\\' => 7,
-            'WidgetApp\\' => 10,
-        ),
-        'V' => 
-        array (
-            'Validator\\' => 10,
         ),
         'T' => 
         array (
@@ -29,12 +23,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'S' => 
         array (
             'System\\' => 7,
-            'Service\\' => 8,
         ),
         'Q' => 
         array (
             'Queue\\' => 6,
-            'QueueCustom\\' => 12,
         ),
         'P' => 
         array (
@@ -42,27 +34,22 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         ),
         'M' => 
         array (
-            'Model\\' => 6,
             'Middleware\\' => 11,
-            'MiddlewareApp\\' => 14,
             'MicroServices\\' => 14,
         ),
         'H' => 
         array (
             'Http\\' => 5,
             'Helper\\' => 7,
-            'HelperApp\\' => 10,
         ),
         'E' => 
         array (
             'Exception\\' => 10,
-            'Event\\' => 6,
             'ElasticSearch\\' => 14,
         ),
-        'C' => 
+        'A' => 
         array (
-            'Controller\\' => 11,
-            'Console\\' => 8,
+            'App\\' => 4,
         ),
     );
 
@@ -70,14 +57,6 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'Widget\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Widget',
-        ),
-        'WidgetApp\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/WidgetApp',
-        ),
-        'Validator\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Validator',
         ),
         'Traits\\' => 
         array (
@@ -87,33 +66,17 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             0 => __DIR__ . '/../..' . '/system/System',
         ),
-        'Service\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Service',
-        ),
         'Queue\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Queue',
-        ),
-        'QueueCustom\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/QueueCustom',
         ),
         'Providers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Providers',
         ),
-        'Model\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Model',
-        ),
         'Middleware\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Middleware',
-        ),
-        'MiddlewareApp\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/MiddlewareApp',
         ),
         'MicroServices\\' => 
         array (
@@ -127,29 +90,17 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             0 => __DIR__ . '/../..' . '/system/Helper',
         ),
-        'HelperApp\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/HelperApp',
-        ),
         'Exception\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Exception',
-        ),
-        'Event\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Event',
         ),
         'ElasticSearch\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/ElasticSearch',
         ),
-        'Controller\\' => 
+        'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/app/Controller',
-        ),
-        'Console\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app/Console',
+            0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
