@@ -25,12 +25,8 @@ class RequestHandler implements RequestHandlerInterface
 		return $this->response;
 	}
 
-	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true): Response
+	public function handle(RequestInterface $request, RequestHandler $handler): Response
 	{
-		if (!$isSuccess) {
-			return $this->response;
-		}
-
 		$curr = StorageMiddleware::currPosition();
 
 		if ($curr >= StorageMiddleware::count()) {

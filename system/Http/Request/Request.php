@@ -26,6 +26,11 @@ class Request implements RequestInterface
 	private $userAgent = '';
 	private $proxy     = '';
 
+	public function handle()
+	{
+
+	}
+
 	public function getHeaders(): array
 	{
 		return !empty($this->headers) ? $this->headers: $_SERVER;

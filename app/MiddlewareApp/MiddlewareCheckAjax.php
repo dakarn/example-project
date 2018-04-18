@@ -16,7 +16,7 @@ class MiddlewareCheckAjax
 	public function process(Request $request, RequestHandler $handler)
 	{
 		if (!$request->isAjax()) {
-			//return $handler->handle($request, $handler, false);
+
 		}
 
 		return $handler->handle($request, $handler);

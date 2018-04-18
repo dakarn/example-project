@@ -96,7 +96,7 @@ abstract class AbstractController implements ControllerInterface
 			return $app->runController($router);
 		}
 
-		throw ControllerException::notFound([$invokeRouter]);
+		throw ControllerException::notFoundController([$invokeRouter]);
 	}
 
 	protected function get(string $nameService): ServiceInterface

@@ -15,6 +15,6 @@ class MiddlewareValidGETParam implements MiddlewareInterface
 {
 	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
-		return $handler->handle($request, $handler, true);
+		return $handler->handle($request, $handler);
 	}
 }

@@ -12,7 +12,7 @@ $runCommand  = null;
 
 \Helper\Util::selectLoaderClass();
 
-$event = new AppEvent();
+$event = new App\AppEvent();
 $event = $event->installEvents(new \System\EventListener\EventManager());
 
 \System\Database\DB::setConfigure(new \System\Database\DatabaseConfigure(\System\Config::get('common', 'mysql')));

@@ -13,5 +13,5 @@ use Http\Response\Response;
 
 interface RequestHandlerInterface
 {
-	public function handle(RequestInterface $request, RequestHandler $handler, $isSuccess = true): Response;
+	public function handle(RequestInterface $request, RequestHandler $handler): Response;
 }

@@ -10,9 +10,14 @@ namespace Exception;
 
 class ControllerException extends \Exception
 {
-	public static function notFound(array $arguments = []): self
+	public static function notFoundController(array $arguments = []): self
 	{
 		return new self('');
+	}
+
+	public static function notFoundAction(array $arguments = []): self
+	{
+		return new self('This action "' . $arguments[0] . '" not found in this controller!');
 	}
 
 	public static function invalidArguments(array $arguments = []): self

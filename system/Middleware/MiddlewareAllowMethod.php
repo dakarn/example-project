@@ -17,6 +17,6 @@ class MiddlewareAllowMethod implements MiddlewareInterface
 	{
 		$handler->getResponse()->withCookie('dfdf', 'sdsd');
 
-		return $handler->handle($request, $handler, true);
+		return $handler->handle($request, $handler);
 	}
 }

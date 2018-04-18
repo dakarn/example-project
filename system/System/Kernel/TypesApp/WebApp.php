@@ -9,11 +9,12 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
+use Exception\ControllerException;
 use Exception\ResponseException;
 use Middleware\RequestHandler;
 use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
-use System\Config;
+use System\Controller\ControllerInterface;
 use System\EventListener\EventTypes;
 use Http\Request\Request;
 use System\Logger\LoggerStorage;
@@ -22,7 +23,6 @@ use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Render;
 use Http\Response\Response;
-use Http\Response\ResponseInterface;
 use System\Router\RouteData;
 use System\Controller\AbstractController;
 use System\Router\Router;
@@ -57,7 +57,7 @@ final class WebApp extends AbstractApplication
 
 		$this->response = $this->runMiddleware($router);
 		$this->runController($router);
-		$this->flushResponse($this->resultAction);
+		$this->outputResponse($this->resultAction);
 	}
 
 	public function runController(Router $router)
@@ -78,15 +78,10 @@ final class WebApp extends AbstractApplication
 			$controller = new $className($this->eventManager, $this->response);
 
 			if (!$controller->__before($routeData)) {
-				$this->defaultTemplate(null);
 				return;
 			}
 
-			$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-			$this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
-			$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
-
-			$this->defaultTemplate($this->resultAction);
+			$this->runAction($controller, $action);
 
 			$controller->__after($routeData);
 			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
@@ -100,7 +95,18 @@ final class WebApp extends AbstractApplication
 		}
 	}
 
-	public function flushResponse($resultAction): void
+	public function runAction(ControllerInterface $controller, string $action)
+	{
+		if (!method_exists($controller, $action)) {
+			throw ControllerException::notFoundController([$action]);
+		}
+
+		$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
+		$this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
+		$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
+	}
+
+	public function outputResponse($resultAction): void
 	{
 		$this->response->sendHeaders();
 
@@ -123,19 +129,9 @@ final class WebApp extends AbstractApplication
 			throw ResponseException::invalidResponse();
 		}
 
-		/** @var RequestHandler $runHandler */
 		$runHandler = new RequestHandler();
 		return $runHandler->handle(Request::create(), $runHandler);
 
-	}
-
-	private function defaultTemplate($result)
-	{
-		if (!$result instanceof Render &&
-			!$result instanceof ResponseInterface) {
-			new Render(Config::get('common', 'defaultTemplate'));
-			$this->eventManager->runEvent(EventTypes::DEFAULT_TEMPLATE);
-		}
 	}
 
 	private function setRouteData(string $action, Router $router): RouteData
