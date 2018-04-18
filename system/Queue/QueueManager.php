@@ -11,6 +11,7 @@ namespace Queue;
 use Queue\Strategy\RabbitReceiverStrategy;
 use System\Config;
 use Traits\SingletonTrait;
+use Queue\Senders\RabbitQueueSender;
 
 class QueueManager
 {

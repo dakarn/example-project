@@ -44,7 +44,6 @@ final class WebApp extends AbstractApplication
 	public function setAppKernel(AppKernel $appKernel): AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
-		StorageMiddleware::add($appKernel->getMiddlewares());
 		StorageProviders::add($appKernel->getProviders());
 
 		return $this;
@@ -52,7 +51,8 @@ final class WebApp extends AbstractApplication
 
 	public function run(): void
 	{
-		$this->response = $this->runMiddleware();
+		$this->response = Request::create()->resultHandle();
+
 		$this->runController(Routing::getFoundRouter());
 		$this->outputResponse($this->resultAction);
 	}
@@ -114,21 +114,13 @@ final class WebApp extends AbstractApplication
 		}
 	}
 
-	public function runMiddleware(): Response
+	public function runMiddleware()
 	{
 		/*if (!empty($router->getMiddleware())) {
 			foreach ($router->getMiddleware() as $middleware) {
 				StorageMiddleware::addOne(['class' => $middleware]);
 			}
 		}*/
-
-		if (!isset(StorageMiddleware::get()[0])) {
-			throw ResponseException::invalidResponse();
-		}
-
-		$runHandler = new RequestHandler();
-		return $runHandler->handle(Request::create(), $runHandler);
-
 	}
 
 	private function setRouteData(string $action, Router $router): RouteData

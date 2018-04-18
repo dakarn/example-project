@@ -8,9 +8,14 @@
 
 namespace Http\Request;
 
+use App\AppKernel;
 use Traits\SingletonTrait;
 use Helper\Cookie;
 use Helper\Session;
+use Middleware\StorageMiddleware;
+use Exception\ResponseException;
+use Middleware\RequestHandler;
+use Http\Response\Response;
 
 class Request implements RequestInterface
 {
@@ -26,9 +31,26 @@ class Request implements RequestInterface
 	private $userAgent = '';
 	private $proxy     = '';
 
-	public function handle()
-	{
+	/**
+	 * @var  Response
+	 */
+	private $rresponse;
 
+	public function handle(AppKernel $appKernel)
+	{
+		StorageMiddleware::add($appKernel->getMiddlewares());
+
+		if (!isset(StorageMiddleware::get()[0])) {
+			throw ResponseException::invalidResponse();
+		}
+
+		$runHandler = new RequestHandler();
+		$this->rresponse = $runHandler->handle(Request::create(), $runHandler);
+	}
+
+	public function resultHandle(): Response
+	{
+		return $this->rresponse;
 	}
 
 	public function getHeaders(): array

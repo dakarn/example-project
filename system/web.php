@@ -8,4 +8,4 @@ $appKernel
 	->installProviders();
 
 $request = \Http\Request\Request::create();
-$request->handle();
+$request->handle($appKernel);
