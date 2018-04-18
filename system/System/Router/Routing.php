@@ -2,7 +2,6 @@
 
 namespace System\Router;
 
-use Http\Request\Request;
 use System\AppObjectMemento;
 use System\Kernel\GETParam;
 use System\Config;

@@ -50,7 +50,7 @@ class Util
 			case PSR_4:
 				include_once PATH_SYSTEM . '/../vendor/autoload.php';
 				break;
-			case CUSTOM_LOADER:
+			default:
 				include_once PATH_SYSTEM . 'autoload.php';
 				break;
 		}

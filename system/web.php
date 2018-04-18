@@ -7,5 +7,5 @@ $appKernel
 	->installMiddlewares()
 	->installProviders();
 
-$request = \Http\Request\Request::create();
-$request->handle($appKernel);
+$request  = \Http\Request\Request::create();
+$response = $request->handle($appKernel, $request);

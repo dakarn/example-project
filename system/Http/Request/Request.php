@@ -34,9 +34,9 @@ class Request implements RequestInterface
 	/**
 	 * @var  Response
 	 */
-	private $rresponse;
+	private $response;
 
-	public function handle(AppKernel $appKernel)
+	public function handle(AppKernel $appKernel, Request $request)
 	{
 		StorageMiddleware::add($appKernel->getMiddlewares());
 
@@ -45,12 +45,12 @@ class Request implements RequestInterface
 		}
 
 		$runHandler = new RequestHandler();
-		$this->rresponse = $runHandler->handle(Request::create(), $runHandler);
+		$this->response = $runHandler->handle($request, $runHandler);
 	}
 
 	public function resultHandle(): Response
 	{
-		return $this->rresponse;
+		return $this->response;
 	}
 
 	public function getHeaders(): array

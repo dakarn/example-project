@@ -1,6 +1,6 @@
 <?php
 
-use MiddlewareApp\MiddlewareCheckAuth;
+use App\MiddlewareApp\MiddlewareCheckAuth;
 
 return [
 	[

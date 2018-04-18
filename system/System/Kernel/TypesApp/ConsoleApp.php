@@ -8,8 +8,6 @@
 
 namespace System\Kernel\TypesApp;
 
-use System\Router\Router;
-
 final class ConsoleApp extends AbstractApplication
 {
 	public function run()

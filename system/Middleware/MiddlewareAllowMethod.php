@@ -17,8 +17,16 @@ class MiddlewareAllowMethod implements MiddlewareInterface
 {
 	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
-		if (!in_array($request->getMethod(), Routing::getFoundRouter()->getAllow())) {
+		$router = Routing::getFoundRouter();
+
+		if (!in_array($request->getMethod(), $router->getAllow())) {
 			throw ControllerException::deniedMethod($request->getMethod());
+		}
+
+		if (!empty($router->getMiddleware())) {
+			foreach ($router->getMiddleware() as $middleware) {
+				StorageMiddleware::addOne(['class' => $middleware]);
+			}
 		}
 
 		return $handler->handle($request, $handler);

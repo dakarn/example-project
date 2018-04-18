@@ -52,9 +52,7 @@ final class WebApp extends AbstractApplication
 	public function run(): void
 	{
 		$this->response = Request::create()->resultHandle();
-
 		$this->runController(Routing::getFoundRouter());
-		$this->outputResponse($this->resultAction);
 	}
 
 	public function runController(Router $router)
@@ -103,24 +101,15 @@ final class WebApp extends AbstractApplication
 		$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
 	}
 
-	public function outputResponse($resultAction): void
+	public function outputResponse(): void
 	{
 		$this->response->sendHeaders();
 
-		if ($resultAction instanceof Render) {
-			$this->response->setData($resultAction->render())->render();
+		if ($this->resultAction instanceof Render) {
+			$this->response->withBody($this->resultAction->render())->output();
 		} else {
-			$this->response->render();
+			$this->response->output();
 		}
-	}
-
-	public function runMiddleware()
-	{
-		/*if (!empty($router->getMiddleware())) {
-			foreach ($router->getMiddleware() as $middleware) {
-				StorageMiddleware::addOne(['class' => $middleware]);
-			}
-		}*/
 	}
 
 	private function setRouteData(string $action, Router $router): RouteData

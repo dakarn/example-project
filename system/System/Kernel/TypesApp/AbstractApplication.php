@@ -53,6 +53,10 @@ abstract class AbstractApplication
 		DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
 	}
 
+	public function outputResponse(): void
+	{
+	}
+
 	public function setEnvironment($env): self
 	{
 		if (!isset(self::ENV_TYPE[$env])) {

@@ -3,12 +3,12 @@
 define('PATH_SYSTEM', __DIR__ . '/system/');
 define('PATH_APP', __DIR__  . '/app/');
 define('PSR_4', true);
-define('CUSTOM_LOADER', false);
 
 include_once PATH_SYSTEM . 'Helper/Util.php';
 
 $application = null;
 $runCommand  = null;
+$response    = null;
 
 \Helper\Util::selectLoaderClass();
 
@@ -26,8 +26,8 @@ switch(true) {
 		break;
 	default:
 		throw Exception\KernelException::unknownEnvironment();
-
 }
+
 $application = $applicationInstance
 	->setEnvironment('DEV')
 	->setAppEvent($event)
@@ -41,4 +41,5 @@ register_shutdown_function(function() use($application) {
 	System\Kernel\ShutdownScript::run();
 });
 
-$application->run();
+$applicationInstance->run();
+$applicationInstance->outputResponse();

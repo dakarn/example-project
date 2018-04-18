@@ -3,6 +3,7 @@
 namespace App;
 
 use Middleware\MiddlewareAllowMethod;
+use Middleware\MiddlewareController;
 use Middleware\MiddlewareRouting;
 use Middleware\MiddlewareValidGETParam;
 use System\AppObjectMemento;
@@ -15,7 +16,7 @@ final class AppKernel
 
 	public function __construct()
 	{
-		AppObjectMemento::set(AppObjectMemento::APP_EVENT, $this);
+		AppObjectMemento::set(AppObjectMemento::APP_KERNEL, $this);
 	}
 
 	public function installMiddlewares(): self
@@ -31,11 +32,6 @@ final class AppKernel
 		];
 
 		$this->middlewares[] = [
-			'autoStart' => true,
-			'class'     => MiddlewareValidGETParam::class,
-		];
-
-		$this->middlewares[] = [
 			'autoStart' => false,
 			'class'     => MiddlewareApp\MiddlewareCheckingBot::class,
 		];
@@ -48,6 +44,11 @@ final class AppKernel
 		$this->middlewares[] = [
 			'autoStart' => false,
 			'class'     => MiddlewareApp\MiddlewareCheckAjax::class,
+		];
+
+		$this->middlewares[] = [
+			'autoStart' => true,
+			'class'     => MiddlewareController::class,
 		];
 
 		return $this;

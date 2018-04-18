@@ -28,11 +28,15 @@ class EventTypes
 
 	const APP_SHUT_DOWN      = 'appShutdown';
 
-	const APP_THROW_EXCEPTION    = 'AppThrowException';
+	const APP_THROW_EXCEPTION = 'AppThrowException';
 
 	const AFTER_DB_CONNECT   = 'afterDBConnect';
 
 	const SUCCESS_DB_CONNECT = 'successDBConnect';
 
 	const FAILED_DB_CONNECT  = 'failedDBConnect';
+
+	const AFTER_OUTPUT_RESPONSE = 'afterOutputResponse';
+
+	const BEFORE_MIDDLEWARE = 'beforeMiddleware';
 }

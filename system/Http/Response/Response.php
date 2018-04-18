@@ -38,12 +38,12 @@ class Response
 	{
 	}
 
-	public function getData()
+	public function getBody()
 	{
 		return $this->data;
 	}
 
-	public function setData($data = null, string $responseType = 'simple', array $param = []): Response
+	public function withBody($data, string $responseType = 'simple', array $param = []): Response
 	{
 		$this->param        = $param;
 		$this->data         = $this->data . $data;
@@ -51,7 +51,7 @@ class Response
 		return $this;
 	}
 
-	public function render(): Response
+	public function output(): Response
 	{
 		$this->selectResponse();
 
