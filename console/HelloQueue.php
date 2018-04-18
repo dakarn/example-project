@@ -1,9 +1,9 @@
 <?php
 
-include_once '../bootstrap.php';
+include_once '../bootstrap-cli.php';
 
 use Queue\QueueManager;
-use Console\Queue\HelloQueueHandler;
+use App\Console\Queue\HelloQueueHandler;
 
 QueueManager::create()
 	->setQueueHandler('hello', new HelloQueueHandler())

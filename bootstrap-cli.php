@@ -6,10 +6,6 @@ define('PSR_4', true);
 
 include_once PATH_SYSTEM . 'Helper/Util.php';
 
-$application = null;
-$runCommand  = null;
-$response    = null;
-
 \Helper\Util::selectLoaderClass();
 
 $event = new App\AppEvent();
@@ -17,7 +13,7 @@ $event = $event->installEvents(new \System\EventListener\EventManager());
 
 $appKernel = new App\AppKernel();
 
-include_once PATH_SYSTEM . 'web.php';
+include_once PATH_SYSTEM . 'cli.php';
 
 $application = $applicationInstance
 	->setEnvironment('DEV')
@@ -33,4 +29,3 @@ register_shutdown_function(function() use($application) {
 });
 
 $applicationInstance->run();
-$applicationInstance->outputResponse();

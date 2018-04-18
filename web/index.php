@@ -3,4 +3,4 @@ session_start();
 
 define('IS_WEB', true);
 
-include '../bootstrap.php';
+include '../bootstrap-web.php';
