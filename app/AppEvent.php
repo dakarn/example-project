@@ -1,5 +1,6 @@
-
 <?php
+
+namespace App;
 
 use System\EventListener\EventManager;
 use System\EventListener\EventTypes;

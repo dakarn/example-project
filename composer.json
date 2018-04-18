@@ -19,8 +19,7 @@
       "App\\": "app"
     },
     "files": [
-      "system/System/DefineSetup.php",
-      "app/AppEvent.php"
+      "system/System/DefineSetup.php"
     ]
   }
 }
