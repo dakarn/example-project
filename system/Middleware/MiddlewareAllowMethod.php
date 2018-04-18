@@ -8,14 +8,18 @@
 
 namespace Middleware;
 
+use Exception\ControllerException;
 use Http\Request\RequestInterface;
 use Http\Response\Response;
+use System\Router\Routing;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {
 	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
-		$handler->getResponse()->withCookie('dfdf', 'sdsd');
+		if (!in_array($request->getMethod(), Routing::getFoundRouter()->getAllow())) {
+			throw ControllerException::deniedMethod($request->getMethod());
+		}
 
 		return $handler->handle($request, $handler);
 	}

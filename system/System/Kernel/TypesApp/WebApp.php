@@ -27,6 +27,7 @@ use System\Router\RouteData;
 use System\Controller\AbstractController;
 use System\Router\Router;
 use System\Kernel\GETParam;
+use System\Router\Routing;
 
 final class WebApp extends AbstractApplication
 {
@@ -49,14 +50,10 @@ final class WebApp extends AbstractApplication
 		return $this;
 	}
 
-	public function run(Router $router = null): void
+	public function run(): void
 	{
-		if (!$router->isFilled()) {
-			throw new \InvalidArgumentException('A route with this address is not installed on the system!');
-		}
-
-		$this->response = $this->runMiddleware($router);
-		$this->runController($router);
+		$this->response = $this->runMiddleware();
+		$this->runController(Routing::getFoundRouter());
 		$this->outputResponse($this->resultAction);
 	}
 
@@ -117,13 +114,13 @@ final class WebApp extends AbstractApplication
 		}
 	}
 
-	public function runMiddleware(Router $router): Response
+	public function runMiddleware(): Response
 	{
-		if (!empty($router->getMiddleware())) {
+		/*if (!empty($router->getMiddleware())) {
 			foreach ($router->getMiddleware() as $middleware) {
 				StorageMiddleware::addOne(['class' => $middleware]);
 			}
-		}
+		}*/
 
 		if (!isset(StorageMiddleware::get()[0])) {
 			throw ResponseException::invalidResponse();

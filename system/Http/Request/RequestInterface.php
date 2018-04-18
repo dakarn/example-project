@@ -10,4 +10,5 @@ namespace Http\Request;
 
 interface RequestInterface
 {
+	public function getMethod(): string;
 }

@@ -7,9 +7,14 @@ use System\AppObjectMemento;
 use System\Kernel\GETParam;
 use System\Config;
 
-class Routing
+class Routing implements RoutingInterface
 {
 	private static $isFound = false;
+
+	/**
+	 * @var Router
+	 */
+	private static $foundRouter;
 
 	public static function findRoute(array $routers, string $path): Router
 	{
@@ -26,9 +31,6 @@ class Routing
 			}
 
 			if (self::$isFound) {
-				if (!self::isAllowMethod($router->getAllow())) {
-					return new Router([]);
-				}
 				return $router;
 			}
 		}
@@ -38,6 +40,16 @@ class Routing
 		}
 
 		return new Router([]);
+	}
+
+	public static function setFoundRouter(Router $router): void
+	{
+		self::$foundRouter = $router;
+	}
+
+	public static function getFoundRouter(): Router
+	{
+		return self::$foundRouter;
 	}
 
 	public static function fillRouterList(): void
@@ -100,16 +112,5 @@ class Routing
 		}
 
 		return $path;
-	}
-
-
-
-	private static function isAllowMethod(array $allow): bool
-	{
-		if (!in_array(Request::create()->getMethod(), $allow)) {
-			return false;
-		}
-
-		return true;
 	}
 }

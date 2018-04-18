@@ -11,7 +11,9 @@ namespace System\Kernel\TypesApp;
 use App\AppKernel;
 use System\EventListener\EventManager;
 use Http\Response\Response;
-use System\Router\Router;
+use System\Database\DB;
+use System\Config;
+use System\Database\DatabaseConfigure;
 
 abstract class AbstractApplication
 {
@@ -45,6 +47,11 @@ abstract class AbstractApplication
 	protected $appKernel;
 
 	protected $applicationType = '';
+
+	public function __construct()
+	{
+		DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
+	}
 
 	public function setEnvironment($env): self
 	{
@@ -123,5 +130,5 @@ abstract class AbstractApplication
 		}
 	}
 
-	abstract public function run(Router $router = null);
+	abstract public function run();
 }

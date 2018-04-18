@@ -12,7 +12,7 @@ use System\Router\Router;
 
 class ApiApp extends AbstractApplication
 {
-	public function run(Router $router = null)
+	public function run()
 	{
 
 	}

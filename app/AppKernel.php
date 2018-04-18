@@ -3,6 +3,7 @@
 namespace App;
 
 use Middleware\MiddlewareAllowMethod;
+use Middleware\MiddlewareRouting;
 use Middleware\MiddlewareValidGETParam;
 use System\AppObjectMemento;
 
@@ -19,6 +20,11 @@ final class AppKernel
 
 	public function installMiddlewares(): self
 	{
+		$this->middlewares[] = [
+			'autoStart' => true,
+			'class'     => MiddlewareRouting::class,
+		];
+
 		$this->middlewares[] = [
 			'autoStart' => true,
 			'class'     => MiddlewareAllowMethod::class,

@@ -12,7 +12,7 @@ use System\Router\Router;
 
 final class ConsoleApp extends AbstractApplication
 {
-	public function run(Router $router = null)
+	public function run()
 	{
 
 	}

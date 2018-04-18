@@ -12,12 +12,17 @@ class ControllerException extends \Exception
 {
 	public static function notFoundController(array $arguments = []): self
 	{
-		return new self('');
+		return new self('This controller "' . $arguments[0] . '" not found!');
 	}
 
 	public static function notFoundAction(array $arguments = []): self
 	{
 		return new self('This action "' . $arguments[0] . '" not found in this controller!');
+	}
+
+	public static function deniedMethod(array $arguments = []): self
+	{
+		return new self('This method "' . $arguments[0] . '" forbidden on the URL!');
 	}
 
 	public static function invalidArguments(array $arguments = []): self

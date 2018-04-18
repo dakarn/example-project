@@ -15,8 +15,6 @@ $runCommand  = null;
 $event = new App\AppEvent();
 $event = $event->installEvents(new \System\EventListener\EventManager());
 
-\System\Database\DB::setConfigure(new \System\Database\DatabaseConfigure(\System\Config::get('common', 'mysql')));
-
 $appKernel = new App\AppKernel();
 
 switch(true) {
@@ -43,4 +41,4 @@ register_shutdown_function(function() use($application) {
 	System\Kernel\ShutdownScript::run();
 });
 
-$application->run($runCommand);
+$application->run();
