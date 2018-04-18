@@ -17,16 +17,7 @@ $event = $event->installEvents(new \System\EventListener\EventManager());
 
 $appKernel = new App\AppKernel();
 
-switch(true) {
-	case IS_WEB:
-		include_once PATH_SYSTEM . 'web.php';
-		break;
-	case IS_CLI:
-		include_once PATH_SYSTEM . 'cli.php';
-		break;
-	default:
-		throw Exception\KernelException::unknownEnvironment();
-}
+include_once PATH_SYSTEM . 'web.php';
 
 $application = $applicationInstance
 	->setEnvironment('DEV')
