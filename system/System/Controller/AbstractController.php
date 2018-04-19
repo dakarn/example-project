@@ -151,8 +151,8 @@ abstract class AbstractController implements ControllerInterface
 	{
 		return ServiceContainer::create()
 			->setServiceConfig(Config::get('service'))
-			->addService($nameService)
-			->getService($nameService);
+			->add($nameService)
+			->get($nameService);
 	}
 
 	/**

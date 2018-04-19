@@ -13,6 +13,11 @@ use System\Config;
 
 class WidgetFactory
 {
+	/**
+	 * @param string $widgetName
+	 * @return WidgetInterface
+	 * @throws WidgetException
+	 */
 	public static function run(string $widgetName): WidgetInterface
 	{
 		$classWidget = Config::get('widgets', $widgetName);
@@ -22,10 +27,5 @@ class WidgetFactory
 		}
 
 		return new $classWidget['class']();
-	}
-
-	private static function setDependencyInjection(array $classWidget)
-	{
-		return $classWidget['arguments'];
 	}
 }

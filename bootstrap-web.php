@@ -6,8 +6,6 @@ define('PSR_4', true);
 
 include_once PATH_SYSTEM . 'Helper/Util.php';
 
-$response = null;
-
 \Helper\Util::selectLoaderClass();
 
 $event = new App\AppEvent();
@@ -20,8 +18,7 @@ $application = (new \System\Kernel\TypesApp\WebApp())
 	->setEnvironment('DEV')
 	->setAppEvent($event)
 	->setAppKernel($appKernel)
-	->setApplicationType('Web')
-	->handle();
+	->setApplicationType('Web');
 
 set_exception_handler(function($e) use($application) {
 	$application->outputException($e);

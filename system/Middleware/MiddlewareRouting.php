@@ -9,7 +9,7 @@
 namespace Middleware;
 
 use Exception\RoutingException;
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 use System\Router\Routing;
 use System\Kernel\GETParam;
 use System\Config;
@@ -17,12 +17,12 @@ use System\Config;
 class MiddlewareRouting implements MiddlewareInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
 	 * @throws RoutingException
 	 */
-	public function process(RequestInterface $request, RequestHandler $handler)
+	public function process(Request $request, RequestHandler $handler)
 	{
 		$router = Routing::findRoute(Config::getRouters(), GETParam::getPath());
 

@@ -10,9 +10,9 @@ namespace System\Service;
 
 interface ServiceContainerInterface
 {
-	public function addService(string $service): ServiceContainerInterface;
+	public function add(string $service): ServiceContainerInterface;
 
-	public function getService(string $service): ServiceInterface;
+	public function get(string $service): ServiceInterface;
 
 	public function setServiceConfig(array $serviceConfig): ServiceContainerInterface;
 }

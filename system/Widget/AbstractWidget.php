@@ -10,10 +10,16 @@ namespace Widget;
 
 abstract class AbstractWidget implements WidgetInterface
 {
+	/**
+	 * AbstractWidget constructor.
+	 */
 	public function __construct()
 	{
 		echo $this->run();
 	}
 
+	/**
+	 * @return string
+	 */
 	abstract public function run(): string;
 }

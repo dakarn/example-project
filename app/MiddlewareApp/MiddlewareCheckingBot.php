@@ -8,18 +8,18 @@
 
 namespace App\MiddlewareApp;
 
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 use Middleware\RequestHandler;
 use Middleware\MiddlewareInterface;
 
 class MiddlewareCheckingBot implements MiddlewareInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
 	 */
-	public function process(RequestInterface $request, RequestHandler $handler)
+	public function process(Request $request, RequestHandler $handler)
 	{
 		return $handler->handle($request, $handler);
 	}

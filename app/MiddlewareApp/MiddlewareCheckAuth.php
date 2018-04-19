@@ -8,18 +8,18 @@
 
 namespace App\MiddlewareApp;
 
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 use Middleware\MiddlewareInterface;
 use Middleware\RequestHandler;
 
 class MiddlewareCheckAuth implements MiddlewareInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
 	 */
-	public function process(RequestInterface $request, RequestHandler $handler)
+	public function process(Request $request, RequestHandler $handler)
 	{
 		return $handler->handle($request, $handler);
 	}

@@ -8,7 +8,7 @@
 
 namespace Middleware;
 
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 use System\Controller\LauncherController;
 use System\Registry;
 use System\Render;
@@ -17,11 +17,11 @@ use System\Router\Routing;
 class MiddlewareController implements MiddlewareInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return \Http\Response\Response
 	 */
-	public function process(RequestInterface $request, RequestHandler $handler)
+	public function process(Request $request, RequestHandler $handler)
 	{
         $launcher = new LauncherController(
             Registry::get(Registry::APP),

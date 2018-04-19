@@ -8,14 +8,14 @@
 
 namespace Middleware;
 
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 
 interface MiddlewareInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return mixed
 	 */
-	public function process(RequestInterface $request, RequestHandler $handler);
+	public function process(Request $request, RequestHandler $handler);
 }

@@ -9,9 +9,10 @@
 namespace App\MiddlewareApp;
 
 use Http\Request\Request;
+use Middleware\MiddlewareInterface;
 use Middleware\RequestHandler;
 
-class MiddlewareCheckAjax
+class MiddlewareCheckAjax implements MiddlewareInterface
 {
 	/**
 	 * @param Request $request

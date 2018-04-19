@@ -8,15 +8,15 @@
 
 namespace Middleware;
 
-use Http\Request\RequestInterface;
+use Http\Request\Request;
 use Http\Response\Response;
 
 interface RequestHandlerInterface
 {
 	/**
-	 * @param RequestInterface $request
+	 * @param Request $request
 	 * @param RequestHandler $handler
 	 * @return Response
 	 */
-	public function handle(RequestInterface $request, RequestHandler $handler): Response;
+	public function handle(Request $request, RequestHandler $handler): Response;
 }

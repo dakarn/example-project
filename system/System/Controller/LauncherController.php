@@ -9,20 +9,17 @@
 namespace System\Controller;
 
 use Exception\ControllerException;
-use Http\Request\Request;
 use Http\Request\RequestInterface;
 use Http\Response\Response;
 use System\EventListener\EventManager;
 use System\Kernel\GETParam;
 use System\EventListener\EventTypes;
-use System\Kernel\TypesApp\AbstractApplication;
 use System\Kernel\TypesApp\WebApp;
 use System\Render;
 use System\Router\RouteData;
 use System\Router\Router;
-use System\Router\Routing;
 
-class LauncherController
+class LauncherController implements LauncherControllerInterface
 {
     const PREFIX_ACTION = 'Action';
 
@@ -31,8 +28,14 @@ class LauncherController
      */
     private $controller;
 
+	/**
+	 * @var string
+	 */
     private $className;
 
+	/**
+	 * @var string
+	 */
     private $action;
 
     /**
@@ -55,6 +58,9 @@ class LauncherController
      */
     private $router;
 
+	/**
+	 * @return Response|Render
+	 */
     public function execute()
     {
         $this->prepare();
@@ -63,6 +69,13 @@ class LauncherController
         return $this->resultAction;
     }
 
+	/**
+	 * LauncherController constructor.
+	 * @param WebApp $webApp
+	 * @param Router $router
+	 * @param RequestInterface $request
+	 * @param Response $response
+	 */
     public function __construct(WebApp $webApp, Router $router, RequestInterface $request, Response $response)
     {
         $this->eventManager = $webApp->getEventApp();
@@ -70,12 +83,18 @@ class LauncherController
         $this->router       = $router;
     }
 
+	/**
+	 * @var void
+	 */
     private function prepare(): void
     {
         $this->className = 'App\\' . str_replace(':', '\\', $this->router->getController());
         $this->action    = $this->router->getAction() . self::PREFIX_ACTION;
     }
 
+	/**
+	 * @var void
+	 */
     private function runController(): void
     {
         $routeData  = $this->setRouteData($this->action, $this->router);
@@ -98,6 +117,11 @@ class LauncherController
         $this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
     }
 
+	/**
+	 * @param ControllerInterface $controller
+	 * @param string $action
+	 * @throws ControllerException
+	 */
     private function runAction(ControllerInterface $controller, string $action)
     {
         if (!method_exists($controller, $action)) {
@@ -109,6 +133,11 @@ class LauncherController
         $this->eventManager->runEvent(EventTypes::AFTER_ACTION);
     }
 
+	/**
+	 * @param string $action
+	 * @param Router $router
+	 * @return RouteData
+	 */
     private function setRouteData(string $action, Router $router): RouteData
     {
         $routeData  = (new RouteData())
