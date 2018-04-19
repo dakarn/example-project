@@ -12,13 +12,23 @@ use System\EventListener\EventListenerInterface;
 
 class BeforeControllerEvent implements EventListenerInterface
 {
+	/**
+	 * @var array
+	 */
 	private $arguments = [];
 
+	/**
+	 * BeforeControllerEvent constructor.
+	 * @param array $arguments
+	 */
 	public function __construct(array $arguments = [])
 	{
 		$this->arguments = $arguments;
 	}
 
+	/**
+	 *
+	 */
 	public function execute()
 	{
 

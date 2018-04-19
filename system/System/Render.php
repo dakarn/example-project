@@ -20,11 +20,11 @@ class Render
 		}
 	}
 
-	public function render()
-	{
-		return (function(){
-			extract($this->params);
-			include_once($this->template);
-		})();
+	public function render(): string
+    {
+        extract($this->params);
+        ob_start();
+        include $this->template;
+        return ob_get_clean();
 	}
 }

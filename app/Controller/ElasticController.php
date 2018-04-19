@@ -7,10 +7,14 @@ use App\Model\Dictionary\DictionaryRepository;
 use System\Config;
 use System\Controller\AbstractController;
 use ElasticSearch\ElasticSearch;
+use System\Render;
 
 class ElasticController extends AbstractController
 {
-	public function addIndexAction()
+	/**
+	 * @return Render
+	 */
+	public function addIndexAction(): Render
 	{
 		ElasticSearch::create()
 			->setIndex('teacher')
@@ -21,7 +25,10 @@ class ElasticController extends AbstractController
 		return $this->render('elastic/addindex.html');
 	}
 
-	public function removeIndexAction()
+	/**
+	 * @return Render
+	 */
+	public function removeIndexAction(): Render
 	{
 		ElasticSearch::create()
 			->setIndex('teacher')
@@ -30,7 +37,10 @@ class ElasticController extends AbstractController
 		return $this->render('elastic/addindex.html');
 	}
 
-	public function indexerAction()
+	/**
+	 * @return Render
+	 */
+	public function indexerAction(): Render
 	{
 		$dictRepos = new DictionaryRepository();
 		$result    = $dictRepos->getAllDictionaries();
@@ -58,12 +68,17 @@ class ElasticController extends AbstractController
 		return $this->render('elastic/addindex.html');
 	}
 
-	public function enterCommandAction()
+	/**
+	 * @return Render
+	 */
+	public function enterCommandAction(): Render
 	{
 		ElasticSearch::create()
 			->setIndex('teacher')
 			->setType('dictionary')
 			->setId(1)
 			->get();
+
+		return $this->render('index.html');
 	}
 }

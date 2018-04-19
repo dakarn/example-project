@@ -9,32 +9,48 @@
 namespace App\Controller\Api\V1;
 
 use App\Model\Dictionary\DictionaryRepository;
+use Http\Response\Response;
 use System\Controller\AbstractController;
 use App\Validator\SearchWordValidator;
 
 class ApiController extends AbstractController
 {
-	public function addAction()
+	/**
+	 * @return \Http\Response\Response
+	 */
+	public function addAction(): Response
 	{
 		return $this->response([], 'api', ['success']);
 	}
 
+	/**
+	 * @return Response
+	 */
 	public function getAction()
 	{
 		return $this->response([], 'api', ['success']);
 	}
 
-	public function updateAction()
+	/**
+	 * @return Response
+	 */
+	public function updateAction(): Response
 	{
 		return $this->response([], 'api', ['success']);
 	}
 
-	public function deleteAction()
+	/**
+	 * @return Response
+	 */
+	public function deleteAction(): Response
 	{
 		return $this->response([], 'api', ['success']);
 	}
 
-	public function searchWordAction()
+	/**
+	 * @return Response
+	 */
+	public function searchWordAction(): Response
 	{
 		$dictRepos = new DictionaryRepository();
 		$validator = new SearchWordValidator();

@@ -12,6 +12,9 @@ use Widget\AbstractWidget;
 
 class TestWidget extends AbstractWidget
 {
+	/**
+	 * @return string
+	 */
 	public function run(): string
 	{
 		return '';

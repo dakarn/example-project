@@ -12,6 +12,9 @@ use System\Config;
 
 class FlashTextRender
 {
+	/**
+	 * @param array $items
+	 */
 	public static function render(array $items = [])
 	{
 		$flashText = self::getConfigFlash();
@@ -22,6 +25,9 @@ class FlashTextRender
 		}
 	}
 
+	/**
+	 * @return array
+	 */
 	private static function getConfigFlash(): array
 	{
 		return Config::get('common', 'flashText');

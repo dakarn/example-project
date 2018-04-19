@@ -12,5 +12,10 @@ use Http\Request\RequestInterface;
 
 interface MiddlewareInterface
 {
+	/**
+	 * @param RequestInterface $request
+	 * @param RequestHandler $handler
+	 * @return mixed
+	 */
 	public function process(RequestInterface $request, RequestHandler $handler);
 }

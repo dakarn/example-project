@@ -6,12 +6,18 @@ use System\Validators\AbstractValidator;
 
 class EditWordValidator extends AbstractValidator
 {
+	/**
+	 * @var array
+	 */
 	private $errors = [
 		'Не заполнен заголовок.',
 		'Не заполнены "Ключевые слова".',
 		'Данные для страницы не введены.',
 	];
 
+	/**
+	 * @var void
+	 */
 	public function validate(): void
 	{
 		$errors = [];

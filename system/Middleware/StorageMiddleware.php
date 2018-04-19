@@ -10,11 +10,20 @@ namespace Middleware;
 
 class StorageMiddleware
 {
+	/**
+	 * @var array
+	 */
 	private static $middlewareList = [];
 
+	/**
+	 * @var int
+	 */
 	private static $currPos = 0;
 
-	public static function add(array $middlewares)
+	/**
+	 * @param array $middlewares
+	 */
+	public static function add(array $middlewares): void
 	{
 		self::$middlewareList = [];
 		self::$currPos        = 0;
@@ -26,26 +35,57 @@ class StorageMiddleware
 		}
 	}
 
+	/**
+	 * @return array
+	 */
+	public static function deleteFirstItem(): array
+    {
+        return array_shift(self::$middlewareList);
+    }
+
+	/**
+	 * @return array
+	 */
+    public static function deleteEndItem(): array
+    {
+        return array_pop(self::$middlewareList);
+    }
+
+	/**
+	 * @param array $middleware
+	 */
 	public static function addOne(array $middleware)
 	{
 		self::$middlewareList[] = $middleware;
 	}
 
+	/**
+	 * @return int
+	 */
 	public static function currPosition(): int
 	{
 		return self::$currPos;
 	}
 
+	/**
+	 * @var void
+	 */
 	public static function nextPosition(): void
 	{
 		self::$currPos++;
 	}
 
+	/**
+	 * @return int
+	 */
 	public static function count(): int
 	{
 		return count(self::$middlewareList);
 	}
 
+	/**
+	 * @return array
+	 */
 	public static function get(): array
 	{
 		return self::$middlewareList;

@@ -9,22 +9,37 @@
 namespace Helper;
 
 use Traits\SingletonTrait;
+use Http\Request\Request;
 
 class CSRFToken
 {
 	use SingletonTrait;
 
+	/**
+	 * @var bool
+	 */
 	private $isValid = false;
 
+	/**
+	 * @var string
+	 */
 	private $token;
 
+	/**
+	 * @param string $tokenFromCookie
+	 * @param string $tokenFromPost
+	 * @return CSRFToken
+	 */
 	public function setValidationData(string $tokenFromCookie, string $tokenFromPost): CSRFToken
 	{
 		$this->isValid = $tokenFromCookie === $tokenFromPost;
 		return $this;
 	}
 
-	public function makeToken()
+	/**
+	 * @var void
+	 */
+	public function makeToken(): void
 	{
 		$this->token = Util::generateCSRFToken();
 
@@ -33,11 +48,17 @@ class CSRFToken
 			->set('CSRFToken', $this->token);
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getToken(): string
 	{
 		return $this->token;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isValid(): bool
 	{
 		return $this->isValid;

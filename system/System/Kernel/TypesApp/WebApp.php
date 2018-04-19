@@ -36,11 +36,6 @@ final class WebApp extends AbstractApplication
 	 */
 	public $response;
 
-	/**
-	 * @var Response | Render
-	 */
-	private $resultAction;
-
 	public function setAppKernel(AppKernel $appKernel): AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
@@ -49,75 +44,25 @@ final class WebApp extends AbstractApplication
 		return $this;
 	}
 
+	public function handle(): WebApp
+	{
+		$request = Request::create();
+		$request->handle($this->appKernel, $request);
+
+		return $this;
+	}
+
 	public function run(): void
 	{
-		$this->response = Request::create()->resultHandle();
-		$this->runController(Routing::getFoundRouter());
-	}
 
-	public function runController(Router $router)
-	{
-		/** @var AbstractController $controller */
-
-		$className = 'App\\' . str_replace(':', '\\', $router->getController());
-		$action    = $router->getAction() . self::PREFIX_ACTION;
-
-		try {
-			$routeData  = $this->setRouteData($action, $router);
-
-			$this->eventManager->runEvent(EventTypes::BEFORE_CONTROLLER, [
-				'controller' => $routeData->getControllerName(),
-				'action'     => $routeData->getActionName(),
-			]);
-
-			$controller = new $className($this->eventManager, $this->response);
-
-			if (!$controller->__before($routeData)) {
-				return;
-			}
-
-			$this->runAction($controller, $action);
-
-			$controller->__after($routeData);
-			$this->eventManager->runEvent(EventTypes::AFTER_CONTROLLER);
-		} catch(\Throwable $e) {
-
-			LoggerAware::setlogger(new Logger())->log(LogLevel::ERROR, $e->getMessage());
-			LoggerStorage::create()->releaseLog();
-			$this->eventManager->runEvent(EventTypes::APP_THROW_EXCEPTION, ['exception' => $e]);
-
-			$this->outputException($e);
-		}
-	}
-
-	public function runAction(ControllerInterface $controller, string $action)
-	{
-		if (!method_exists($controller, $action)) {
-			throw ControllerException::notFoundController([$action]);
-		}
-
-		$this->eventManager->runEvent(EventTypes::BEFORE_ACTION);
-		$this->resultAction = call_user_func_array([$controller, $action], array_values(GETParam::getParamForController()));
-		$this->eventManager->runEvent(EventTypes::AFTER_ACTION);
 	}
 
 	public function outputResponse(): void
 	{
+
+		$this->response = Request::create()->resultHandle();
+
 		$this->response->sendHeaders();
-
-		if ($this->resultAction instanceof Render) {
-			$this->response->withBody($this->resultAction->render())->output();
-		} else {
-			$this->response->output();
-		}
-	}
-
-	private function setRouteData(string $action, Router $router): RouteData
-	{
-		$routeData  = (new RouteData())
-			->setData('action', $action)
-			->setData('controller', substr($router->getController(), strrpos($router->getController(), ':') + 1));
-
-		return $routeData;
+		$this->response->output();
 	}
 }

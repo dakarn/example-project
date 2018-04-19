@@ -6,12 +6,21 @@ use System\Validators\AbstractValidator;
 
 class SearchWordValidator extends AbstractValidator
 {
+	/**
+	 * @var array
+	 */
 	private $errors = [
 		'Не заполнен текст.',
 	];
 
+	/**
+	 * @var bool
+	 */
 	public $isUseFlashErrors = true;
 
+	/**
+	 * @var void
+	 */
 	public function validate(): void
 	{
 		if (empty($_POST['text'])) {

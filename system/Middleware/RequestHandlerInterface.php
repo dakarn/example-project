@@ -13,5 +13,10 @@ use Http\Response\Response;
 
 interface RequestHandlerInterface
 {
+	/**
+	 * @param RequestInterface $request
+	 * @param RequestHandler $handler
+	 * @return Response
+	 */
 	public function handle(RequestInterface $request, RequestHandler $handler): Response;
 }

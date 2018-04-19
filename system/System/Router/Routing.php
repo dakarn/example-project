@@ -2,7 +2,7 @@
 
 namespace System\Router;
 
-use System\AppObjectMemento;
+use System\Registry;
 use System\Kernel\GETParam;
 use System\Config;
 
@@ -61,16 +61,16 @@ class Routing implements RoutingInterface
 			$routerList->add($router->getName(), $router);
 		}
 
-		AppObjectMemento::set(AppObjectMemento::ROUTERS, $routerList);
+		Registry::set(Registry::ROUTERS, $routerList);
 	}
 
 	public static function getRouterList(): RouterList
 	{
-		if (!AppObjectMemento::has(AppObjectMemento::ROUTERS)) {
+		if (!Registry::has(Registry::ROUTERS)) {
 			self::fillRouterList();
 		}
 
-		return AppObjectMemento::get(AppObjectMemento::ROUTERS);
+		return Registry::get(Registry::ROUTERS);
 	}
 
 	public static function findRouterByRegex(Router $router, string $path): bool

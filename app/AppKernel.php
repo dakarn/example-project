@@ -5,20 +5,31 @@ namespace App;
 use Middleware\MiddlewareAllowMethod;
 use Middleware\MiddlewareController;
 use Middleware\MiddlewareRouting;
-use Middleware\MiddlewareValidGETParam;
-use System\AppObjectMemento;
+use System\Registry;
 
 final class AppKernel
 {
+	/**
+	 * @var array
+	 */
 	private $middlewares = [];
 
+	/**
+	 * @var array
+	 */
 	private $providers = [];
 
+	/**
+	 * AppKernel constructor.
+	 */
 	public function __construct()
 	{
-		AppObjectMemento::set(AppObjectMemento::APP_KERNEL, $this);
+		Registry::set(Registry::APP_KERNEL, $this);
 	}
 
+	/**
+	 * @return AppKernel
+	 */
 	public function installMiddlewares(): self
 	{
 		$this->middlewares[] = [
@@ -54,16 +65,25 @@ final class AppKernel
 		return $this;
 	}
 
+	/**
+	 * @return AppKernel
+	 */
 	public function installProviders(): self
 	{
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getProviders(): array
 	{
 		return $this->providers;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getMiddlewares(): array
 	{
 		return $this->middlewares;

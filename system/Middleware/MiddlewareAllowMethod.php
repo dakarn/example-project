@@ -15,6 +15,12 @@ use System\Router\Routing;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {
+	/**
+	 * @param RequestInterface $request
+	 * @param RequestHandler $handler
+	 * @return Response
+	 * @throws ControllerException
+	 */
 	public function process(RequestInterface $request, RequestHandler $handler): Response
 	{
 		$router = Routing::getFoundRouter();

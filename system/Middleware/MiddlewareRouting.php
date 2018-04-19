@@ -16,6 +16,12 @@ use System\Config;
 
 class MiddlewareRouting implements MiddlewareInterface
 {
+	/**
+	 * @param RequestInterface $request
+	 * @param RequestHandler $handler
+	 * @return \Http\Response\Response
+	 * @throws RoutingException
+	 */
 	public function process(RequestInterface $request, RequestHandler $handler)
 	{
 		$router = Routing::findRoute(Config::getRouters(), GETParam::getPath());

@@ -14,16 +14,28 @@ class Cookie
 {
 	use SingletonTrait;
 
+	/**
+	 * @param string $key
+	 * @return string
+	 */
 	public function get(string $key): string
 	{
 		return $_COOKIE[$key] ?? '';
 	}
 
+	/**
+	 * @param string $key
+	 * @return bool
+	 */
 	public function has(string $key): bool
 	{
 		return isset($_COOKIE[$key]) ? true : false;
 	}
 
+	/**
+	 * @param array $keys
+	 * @return array
+	 */
 	public function getSome(array $keys): array
 	{
 		$foundKeys = [];
@@ -37,11 +49,22 @@ class Cookie
 		return $foundKeys;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getAll(): array
 	{
 		return $_COOKIE;
 	}
 
+	/**
+	 * @param string $key
+	 * @param string $value
+	 * @param string $path
+	 * @param int $expire
+	 * @param string $domain
+	 * @return Cookie
+	 */
 	public function set(string $key, string $value, string $path = '', int $expire = 0, string $domain = ''): Cookie
 	{
 		setcookie($key, $value, $expire, $path, $domain);

@@ -13,6 +13,11 @@ use Middleware\RequestHandler;
 
 class MiddlewareCheckAjax
 {
+	/**
+	 * @param Request $request
+	 * @param RequestHandler $handler
+	 * @return \Http\Response\Response
+	 */
 	public function process(Request $request, RequestHandler $handler)
 	{
 		if (!$request->isAjax()) {

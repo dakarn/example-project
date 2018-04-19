@@ -14,6 +14,11 @@ use Middleware\MiddlewareInterface;
 
 class MiddlewareCheckingBot implements MiddlewareInterface
 {
+	/**
+	 * @param RequestInterface $request
+	 * @param RequestHandler $handler
+	 * @return \Http\Response\Response
+	 */
 	public function process(RequestInterface $request, RequestHandler $handler)
 	{
 		return $handler->handle($request, $handler);

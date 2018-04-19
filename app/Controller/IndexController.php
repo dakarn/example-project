@@ -7,11 +7,15 @@ use Queue\QueueManager;
 use System\Controller\AbstractController;
 use App\Model\Dictionary\DictionaryRepository;
 use App\Validator\SearchWordValidator;
+use System\Render;
 use Widget\WidgetFactory;
 
 class IndexController extends AbstractController
 {
-	public function indexAction()
+	/**
+	 * @return Render
+	 */
+	public function indexAction(): Render
 	{
 		$dictRepos = new DictionaryRepository();
 
@@ -34,7 +38,11 @@ class IndexController extends AbstractController
 		]);
 	}
 
-	public function dictionaryAction(int $id)
+	/**
+	 * @param int $id
+	 * @return Render
+	 */
+	public function dictionaryAction(int $id): Render
 	{
 		$dictRepos = new DictionaryRepository();
 
@@ -43,7 +51,10 @@ class IndexController extends AbstractController
 		]);
 	}
 
-	public function searchWordAction()
+	/**
+	 * @return Render
+	 */
+	public function searchWordAction(): Render
 	{
 		$dictRepos = new DictionaryRepository();
 		$validator = new SearchWordValidator();

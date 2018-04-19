@@ -6,13 +6,22 @@ use System\Validators\AbstractValidator;
 
 class AddWordValidator extends AbstractValidator
 {
+	/**
+	 * @var array
+	 */
 	private $errors = [
 		'Не заполнен текст.',
 		'Неверный запрос.',
 	];
 
+	/**
+	 * @var bool
+	 */
 	public $isUseFlashErrors = true;
 
+	/**
+	 * @var void
+	 */
 	public function validate(): void
 	{
 		if (!$this->isPost()) {

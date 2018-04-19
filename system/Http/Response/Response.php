@@ -11,11 +11,12 @@ namespace Http\Response;
 use Exception\ResponseException;
 use Exception\RoutingException;
 use Helper\Cookie;
+use System\Render;
 use System\Router\Routing;
 
 class Response
 {
-	private $responseType;
+	private $responseType = 'simple';
 
 	/**
 	 * @var ResponseInterface
@@ -24,7 +25,7 @@ class Response
 
 	private $data;
 
-	private $param;
+	private $param = [];
 
 	private $headers = [];
 
@@ -36,6 +37,11 @@ class Response
 
 	public function __construct()
 	{
+	}
+
+	public function setAccessOrigin(): Response
+	{
+		return $this;
 	}
 
 	public function getBody()

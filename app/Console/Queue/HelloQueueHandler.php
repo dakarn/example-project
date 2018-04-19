@@ -12,6 +12,9 @@ use Queue\Queue;
 
 class HelloQueueHandler extends AbstractQueueHandler
 {
+	/**
+	 * @return HelloQueueHandler
+	 */
 	public function before(): self
 	{
 		$this->queueParam = (new Queue())
@@ -24,12 +27,19 @@ class HelloQueueHandler extends AbstractQueueHandler
 		return $this;
 	}
 
+	/**
+	 * @param \AMQPEnvelope $queue
+	 * @return bool
+	 */
 	public function run(\AMQPEnvelope $queue): bool
 	{
 		echo $queue->getBody() . PHP_EOL;
 		return true;
 	}
 
+	/**
+	 * @return HelloQueueHandler
+	 */
 	public function after(): self
 	{
 		return $this;

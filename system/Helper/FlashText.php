@@ -12,7 +12,11 @@ use Http\Request\Request;
 
 class FlashText
 {
-	public static function add(string $type, string $text)
+	/**
+	 * @param string $type
+	 * @param string $text
+	 */
+	public static function add(string $type, string $text): void
 	{
 		$session = Request::create()->getSession();
 		$flash   = $session->getAsArray('flashText');
@@ -25,6 +29,9 @@ class FlashText
 		$session->set('flashText', $flash);
 	}
 
+	/**
+	 * @return bool
+	 */
 	public static function has(): bool
 	{
 		if (!empty(Request::create()->getSession()->has('flashText'))) {
@@ -34,6 +41,10 @@ class FlashText
 		return false;
 	}
 
+	/**
+	 * @param string $type
+	 * @return bool
+	 */
 	public static function hasByType(string $type): bool
 	{
 		$sessions = Request::create()->getSession()->getAsArray('flashText');
@@ -47,6 +58,10 @@ class FlashText
 		return false;
 	}
 
+	/**
+	 * @param string $type
+	 * @return array
+	 */
 	public static function get(string $type): array
 	{
 		$response = [];
@@ -61,6 +76,9 @@ class FlashText
 		return $response;
 	}
 
+	/**
+	 * @var void
+	 */
 	public static function render()
 	{
 		$session = Request::create()->getSession();
@@ -70,10 +88,15 @@ class FlashText
 		FlashTextRender::render($data);
 	}
 
-	public static function remove()
+	/**
+	 * @return bool
+	 */
+	public static function remove(): bool
 	{
 		Request::create()
 			->getSession()
 			->delete('flashText');
+
+	    return true;
 	}
 }

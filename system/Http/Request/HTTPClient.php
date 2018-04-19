@@ -14,16 +14,30 @@ final class HTTPClient
 {
 	use SingletonTrait;
 
+	/**
+	 * @var array
+	 */
 	private $headers = [];
 
+	/**
+	 * @var array
+	 */
 	private $paramCurl = [];
 
+	/**
+	 * @var string
+	 */
 	private $result;
 
-	/** @var  Request */
+	/**
+	 * @var Request
+	 */
 	private $request;
 
-	public function doRequest(Request $request)
+	/**
+	 * @param Request $request
+	 */
+	public function doRequest(Request $request): void
 	{
 		$this->request = $request;
 
@@ -31,13 +45,19 @@ final class HTTPClient
 		$this->execute();
 	}
 
-	private function buildQuery()
+	/**
+	 * @var void
+	 */
+	private function buildQuery(): void
 	{
 		$this->headers          = $this->request->getHeaders();
 		$this->paramCurl['url'] = $this->request->getHost();
 	}
 
-	private function execute()
+	/**
+	 * @varv oid
+	 */
+	private function execute(): void
 	{
 		$ch = curl_init($this->paramCurl['url']);
 		$this->result = curl_exec($ch);

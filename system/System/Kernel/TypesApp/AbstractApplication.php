@@ -14,6 +14,7 @@ use Http\Response\Response;
 use System\Database\DB;
 use System\Config;
 use System\Database\DatabaseConfigure;
+use System\Registry;
 
 abstract class AbstractApplication
 {
@@ -51,6 +52,7 @@ abstract class AbstractApplication
 	public function __construct()
 	{
 		DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
+		Registry::set(Registry::APP, $this);
 	}
 
 	public function outputResponse(): void

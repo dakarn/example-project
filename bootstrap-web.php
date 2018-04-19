@@ -14,13 +14,14 @@ $event = new App\AppEvent();
 $event = $event->installEvents(new \System\EventListener\EventManager());
 
 $appKernel = new App\AppKernel();
+$appKernel->installMiddlewares()->installProviders();
 
-include_once PATH_SYSTEM . 'web.php';
-
-$application = $applicationInstance
+$application = (new \System\Kernel\TypesApp\WebApp())
 	->setEnvironment('DEV')
 	->setAppEvent($event)
-	->setAppKernel($appKernel);
+	->setAppKernel($appKernel)
+	->setApplicationType('Web')
+	->handle();
 
 set_exception_handler(function($e) use($application) {
 	$application->outputException($e);
@@ -30,5 +31,5 @@ register_shutdown_function(function() use($application) {
 	System\Kernel\ShutdownScript::run();
 });
 
-$applicationInstance->run();
-$applicationInstance->outputResponse();
+$application->run();
+$application->outputResponse();

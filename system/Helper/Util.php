@@ -8,28 +8,42 @@
 
 namespace Helper;
 
-use Exception\KernelException;
 class Util
 {
 	const DICTIONARY       = 'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM';
 
 	const DICTIONARY_DIGIT = '1234567890';
 
+	/**
+	 * @return string
+	 */
 	public static function filterRegex(): string
 	{
 		return '';
 	}
 
+	/**
+	 * @param int $length
+	 * @return string
+	 */
 	public static function generateCSRFToken(int $length = 30): string
 	{
 		return self::generateRandom($length);
 	}
 
+	/**
+	 * @param int $length
+	 * @return string
+	 */
 	public static function generateCookieToken(int $length = 20): string
 	{
 		return self::generateRandom($length);
 	}
 
+	/**
+	 * @param int $length
+	 * @return string
+	 */
 	private static function generateRandom(int $length): string
 	{
 		$i        = 0;
@@ -44,6 +58,9 @@ class Util
 		return $response;
 	}
 
+	/**
+	 * @var void
+	 */
 	public static function selectLoaderClass(): void
 	{
 		switch (true) {

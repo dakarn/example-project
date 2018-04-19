@@ -2,6 +2,7 @@
 
 namespace App\HelperApp;
 
+use Http\Request\Request;
 use System\Database\DB;
 use Traits\SingletonTrait;
 
@@ -9,33 +10,62 @@ class Pagination
 {
 	use SingletonTrait;
 
+	/**
+	 * @var int
+	 */
 	private $count_list = 3;
 
+	/**
+	 * @var
+	 */
 	private $page;
 
+	/**
+	 * @var int
+	 */
 	private $count = 0;
 
+	/**
+	 * @var array
+	 */
 	private $word = ['Назад', 'Далее'];
 
+	/**
+	 * @var
+	 */
 	private $url;
 
-	public function isCorrectPage()
+	/**
+	 * @return bool
+	 */
+	public function isCorrectPage(): bool
 	{
-
+		return true;
 	}
 
-	public function getPage()
+	/**
+	 * @return int
+	 */
+	public function getPage(): int
 	{
-
+		return Request::create()->takeGet('page');
 	}
 
-	public function setCount($count)
+	/**
+	 * @param $count
+	 * @return $this
+	 */
+	public function setCount($count): self
 	{
 		$this->count = $count;
 		return $this;
 	}
 
-	public function setUrl($url)
+	/**
+	 * @param $url
+	 * @return $this
+	 */
+	public function setUrl($url): self
 	{
 		$this->url = $url;
 
@@ -58,13 +88,20 @@ class Pagination
 		return $this;
 	}
 
-	public function countOnPage($countOnPage)
+	/**
+	 * @param $countOnPage
+	 * @return $this
+	 */
+	public function countOnPage($countOnPage): self
 	{
 		$this->count_list = $countOnPage;
 		return $this;
 	}
 
-	public function setData()
+	/**
+	 * @return array
+	 */
+	public function setData(): array
 	{
 		$offset = $this->count_list * ($this->page - 1);
 		$data = [];
@@ -79,8 +116,10 @@ class Pagination
 		return $data;
 	}
 
-
-	public function next()
+	/**
+	 * @return string
+	 */
+	public function next(): string
 	{
 		$link = '<button disabled class="btn btn-danger">' . $this->word[1] . '</button>';
 
@@ -91,8 +130,10 @@ class Pagination
 		return $link;
 	}
 
-
-	public function prev()
+	/**
+	 * @return string
+	 */
+	public function prev(): string
 	{
 		$link = '<button disabled class="btn btn-danger">' . $this->word[0] . '</button>';
 
