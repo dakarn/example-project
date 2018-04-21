@@ -9,6 +9,7 @@
 namespace Middleware;
 
 use Http\Request\Request;
+use Http\Request\ServerRequest;
 use Http\Response\Response;
 
 class RequestHandler implements RequestHandlerInterface
@@ -34,12 +35,12 @@ class RequestHandler implements RequestHandlerInterface
 		return $this->response;
 	}
 
-	/**
-	 * @param Request $request
-	 * @param RequestHandler $handler
-	 * @return Response
-	 */
-	public function handle(Request $request, RequestHandler $handler): Response
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return Response
+     */
+	public function handle(ServerRequest $request, RequestHandler $handler): Response
 	{
 		$curr = StorageMiddleware::currPosition();
 
@@ -48,7 +49,7 @@ class RequestHandler implements RequestHandlerInterface
 		}
 
 		$classMiddleware = StorageMiddleware::get()[$curr]['class'];
-		StorageMiddleware::nextPosition();
+		StorageMiddleware::next();
 
 		/** @var MiddlewareInterface $middleware */
 		$middleware = new $classMiddleware();

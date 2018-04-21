@@ -37,6 +37,9 @@ abstract class AbstractQueueHandler
 	 */
 	protected $queueInst;
 
+	/**
+	 * @return AbstractQueueHandler
+	 */
 	public function prepareObject(): self
 	{
 		$this->before();
@@ -55,6 +58,9 @@ abstract class AbstractQueueHandler
 		return $this;
 	}
 
+	/**
+	 * @var void
+	 */
 	public function loopObserver()
 	{
 		try {
@@ -77,9 +83,19 @@ abstract class AbstractQueueHandler
 		}
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract public function before();
 
+	/**
+	 * @param \AMQPEnvelope $queue
+	 * @return bool
+	 */
 	abstract public function run(\AMQPEnvelope $queue): bool;
 
+	/**
+	 * @return mixed
+	 */
 	abstract public function after();
 }

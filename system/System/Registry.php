@@ -17,8 +17,16 @@ class Registry
 	const ROUTERS      = 'Routers';
 	const APP          = 'APP';
 
+	/**
+	 * @var array
+	 */
 	private static $listObject = [];
 
+	/**
+	 * @param string $class
+	 * @return mixed
+	 * @throws KernelException
+	 */
 	public static function get(string $class)
 	{
 		if (!empty(self::$listObject[$class])) {
@@ -28,11 +36,20 @@ class Registry
 		throw KernelException::notFoundInAppMemento([self::$listObject[$class]]);
 	}
 
+	/**
+	 * @param string $class
+	 * @return bool
+	 */
 	public static function has(string $class): bool
 	{
 		return !empty(self::$listObject[$class]) ?: false;
 	}
 
+	/**
+	 * @param string $name
+	 * @param $class
+	 * @return bool
+	 */
 	public static function set(string $name, $class): bool
 	{
 		self::$listObject[$name] = $class;

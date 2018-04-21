@@ -10,11 +10,11 @@ namespace System\Controller;
 
 use Exception\ControllerException;
 use Helper\Cookie;
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 use Http\Response\Response;
 use Helper\Session;
 use System\Registry;
-use System\Config;
+use Configs\Config;
 use System\EventListener\EventManager;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
@@ -36,13 +36,20 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected $response;
 
-	/**
-	 * AbstractController constructor.
-	 * @param EventManager $eventManager
-	 * @param Response $response
-	 */
-	public function __construct(EventManager $eventManager, Response $response)
+    /**
+     * @var ServerRequest
+     */
+
+	protected $request;
+    /**
+     * AbstractController constructor.
+     * @param EventManager $eventManager
+     * @param Response $response
+     * @param ServerRequest $request
+     */
+	public function __construct(EventManager $eventManager, Response $response, ServerRequest $request)
 	{
+	    $this->request      = $request;
 		$this->eventManager = $eventManager;
 		$this->response     = $response;
 	}
@@ -91,11 +98,11 @@ abstract class AbstractController implements ControllerInterface
 	}
 
 	/**
-	 * @return Request
+	 * @return ServerRequest
 	 */
-	protected function request(): Request
+	protected function request(): ServerRequest
 	{
-		return Request::create();
+		return $this->request;
 	}
 
 	/**

@@ -9,19 +9,19 @@
 namespace Middleware;
 
 use Exception\ControllerException;
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 use Http\Response\Response;
 use System\Router\Routing;
 
 class MiddlewareAllowMethod implements MiddlewareInterface
 {
-	/**
-	 * @param Request $request
-	 * @param RequestHandler $handler
-	 * @return Response
-	 * @throws ControllerException
-	 */
-	public function process(Request $request, RequestHandler $handler): Response
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return Response
+     * @throws ControllerException
+     */
+	public function process(ServerRequest $request, RequestHandler $handler): Response
 	{
 		$router = Routing::getFoundRouter();
 

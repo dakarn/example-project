@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Model\Dictionary\Dictionary;
 use App\Model\Dictionary\DictionaryRepository;
-use System\Config;
+use Configs\Config;
 use System\Controller\AbstractController;
 use ElasticSearch\ElasticSearch;
 use System\Render;

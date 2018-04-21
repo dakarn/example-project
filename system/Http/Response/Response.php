@@ -16,6 +16,9 @@ use System\Router\Routing;
 
 class Response
 {
+	/**
+	 * @var string
+	 */
 	private $responseType = 'simple';
 
 	/**
@@ -23,22 +26,46 @@ class Response
 	 */
 	private $response;
 
-	private $data;
+	/**
+	 * @var string
+	 */
+	private $data = '';
 
+	/**
+	 * @var array
+	 */
 	private $param = [];
 
+	/**
+	 * @var array
+	 */
 	private $headers = [];
 
-	private $template;
+	/**
+	 * @var string
+	 */
+	private $template = '';
 
+	/**
+	 * @var array
+	 */
 	private $cookies = [];
 
+	/**
+	 * @var array
+	 */
 	private $status = [];
 
+	/**
+	 * Response constructor.
+	 */
 	public function __construct()
 	{
 	}
 
+	/**
+	 * @return Response
+	 */
 	public function setAccessOrigin(): Response
 	{
 		return $this;
@@ -49,6 +76,12 @@ class Response
 		return $this->data;
 	}
 
+	/**
+	 * @param $data
+	 * @param string $responseType
+	 * @param array $param
+	 * @return Response
+	 */
 	public function withBody($data, string $responseType = 'simple', array $param = []): Response
 	{
 		$this->param        = $param;
@@ -57,6 +90,9 @@ class Response
 		return $this;
 	}
 
+	/**
+	 * @return Response
+	 */
 	public function output(): Response
 	{
 		$this->selectResponse();
@@ -65,31 +101,53 @@ class Response
 		return $this;
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $value
+	 * @return Response
+	 */
 	public function withHeader(string $name, string $value): Response
 	{
 		$this->headers[$name] = $value;
 		return $this;
 	}
 
+	/**
+	 * @param string $name
+	 * @param string $value
+	 * @return Response
+	 */
 	public function withCookie(string $name, string $value): Response
 	{
 		$this->cookies[$name] = $value;
 		return $this;
 	}
 
+	/**
+	 * @param string $template
+	 * @return Response
+	 */
 	public function withTemplate(string $template): Response
 	{
 		$this->template = $template;
 		return $this;
 	}
 
+	/**
+	 * @param string $code
+	 * @param string $text
+	 * @return Response
+	 */
 	public function withStatus(string $code, string $text): Response
 	{
 		$this->status[$code] = $text;
 		return $this;
 	}
 
-	public function sendHeaders()
+	/**
+	 * @return bool
+	 */
+	public function sendHeaders(): bool
 	{
 		foreach ($this->headers as $headerKey => $header) {
 			header($headerKey . ': ' . $header, false);
@@ -98,14 +156,25 @@ class Response
 		foreach ($this->cookies as $cookieKey => $cookie) {
 			Cookie::create()->set($cookieKey, $cookie);
 		}
+
+		return true;
 	}
 
+	/**
+	 * @param string $url
+	 */
 	public function redirect(string $url): void
 	{
 		header('Location: ' . $url);
 		exit;
 	}
 
+	/**
+	 * @param string $routerName
+	 * @param array $arguments
+	 * @param int $status
+	 * @throws RoutingException
+	 */
 	public function redirectToRoute(string $routerName, array $arguments, int $status): void
 	{
 		$router = Routing::getRouterList()->get($routerName);

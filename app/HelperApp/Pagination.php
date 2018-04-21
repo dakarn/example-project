@@ -2,7 +2,7 @@
 
 namespace App\HelperApp;
 
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 use System\Database\DB;
 use Traits\SingletonTrait;
 
@@ -48,7 +48,7 @@ class Pagination
 	 */
 	public function getPage(): int
 	{
-		return Request::create()->takeGet('page');
+		return ServerRequest::create()->takeGet('page');
 	}
 
 	/**

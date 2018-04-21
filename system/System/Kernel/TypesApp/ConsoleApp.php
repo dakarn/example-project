@@ -12,6 +12,6 @@ final class ConsoleApp extends AbstractApplication
 {
 	public function run()
 	{
-
+        $this->runInternal();
 	}
 }

@@ -10,19 +10,33 @@ namespace System\Validators;
 
 use Helper\CSRFToken;
 use Helper\FlashText;
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
+	/**
+	 * @var array
+	 */
 	protected $stackErrors = [];
 
+	/**
+	 * @var bool
+	 */
 	public $isUseFlashErrors = false;
 
+	/**
+	 * @var string
+	 */
 	private $post = 'POST';
 
+	/**
+	 * @var string
+	 */
 	private $get  = 'GET';
 
-
+	/**
+	 * @return array
+	 */
 	public function getErrorsApi(): array
 	{
 		$errors = [
@@ -38,6 +52,9 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $errors;
 	}
 
+	/**
+	 * @return AbstractValidator
+	 */
 	public function setFlashErrors(): self
 	{
 		if (!$this->isUseFlashErrors) {
@@ -51,35 +68,54 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $this;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getErrors(): array
 	{
 		return $this->stackErrors;
 	}
 
+	/**
+	 * @param string $field
+	 * @return string
+	 */
 	public function getError(string $field): string
 	{
 		return $this->stackErrors[$field] ?? '';
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isCSRFToken(): bool
 	{
 		return CSRFToken::create()
 			->setValidationData(
-				Request::create()->getCookie()->get('CSRFToken'),
-				Request::create()->takePost('CSRFToken'))
+				ServerRequest::create()->getCookie()->get('CSRFToken'),
+				ServerRequest::create()->takePost('CSRFToken'))
 			->isValid();
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isPost(): bool
 	{
-		return Request::create()->getMethod() === $this->post;
+		return ServerRequest::create()->getMethod() === $this->post;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isGet(): bool
 	{
-		return Request::create()->getMethod() === $this->get;
+		return ServerRequest::create()->getMethod() === $this->get;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isValid(): bool
 	{
 		$this->validate();
@@ -88,5 +124,8 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return empty($this->stackErrors);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract public function validate();
 }

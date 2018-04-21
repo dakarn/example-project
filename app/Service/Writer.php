@@ -12,8 +12,14 @@ use System\Service\ServiceInterface;
 
 class Writer implements ServiceInterface
 {
+	/**
+	 * @var array
+	 */
 	private $arguments = [];
 
+	/**
+	 * @param array $arguments
+	 */
 	public function setArguments(array $arguments)
 	{
 		$this->arguments = $arguments;

@@ -8,7 +8,7 @@
 
 namespace Helper;
 
-use System\Config;
+use Configs\Config;
 
 class FlashTextRender
 {

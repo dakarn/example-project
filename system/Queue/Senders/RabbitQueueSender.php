@@ -13,12 +13,19 @@ use Queue\Queue;
 
 class RabbitQueueSender extends AbstractQueueStrategy
 {
+	/**
+	 * @param Queue $params
+	 * @return RabbitQueueSender
+	 */
 	public function setParams(Queue $params): self
 	{
 		$this->params = $params;
 		return $this;
 	}
 
+	/**
+	 * @return $this
+	 */
 	public function build()
 	{
 		$this->amqp = new \AMQPConnection($this->configConnect);
@@ -38,9 +45,14 @@ class RabbitQueueSender extends AbstractQueueStrategy
 		return $this;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function send()
 	{
-		$this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
+		$result = $this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
 		$this->amqp->disconnect();
+
+		return $result;
 	}
 }

@@ -8,7 +8,6 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
 {
     public static $files = array (
         '780dfa3d3b72ab353797eae70dab5629' => __DIR__ . '/../..' . '/system/System/DefineSetup.php',
-        'f0cee336c41cc7fd253014ee2296c5ae' => __DIR__ . '/../..' . '/app/AppEvent.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -46,6 +45,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             'Exception\\' => 10,
             'ElasticSearch\\' => 14,
+        ),
+        'C' => 
+        array (
+            'Configs\\' => 8,
         ),
         'A' => 
         array (
@@ -97,6 +100,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'ElasticSearch\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/ElasticSearch',
+        ),
+        'Configs\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/system/Configs',
         ),
         'App\\' => 
         array (

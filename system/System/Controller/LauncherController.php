@@ -10,6 +10,7 @@ namespace System\Controller;
 
 use Exception\ControllerException;
 use Http\Request\RequestInterface;
+use Http\Request\ServerRequest;
 use Http\Response\Response;
 use System\EventListener\EventManager;
 use System\Kernel\GETParam;
@@ -22,6 +23,11 @@ use System\Router\Router;
 class LauncherController implements LauncherControllerInterface
 {
     const PREFIX_ACTION = 'Action';
+
+    /**
+     * @var ServerRequest
+     */
+    private $request;
 
     /**
      * @var AbstractController
@@ -78,6 +84,7 @@ class LauncherController implements LauncherControllerInterface
 	 */
     public function __construct(WebApp $webApp, Router $router, RequestInterface $request, Response $response)
     {
+        $this->request      = $request;
         $this->eventManager = $webApp->getEventApp();
         $this->response     = $response;
         $this->router       = $router;
@@ -105,7 +112,7 @@ class LauncherController implements LauncherControllerInterface
         ]);
 
         /** @var AbstractController $controller */
-        $this->controller = new $this->className($this->eventManager, $this->response);
+        $this->controller = new $this->className($this->eventManager, $this->response, $this->request);
 
         if (!$this->controller->__before($routeData)) {
             return;

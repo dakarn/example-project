@@ -4,10 +4,13 @@ namespace System\Router;
 
 use System\Registry;
 use System\Kernel\GETParam;
-use System\Config;
+use Configs\Config;
 
 class Routing implements RoutingInterface
 {
+	/**
+	 * @var bool
+	 */
 	private static $isFound = false;
 
 	/**
@@ -15,6 +18,11 @@ class Routing implements RoutingInterface
 	 */
 	private static $foundRouter;
 
+	/**
+	 * @param array $routers
+	 * @param string $path
+	 * @return Router
+	 */
 	public static function findRoute(array $routers, string $path): Router
 	{
 		$path = self::cutSlash($path);
@@ -41,16 +49,25 @@ class Routing implements RoutingInterface
 		return new Router([]);
 	}
 
+	/**
+	 * @param Router $router
+	 */
 	public static function setFoundRouter(Router $router): void
 	{
 		self::$foundRouter = $router;
 	}
 
+	/**
+	 * @return Router
+	 */
 	public static function getFoundRouter(): Router
 	{
 		return self::$foundRouter;
 	}
 
+	/**
+	 *
+	 */
 	public static function fillRouterList(): void
 	{
 		$routers    = Config::getRouters();
@@ -64,6 +81,9 @@ class Routing implements RoutingInterface
 		Registry::set(Registry::ROUTERS, $routerList);
 	}
 
+	/**
+	 * @return RouterList
+	 */
 	public static function getRouterList(): RouterList
 	{
 		if (!Registry::has(Registry::ROUTERS)) {
@@ -73,6 +93,11 @@ class Routing implements RoutingInterface
 		return Registry::get(Registry::ROUTERS);
 	}
 
+	/**
+	 * @param Router $router
+	 * @param string $path
+	 * @return bool
+	 */
 	public static function findRouterByRegex(Router $router, string $path): bool
 	{
 		$regexPath  = $router->getPath();
@@ -92,6 +117,12 @@ class Routing implements RoutingInterface
 		return false;
 	}
 
+	/**
+	 * @param string $path
+	 * @param array $params
+	 * @param array $params1
+	 * @return string
+	 */
 	public static function replaceRegexToParam(string $path, array $params, array $params1): string
 	{
 		$path1 = $path;
@@ -104,6 +135,10 @@ class Routing implements RoutingInterface
 		return $path1;
 	}
 
+	/**
+	 * @param string $path
+	 * @return string
+	 */
 	private static function cutSlash(string $path): string
 	{
 		if (substr($path, -1) == '/') {

@@ -17,5 +17,6 @@ return array(
     'Helper\\' => array($baseDir . '/system/Helper'),
     'Exception\\' => array($baseDir . '/system/Exception'),
     'ElasticSearch\\' => array($baseDir . '/system/ElasticSearch'),
+    'Configs\\' => array($baseDir . '/system/Configs'),
     'App\\' => array($baseDir . '/app'),
 );

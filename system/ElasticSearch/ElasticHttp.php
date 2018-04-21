@@ -8,12 +8,14 @@
 
 namespace ElasticSearch;
 
-use ElasticSearch\ElasticResult;
 use Exception\HttpException;
-use System\Config;
+use Configs\Config;
 
 class ElasticHttp
 {
+	/**
+	 * @var array
+	 */
 	const ALLOW_METHOD = [
 		'POST'   => '',
 		'PUT'    => '',
@@ -22,67 +24,125 @@ class ElasticHttp
 		'HEAD'   => '',
 	];
 
+	/**
+	 * @var bool
+	 */
 	private $isPretty = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isGet = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isSearch = false;
 
+	/**
+	 * @var string
+	 */
 	private $url = '';
 
+	/**
+	 * @var bool
+	 */
 	private $isPost = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isPut = false;
 
+	/**
+	 * @var bool
+	 */
 	private $isDelete = false;
 
+	/**
+	 * @var array
+	 */
 	private $query = [];
 
+	/**
+	 * @param bool $isPretty
+	 * @return ElasticHttp
+	 */
 	public function setPretty(bool $isPretty): self
 	{
 		$this->isPretty = $isPretty;
 		return $this;
 	}
 
-	public function setGET()
+	/**
+	 * @return ElasticHttp
+	 */
+	public function setGET(): self
 	{
 		$this->isGet    = true;
 		$this->isSearch = false;
 		$this->isPost   = false;
 		$this->isPut    = false;
+
+		return $this;
 	}
 
-	public function setPOST()
+	/**
+	 * @return ElasticHttp
+	 */
+	public function setPOST(): self
 	{
 		$this->isGet    = false;
 		$this->isSearch = false;
 		$this->isPost   = true;
 		$this->isPut    = false;
+
+		return $this;
 	}
 
-	public function setDELETE()
+	/**
+	 * @return ElasticHttp
+	 */
+	public function setDELETE(): self
 	{
 		$this->isGet    = false;
 		$this->isSearch = false;
 		$this->isPost   = false;
 		$this->isPut    = false;
 		$this->isDelete = true;
+
+		return $this;
 	}
 
-	public function setPUT()
+	/**
+	 * @return ElasticHttp
+	 */
+	public function setPUT(): self
 	{
 		$this->isGet    = false;
 		$this->isSearch = false;
 		$this->isPost   = false;
 		$this->isPut    = true;
+
+		return $this;
 	}
 
-	public function setSearch()
+	/**
+	 * @return ElasticHttp
+	 */
+	public function setSearch(): self
 	{
 		$this->isSearch = true;
 		$this->isGet    = false;
+
+		return $this;
 	}
 
+	/**
+	 * @param array $query
+	 * @return ElasticResult
+	 * @throws HttpException
+	 */
 	public function query(array $query): ElasticResult
 	{
 		$result = $this->doRequest($query);
@@ -94,6 +154,10 @@ class ElasticHttp
 		return (new ElasticResult($result));
 	}
 
+	/**
+	 * @param array $query
+	 * @return string
+	 */
 	private function doRequest(array $query): string
 	{
 		$config      = Config::get('elasticsearch');
@@ -128,7 +192,11 @@ class ElasticHttp
 		return $result;
 	}
 
-	private function buildUri(string $urlRoot)
+	/**
+	 * @param string $urlRoot
+	 * @return bool
+	 */
+	private function buildUri(string $urlRoot): bool
 	{
 		if ($this->isSearch) {
 
@@ -163,5 +231,7 @@ class ElasticHttp
 				$this->url = $urlRoot . $this->query['index'];
 			}
 		}
+
+		return true;
 	}
 }

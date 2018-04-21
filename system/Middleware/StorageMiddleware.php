@@ -70,7 +70,7 @@ class StorageMiddleware
 	/**
 	 * @var void
 	 */
-	public static function nextPosition(): void
+	public static function next(): void
 	{
 		self::$currPos++;
 	}

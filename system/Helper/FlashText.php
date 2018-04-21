@@ -8,7 +8,7 @@
 
 namespace Helper;
 
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 
 class FlashText
 {
@@ -18,7 +18,7 @@ class FlashText
 	 */
 	public static function add(string $type, string $text): void
 	{
-		$session = Request::create()->getSession();
+		$session = ServerRequest::create()->getSession();
 		$flash   = $session->getAsArray('flashText');
 
 		$flash[count($flash)] = [
@@ -34,7 +34,7 @@ class FlashText
 	 */
 	public static function has(): bool
 	{
-		if (!empty(Request::create()->getSession()->has('flashText'))) {
+		if (!empty(ServerRequest::create()->getSession()->has('flashText'))) {
 			return false;
 		}
 
@@ -47,7 +47,7 @@ class FlashText
 	 */
 	public static function hasByType(string $type): bool
 	{
-		$sessions = Request::create()->getSession()->getAsArray('flashText');
+		$sessions = ServerRequest::create()->getSession()->getAsArray('flashText');
 
 		foreach ($sessions as $session) {
 			if ($session['type'] === $type) {
@@ -65,7 +65,7 @@ class FlashText
 	public static function get(string $type): array
 	{
 		$response = [];
-		$sessions = Request::create()->getSession()->getAsArray('flashText');
+		$sessions = ServerRequest::create()->getSession()->getAsArray('flashText');
 
 		foreach ($sessions as $session) {
 			if ($session['type'] === $type) {
@@ -81,7 +81,7 @@ class FlashText
 	 */
 	public static function render()
 	{
-		$session = Request::create()->getSession();
+		$session = ServerRequest::create()->getSession();
 		$data    = $session->getAsArray('flashText');
 		$session->delete('flashText');
 
@@ -93,7 +93,7 @@ class FlashText
 	 */
 	public static function remove(): bool
 	{
-		Request::create()
+		ServerRequest::create()
 			->getSession()
 			->delete('flashText');
 

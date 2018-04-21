@@ -13,8 +13,14 @@ class DictionaryRepository
 	/** @var  DictionaryStorage */
 	private $storage;
 
+	/**
+	 * @var array
+	 */
 	private $dictList = [];
 
+	/**
+	 * @return DictionaryStorage
+	 */
 	public function getDictionaryStorage(): DictionaryStorage
 	{
 		if (!$this->storage instanceof DictionaryStorage) {
@@ -24,6 +30,9 @@ class DictionaryRepository
 		return $this->storage;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getAllDictionaries(): array
 	{
 		$results = $this->getDictionaryStorage()
@@ -36,6 +45,11 @@ class DictionaryRepository
 		return $this->dictList;
 	}
 
+	/**
+	 * @param int $id
+	 * @return Dictionary
+	 * @throws \Exception
+	 */
 	public function getDictionaryById(int $id): Dictionary
 	{
 		$result = $this->getDictionaryStorage()
@@ -49,6 +63,9 @@ class DictionaryRepository
 
 	}
 
+	/**
+	 * @param array $data
+	 */
 	public function searchWord(array $data)
 	{
 		$dictionary = new Dictionary($data);
@@ -57,6 +74,10 @@ class DictionaryRepository
 			->searchDictionaryByText($dictionary);
 	}
 
+	/**
+	 * @param array $data
+	 * @return bool
+	 */
 	public function addWord(array $data): bool
 	{
 		$dictionary = new Dictionary($data);
@@ -74,6 +95,10 @@ class DictionaryRepository
 		return true;
 	}
 
+	/**
+	 * @param int $id
+	 * @return bool
+	 */
 	public function deleteWord(int $id): bool
 	{
 		$this->getDictionaryStorage()

@@ -41,14 +41,14 @@ final class HTTPClient
 	{
 		$this->request = $request;
 
-		$this->buildQuery();
+		$this->buildQuery(new RequestBuilder());
 		$this->execute();
 	}
 
 	/**
-	 * @var void
+	 * @param RequestBuilderInterface $builder
 	 */
-	private function buildQuery(): void
+	private function buildQuery(RequestBuilderInterface $builder): void
 	{
 		$this->headers          = $this->request->getHeaders();
 		$this->paramCurl['url'] = $this->request->getHost();
@@ -59,8 +59,16 @@ final class HTTPClient
 	 */
 	private function execute(): void
 	{
-		$ch = curl_init($this->paramCurl['url']);
+		$ch           = curl_init($this->paramCurl['url']);
 		$this->result = curl_exec($ch);
 		curl_close($ch);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResult(): string
+	{
+		return $this->result;
 	}
 }

@@ -2,8 +2,6 @@
 
 namespace System\Kernel;
 
-use Http\Request\Request;
-
 class GETParam
 {
 	private static $paramForController = [];
@@ -35,7 +33,7 @@ class GETParam
 
 	public static function options(): string
 	{
-		$options = Request::create()->takeGet('options');
+		$options = !empty($_GET['options']) ? $_GET['options'] : '';
 
 		if (empty($options)) {
 			self::addGET('options', '');

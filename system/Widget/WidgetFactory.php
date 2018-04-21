@@ -9,7 +9,7 @@
 namespace Widget;
 
 use Exception\WidgetException;
-use System\Config;
+use Configs\Config;
 
 class WidgetFactory
 {

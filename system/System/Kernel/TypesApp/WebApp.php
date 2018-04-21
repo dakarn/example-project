@@ -9,8 +9,8 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
+use Http\Request\ServerRequest;
 use Providers\StorageProviders;
-use Http\Request\Request;
 use Http\Response\Response;
 
 final class WebApp extends AbstractApplication
@@ -18,7 +18,12 @@ final class WebApp extends AbstractApplication
 	/**
 	 * @var Response
 	 */
-	public $response;
+	private $response;
+
+    /**
+     * @var ServerRequest
+     */
+	private $request;
 
 	/**
 	 * @param AppKernel $appKernel
@@ -37,8 +42,8 @@ final class WebApp extends AbstractApplication
 	 */
 	public function handle(): WebApp
 	{
-		$request = Request::create();
-		$request->handle($this->appKernel, $request);
+		$request = new ServerRequest();
+		$this->request = $request->handle($this->appKernel, $request);
 
 		return $this;
 	}
@@ -48,6 +53,8 @@ final class WebApp extends AbstractApplication
 	 */
 	public function run(): void
 	{
+	    $this->runInternal();
+
 		try {
 			$this->handle();
 		} catch(\Throwable $e) {
@@ -60,7 +67,7 @@ final class WebApp extends AbstractApplication
 	 */
 	public function outputResponse(): void
 	{
-		$this->response = Request::create()->resultHandle();
+		$this->response = $this->request->resultHandle();
 
 		$this->response->sendHeaders();
 		$this->response->output();

@@ -13,6 +13,9 @@ use Queue\Queue;
 
 abstract class AbstractQueueStrategy
 {
+	/**
+	 * @var array
+	 */
 	const QUEUE_TYPE = [
 		'sender',
 		'receiver',
@@ -48,11 +51,18 @@ abstract class AbstractQueueStrategy
 	 */
 	protected $params;
 
+	/**
+	 * AbstractQueueStrategy constructor.
+	 * @param array $configConnect
+	 */
 	public function __construct(array $configConnect)
 	{
 		$this->configConnect = $configConnect;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	abstract public function build();
 
 }

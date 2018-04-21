@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: user
- * Date: 10.04.2018
- * Time: 22:30
+ * Date: 21.04.2018
+ * Time: 20:28
  */
 
 namespace Http\Request;
 
-interface RequestInterface
+interface RequestBuilderInterface
 {
 
 }

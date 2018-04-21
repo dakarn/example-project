@@ -4,6 +4,9 @@ namespace System\Database;
 
 class DB
 {
+    /**
+     * @var \mysqli
+     */
 	private static $connect;
 
 	/**
@@ -11,19 +14,31 @@ class DB
 	 */
 	private static $configure;
 
+    /**
+     * DB constructor.
+     */
 	private function __construct()
 	{
 	}
 
+    /**
+     * @var void
+     */
 	private function __clone()
 	{
 	}
 
+    /**
+     * @param DatabaseConfigure $configure
+     */
 	public static function setConfigure(DatabaseConfigure $configure)
 	{
 		self::$configure = $configure;
 	}
 
+    /**
+     * @return \mysqli
+     */
 	public static function create(): \mysqli
 	{
 		if (!self::$connect instanceof \mysqli) {

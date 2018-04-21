@@ -10,23 +10,48 @@ namespace ElasticSearch;
 
 class ElasticQuery
 {
+	/**
+	 * @var ElasticHttp
+	 */
 	private $elasticHttp;
 
-	private $index;
+	/**
+	 * @var string
+	 */
+	private $index = '';
 
-	private $type;
+	/**
+	 * @var string
+	 */
+	private $type = '';
 
-	private $id;
+	/**
+	 * @var int
+	 */
+	private $id = 0;
 
+	/**
+	 * @var array
+	 */
 	private $body = [];
 
-	private $path;
+	/**
+	 * @var string
+	 */
+	private $path = '';
 
+	/**
+	 * ElasticQuery constructor.
+	 * @param ElasticHttp $elasticHttp
+	 */
 	public function __construct(ElasticHttp $elasticHttp)
 	{
 		$this->elasticHttp = $elasticHttp;
 	}
 
+	/**
+	 * @return ElasticResult
+	 */
 	public function execute(): ElasticResult
 	{
 		return $this->elasticHttp
@@ -34,6 +59,10 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param array $body
+	 * @return ElasticResult
+	 */
 	public function search(array $body): ElasticResult
 	{
 		if (empty($body)) {
@@ -48,6 +77,11 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param string $method
+	 * @param $body
+	 * @return ElasticQuery
+	 */
 	public function setBody(string $method, $body): self
 	{
 		if (!isset(ElasticHttp::ALLOW_METHOD[$method])) {
@@ -61,35 +95,58 @@ class ElasticQuery
 		return $this;
 	}
 
+	/**
+	 * @param string $index
+	 * @return ElasticQuery
+	 */
 	public function setIndex(string $index): self
 	{
 		$this->index = $index;
 		return $this;
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticQuery
+	 */
 	public function setId(string $id): self
 	{
 		$this->id = $id;
 		return $this;
 	}
 
+	/**
+	 * @param string $type
+	 * @return ElasticQuery
+	 */
 	public function setType(string $type): self
 	{
 		$this->type = $type;
 		return $this;
 	}
 
+	/**
+	 * @param string $path
+	 * @return ElasticQuery
+	 */
 	public function setPath(string $path): self
 	{
 		$this->path = $path;
 		return $this;
 	}
 
+	/**
+	 *
+	 */
 	public function update()
 	{
 
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticResult
+	 */
 	public function delete(string $id): ElasticResult
 	{
 		$this->elasticHttp->setDELETE();
@@ -100,6 +157,10 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param array $body
+	 * @return ElasticResult
+	 */
 	public function add(array $body): ElasticResult
 	{
 		if (empty($body['id'])) {
@@ -116,6 +177,9 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return ElasticResult
+	 */
 	public function createIndex(): ElasticResult
 	{
 		$this->elasticHttp->setPUT();
@@ -125,6 +189,9 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return ElasticResult
+	 */
 	public function deleteIndex(): ElasticResult
 	{
 		$this->elasticHttp->setDELETE();
@@ -134,6 +201,10 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @param string $id
+	 * @return ElasticResult
+	 */
 	public function get(string $id): ElasticResult
 	{
 		$this->elasticHttp->setGET();
@@ -149,6 +220,9 @@ class ElasticQuery
 			->query($this->buildQueryArray());
 	}
 
+	/**
+	 * @return array
+	 */
 	private function buildQueryArray(): array
 	{
 		$param = [

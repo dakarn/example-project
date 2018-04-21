@@ -2,14 +2,30 @@
 
 namespace System;
 
+use Configs\Config;
+
 class Render
 {
+	/**
+	 * @var string
+	 */
 	const PATH = TEMPLATE . '/';
 
+	/**
+	 * @var string
+	 */
 	private $template = '';
 
+	/**
+	 * @var array
+	 */
 	private $params = [];
 
+	/**
+	 * Render constructor.
+	 * @param $template
+	 * @param array $params
+	 */
 	public function __construct($template, array $params = [])
 	{
 		if (!file_exists(self::PATH . $template)) {
@@ -20,6 +36,9 @@ class Render
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function render(): string
     {
         extract($this->params);

@@ -8,18 +8,18 @@
 
 namespace App\MiddlewareApp;
 
-use Http\Request\Request;
+use Http\Request\ServerRequest;
 use Middleware\MiddlewareInterface;
 use Middleware\RequestHandler;
 
 class MiddlewareCheckAjax implements MiddlewareInterface
 {
-	/**
-	 * @param Request $request
-	 * @param RequestHandler $handler
-	 * @return \Http\Response\Response
-	 */
-	public function process(Request $request, RequestHandler $handler)
+    /**
+     * @param ServerRequest $request
+     * @param RequestHandler $handler
+     * @return \Http\Response\Response
+     */
+	public function process(ServerRequest $request, RequestHandler $handler)
 	{
 		if (!$request->isAjax()) {
 
