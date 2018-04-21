@@ -21,10 +21,6 @@ class MiddlewareCheckAjax implements MiddlewareInterface
      */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
-		if (!$request->isAjax()) {
-
-		}
-
 		return $handler->handle($request, $handler);
 	}
 }

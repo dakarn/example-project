@@ -9,6 +9,7 @@
 namespace Middleware;
 
 use Exception\ControllerException;
+use Exception\MiddlewareException;
 use Http\Request\ServerRequest;
 use Http\Response\Response;
 use System\Router\Routing;

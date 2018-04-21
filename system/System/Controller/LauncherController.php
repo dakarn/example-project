@@ -22,6 +22,11 @@ use System\Router\Router;
 
 class LauncherController implements LauncherControllerInterface
 {
+	/**
+	 * @var string
+	 */
+	const APP = 'App\\';
+
     const PREFIX_ACTION = 'Action';
 
     /**
@@ -79,10 +84,10 @@ class LauncherController implements LauncherControllerInterface
 	 * LauncherController constructor.
 	 * @param WebApp $webApp
 	 * @param Router $router
-	 * @param RequestInterface $request
+	 * @param ServerRequest $request
 	 * @param Response $response
 	 */
-    public function __construct(WebApp $webApp, Router $router, RequestInterface $request, Response $response)
+    public function __construct(WebApp $webApp, Router $router, ServerRequest $request, Response $response)
     {
         $this->request      = $request;
         $this->eventManager = $webApp->getEventApp();
@@ -95,12 +100,12 @@ class LauncherController implements LauncherControllerInterface
 	 */
     private function prepare(): void
     {
-        $this->className = 'App\\' . str_replace(':', '\\', $this->router->getController());
+        $this->className = self::APP . str_replace(':', '\\', $this->router->getController());
         $this->action    = $this->router->getAction() . self::PREFIX_ACTION;
     }
 
 	/**
-	 * @var void
+	 * @throws ControllerException
 	 */
     private function runController(): void
     {
@@ -115,7 +120,7 @@ class LauncherController implements LauncherControllerInterface
         $this->controller = new $this->className($this->eventManager, $this->response, $this->request);
 
         if (!$this->controller->__before($routeData)) {
-            return;
+            throw ControllerException::beforeReturnFalse();
         }
 
         $this->runAction($this->controller, $this->action);

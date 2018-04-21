@@ -9,6 +9,7 @@
 namespace System\Kernel\TypesApp;
 
 use App\AppKernel;
+use Exception\ExceptionListener\ExceptionListener;
 use Http\Request\ServerRequest;
 use Providers\StorageProviders;
 use Http\Response\Response;
@@ -58,6 +59,7 @@ final class WebApp extends AbstractApplication
 		try {
 			$this->handle();
 		} catch(\Throwable $e) {
+			new ExceptionListener($e);
 			$this->outputException($e);
 		}
 	}

@@ -61,6 +61,14 @@ class Config implements ConfigInterface
 
 	}
 
+	/**
+	 * @return array
+	 */
+	public static function getExceptionHandlers(): array
+	{
+		return self::get('exception-handlers');
+	}
+
     /**
      * @return array
      */
