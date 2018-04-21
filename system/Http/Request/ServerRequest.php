@@ -28,22 +28,18 @@ class ServerRequest
 	 */
     private static $request;
 
-    /**
-     * @param AppKernel $appKernel
-     * @param ServerRequest $request
-     * @return ServerRequest
-     * @throws ResponseException
-     */
-    public function handle(AppKernel $appKernel, ServerRequest $request): ServerRequest
+	/**
+	 * @return ServerRequest
+	 * @throws ResponseException
+	 */
+    public function handle(): ServerRequest
     {
-        StorageMiddleware::add($appKernel->getMiddlewares());
-
         if (!isset(StorageMiddleware::get()[0])) {
             throw ResponseException::invalidResponse();
         }
 
         $runHandler = new RequestHandler();
-        $this->response = $runHandler->handle($request, $runHandler);
+        $this->response = $runHandler->handle($this, $runHandler);
 
         return $this;
     }

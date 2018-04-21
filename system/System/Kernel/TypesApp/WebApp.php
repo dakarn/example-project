@@ -11,6 +11,7 @@ namespace System\Kernel\TypesApp;
 use App\AppKernel;
 use Exception\ExceptionListener\ExceptionListener;
 use Http\Request\ServerRequest;
+use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
 use Http\Response\Response;
 
@@ -34,6 +35,7 @@ final class WebApp extends AbstractApplication
 	{
 		parent::setAppKernel($appKernel);
 		StorageProviders::add($appKernel->getProviders());
+		StorageMiddleware::add($appKernel->getMiddlewares());
 
 		return $this;
 	}
@@ -43,8 +45,7 @@ final class WebApp extends AbstractApplication
 	 */
 	public function handle(): WebApp
 	{
-		$request = new ServerRequest();
-		$this->request = $request->handle($this->appKernel, $request);
+		$this->request = (new ServerRequest())->handle();
 
 		return $this;
 	}
