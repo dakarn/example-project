@@ -8,10 +8,27 @@
 
 namespace Http\Response;
 
-class XML implements FormatInterface
+class XML implements FormatResponseInterface
 {
+	/**
+	 * @var array|string
+	 */
+	private $data = '';
+
+	/**
+	 * XML constructor.
+	 * @param array $data
+	 */
+	public function __construct(array $data)
+	{
+		$this->data = $data;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getFormattedText(): string
 	{
-		// TODO: Implement getFormattedText() method.
+		return $this->data;
 	}
 }

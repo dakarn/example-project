@@ -14,6 +14,8 @@ use Http\Response\Response;
 use System\Database\DB;
 use Configs\Config;
 use System\Database\DatabaseConfigure;
+use System\Logger\Logger;
+use System\Logger\LoggerAware;
 use System\Registry;
 
 abstract class AbstractApplication
@@ -192,6 +194,15 @@ abstract class AbstractApplication
 				(new Response())->redirect(URL);
 			}
 		}
+	}
+
+	/**
+	 * @param string $level
+	 * @param string $message
+	 */
+	protected function log(string $level, string  $message)
+	{
+		LoggerAware::setlogger(new Logger())->log($level, $message);
 	}
 
     /**

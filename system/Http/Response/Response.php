@@ -14,27 +14,17 @@ use Helper\Cookie;
 use System\Render;
 use System\Router\Routing;
 
-class Response
+class Response implements ResponseInterface
 {
 	/**
-	 * @var string
+	 * @var FormatResponseInterface
 	 */
-	private $responseType = 'simple';
-
-	/**
-	 * @var ResponseInterface
-	 */
-	private $response;
+	private $formatterType;
 
 	/**
 	 * @var string
 	 */
 	private $data = '';
-
-	/**
-	 * @var array
-	 */
-	private $param = [];
 
 	/**
 	 * @var array
@@ -71,22 +61,23 @@ class Response
 		return $this;
 	}
 
-	public function getBody()
+	/**
+	 * @return string
+	 */
+	public function getBody(): string
 	{
 		return $this->data;
 	}
 
 	/**
-	 * @param $data
-	 * @param string $responseType
-	 * @param array $param
+	 * @param FormatResponseInterface $formatted
 	 * @return Response
 	 */
-	public function withBody($data, string $responseType = 'simple', array $param = []): Response
+	public function withBody(FormatResponseInterface $formatted): Response
 	{
-		$this->param        = $param;
-		$this->data         = $this->data . $data;
-		$this->responseType = $responseType;
+		$this->formatterType = $formatted;
+		$this->data          = $formatted->getFormattedText();
+
 		return $this;
 	}
 
@@ -95,9 +86,7 @@ class Response
 	 */
 	public function output(): Response
 	{
-		$this->selectResponse();
-
-		echo $this->response->render($this->data, $this->param);
+		echo $this->data;
 		return $this;
 	}
 
@@ -186,26 +175,5 @@ class Response
 		}
 
 		throw RoutingException::notFound([$routerName]);
-	}
-
-	private function selectResponse(): void
-	{
-		switch ($this->responseType) {
-			case 'simple':
-				$this->response = new SimpleResponse();
-				break;
-			case 'json':
-				$this->response = new JsonResponse();
-				break;
-			case 'api':
-				$this->response = new ApiResponse();
-				break;
-			case 'xml':
-				$this->response = new XMLResponse();
-				break;
-			default:
-				throw ResponseException::invalidResponse();
-				break;
-		}
 	}
 }

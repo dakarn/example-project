@@ -11,6 +11,8 @@ namespace System\Controller;
 use Exception\ControllerException;
 use Helper\Cookie;
 use Http\Request\ServerRequest;
+use Http\Response\API;
+use Http\Response\FormatResponseInterface;
 use Http\Response\Response;
 use Helper\Session;
 use System\Registry;
@@ -41,6 +43,7 @@ abstract class AbstractController implements ControllerInterface
      */
 
 	protected $request;
+
     /**
      * AbstractController constructor.
      * @param EventManager $eventManager
@@ -106,14 +109,30 @@ abstract class AbstractController implements ControllerInterface
 	}
 
 	/**
-	 * @param $data
-	 * @param string $responseType
-	 * @param array $param
+	 * @param FormatResponseInterface $formatted
 	 * @return Response
 	 */
-	protected function response($data, string $responseType = '', array $param = []): Response
+	protected function response(FormatResponseInterface $formatted): Response
 	{
-		return $this->response->withBody($data, $responseType, $param);
+		return $this->response->withBody($formatted);
+	}
+
+	/**
+	 * @param array $data
+	 * @return Response
+	 */
+	protected function apiResponseOK(array $data): Response
+	{
+		return $this->response(new API($data, ['type' => 'success']));
+	}
+
+	/**
+	 * @param array $data
+	 * @return Response
+	 */
+	protected function apiResponseBad(array $data): Response
+	{
+		return $this->response(new API($data, ['type' => 'failed']));
 	}
 
 	/**
@@ -139,12 +158,15 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function invokeRouter(string $invokeRouter)
 	{
-		$routerList = Routing::getRouterList();
-		$router     = $routerList->get($invokeRouter);
+		$router = Routing::getRouterList()->get($invokeRouter);
 
 		if (!empty($router)) {
-			$app = Registry::get(Registry::APP);
-			return $app->runController($router);
+			(new LauncherController(
+				Registry::get(Registry::APP),
+				$router,
+				$this->request,
+				$this->response
+			))->execute();
 		}
 
 		throw ControllerException::notFoundController([$invokeRouter]);

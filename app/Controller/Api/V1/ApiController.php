@@ -9,6 +9,7 @@
 namespace App\Controller\Api\V1;
 
 use App\Model\Dictionary\DictionaryRepository;
+use Http\Response\API;
 use Http\Response\Response;
 use System\Controller\AbstractController;
 use App\Validator\SearchWordValidator;
@@ -16,19 +17,19 @@ use App\Validator\SearchWordValidator;
 class ApiController extends AbstractController
 {
 	/**
-	 * @return \Http\Response\Response
+	 * @return Response
 	 */
 	public function addAction(): Response
 	{
-		return $this->response([], 'api', ['success']);
+		return $this->response(new API([], []));
 	}
 
 	/**
 	 * @return Response
 	 */
-	public function getAction()
+	public function getAction(): Response
 	{
-		return $this->response([], 'api', ['success']);
+		return $this->response(new API(['fg' => '33'], []));
 	}
 
 	/**
@@ -36,7 +37,7 @@ class ApiController extends AbstractController
 	 */
 	public function updateAction(): Response
 	{
-		return $this->response([], 'api', ['success']);
+		return $this->response(new API([], []));
 	}
 
 	/**
@@ -44,7 +45,7 @@ class ApiController extends AbstractController
 	 */
 	public function deleteAction(): Response
 	{
-		return $this->response([], 'api', ['success']);
+		return $this->response(new API([], []));
 	}
 
 	/**
@@ -62,6 +63,6 @@ class ApiController extends AbstractController
 			$dictRepos->searchWord($_POST);
 		}
 
-		return $this->response([], 'api', ['success']);
+		return $this->response(new API([], []));
 	}
 }

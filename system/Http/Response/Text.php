@@ -8,10 +8,27 @@
 
 namespace Http\Response;
 
-class Text implements FormatInterface
+class Text implements FormatResponseInterface
 {
+	/**
+	 * @var string
+	 */
+	private $data = '';
+
+	/**
+	 * Text constructor.
+	 * @param string $data
+	 */
+	public function __construct(string $data)
+	{
+		$this->data = $data;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getFormattedText(): string
 	{
-		// TODO: Implement getFormattedText() method.
+		return $this->data;
 	}
 }

@@ -8,10 +8,27 @@
 
 namespace Http\Response;
 
-class Json implements FormatInterface
+class Json implements FormatResponseInterface
 {
+	/**
+	 * @var array
+	 */
+	private $data = [];
+
+	/**
+	 * Json constructor.
+	 * @param array $data
+	 */
+	public function __construct(array $data)
+	{
+		$this->data = $data;
+	}
+
+	/**
+	 * @return string
+	 */
 	public function getFormattedText(): string
 	{
-		// TODO: Implement getFormattedText() method.
+		return json_encode($this->data, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
 	}
 }

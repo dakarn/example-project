@@ -8,7 +8,7 @@
 
 namespace Http\Response;
 
-interface FormatInterface
+interface FormatResponseInterface
 {
 	public function getFormattedText(): string;
 }

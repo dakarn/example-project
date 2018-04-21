@@ -1,6 +1,6 @@
 <?php
 
-use MiddlewareApp\MiddlewareCheckAjax;
+use App\MiddlewareApp\MiddlewareCheckAjax;
 
 return [
 	[

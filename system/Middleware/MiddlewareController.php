@@ -9,6 +9,7 @@
 namespace Middleware;
 
 use Http\Request\ServerRequest;
+use Http\Response\Text;
 use System\Controller\LauncherController;
 use System\Registry;
 use System\Render;
@@ -33,9 +34,7 @@ class MiddlewareController implements MiddlewareInterface
         $result = $launcher->execute();
 
         if ($result instanceof Render) {
-            $handler->getResponse()->withBody($result->render());
-        } else {
-            $handler->getResponse()->withBody($result->getBody());
+            $handler->getResponse()->withBody(new Text($result->render()));
         }
 
         return $handler->handle($request, $handler);
