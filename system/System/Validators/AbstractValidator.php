@@ -8,6 +8,7 @@
 
 namespace System\Validators;
 
+use Helper\Cookie;
 use Helper\CSRFToken;
 use Helper\FlashText;
 use Http\Request\ServerRequest;
@@ -92,7 +93,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	{
 		return CSRFToken::create()
 			->setValidationData(
-				ServerRequest::create()->getCookie()->get('CSRFToken'),
+				Cookie::create()->get('CSRFToken'),
 				ServerRequest::create()->takePost('CSRFToken'))
 			->isValid();
 	}

@@ -140,7 +140,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function session(): Session
 	{
-		return $this->request()->getSession();
+		return Session::create();
 	}
 
 	/**
@@ -148,7 +148,7 @@ abstract class AbstractController implements ControllerInterface
 	 */
 	protected function cookie(): Cookie
 	{
-		return $this->request()->getCookie();
+		return Cookie::create();
 	}
 
 	/**

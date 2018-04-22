@@ -17,6 +17,7 @@ use System\Database\DatabaseConfigure;
 use System\Logger\Logger;
 use System\Logger\LoggerAware;
 use System\Registry;
+use System\Router\Routing;
 
 abstract class AbstractApplication
 {
@@ -77,6 +78,9 @@ abstract class AbstractApplication
 		Registry::set(Registry::APP, $this);
 	}
 
+	/**
+	 * @var void
+	 */
 	public function outputResponse(): void
 	{
 	}
@@ -115,6 +119,14 @@ abstract class AbstractApplication
 	public function isWebApp(): bool
 	{
 		return $this->getApplicationType() === self::APP_TYPE['Web'];
+	}
+
+	/**
+     * @return bool
+     */
+	public function isAPIApp(): bool
+	{
+		return $this->getApplicationType() === self::APP_TYPE['API'];
 	}
 
     /**
@@ -190,7 +202,7 @@ abstract class AbstractApplication
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
 			throw $e;
 		} else {
-			if($this->isWebApp()) {
+			if($this->isWebApp() && !Routing::isDefaultRouter()) {
 				(new Response())->redirect(URL);
 			}
 		}
@@ -213,6 +225,8 @@ abstract class AbstractApplication
         Config::setEnvForConfig($this);
         DB::setConfigure(new DatabaseConfigure(Config::get('common', 'mysql')));
     }
+
+    abstract public function terminate();
 
 	abstract public function run();
 }

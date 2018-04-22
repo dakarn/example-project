@@ -9,6 +9,11 @@ use Configs\Config;
 class Routing implements RoutingInterface
 {
 	/**
+	 * @var string
+	 */
+	const DEFAULT_ROUTE_NAME = 'default';
+
+	/**
 	 * @var bool
 	 */
 	private static $isFound = false;
@@ -27,9 +32,9 @@ class Routing implements RoutingInterface
 	{
 		$path = self::cutSlash($path);
 
-		foreach ($routers as $key => $value) {
+		foreach ($routers as $router) {
 
-			$router = new Router($value);
+			$router = new Router($router);
 
 			if ($router->isRegex()) {
 				self::findRouterByRegex($router, $path);
@@ -55,6 +60,18 @@ class Routing implements RoutingInterface
 	public static function setFoundRouter(Router $router): void
 	{
 		self::$foundRouter = $router;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public static function isDefaultRouter(): bool
+	{
+		if (self::$foundRouter->getName() === self::DEFAULT_ROUTE_NAME) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

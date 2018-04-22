@@ -8,10 +8,17 @@
 
 namespace System\Kernel\TypesApp;
 
+use System\Database\DB;
+
 final class ConsoleApp extends AbstractApplication
 {
 	public function run()
 	{
         $this->runInternal();
+	}
+
+	public function terminate()
+	{
+		DB::disconnect();
 	}
 }

@@ -54,5 +54,18 @@ class DB
 		return self::$connect;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public static function disconnect(): bool
+	{
+		if (self::$connect instanceof \mysqli) {
+			mysqli_close(self::$connect);
+			return true;
+		}
+
+		return false;
+	}
+
 
 }

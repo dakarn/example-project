@@ -43,9 +43,7 @@ class CSRFToken
 	{
 		$this->token = Util::generateCSRFToken();
 
-		Request::create()
-			->getCookie()
-			->set('CSRFToken', $this->token);
+		Cookie::create()->set('CSRFToken', $this->token);
 	}
 
 	/**

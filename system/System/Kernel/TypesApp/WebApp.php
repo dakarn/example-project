@@ -14,6 +14,9 @@ use Http\Request\ServerRequest;
 use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
 use Http\Response\Response;
+use System\Database\DB;
+use System\Logger\LoggerStorage;
+use System\Logger\LogLevel;
 
 final class WebApp extends AbstractApplication
 {
@@ -60,6 +63,7 @@ final class WebApp extends AbstractApplication
 		try {
 			$this->handle();
 		} catch(\Throwable $e) {
+			$this->log(LogLevel::ERROR, $e->getTraceAsString());
 			new ExceptionListener($e);
 			$this->outputException($e);
 		}
@@ -74,5 +78,14 @@ final class WebApp extends AbstractApplication
 
 		$this->response->sendHeaders();
 		$this->response->output();
+	}
+
+	/**
+	 * @var void
+	 */
+	public function terminate(): void
+	{
+		DB::disconnect();
+		LoggerStorage::create()->releaseLog();
 	}
 }

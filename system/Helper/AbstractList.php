@@ -26,6 +26,18 @@ abstract class AbstractList
 		return $this;
 	}
 
+	public function getFirstElement()
+	{
+		$list = $this->list;
+		return array_shift($list);
+	}
+
+	public function getEndElement()
+	{
+		$list = $this->list;
+		return array_pop($list);
+	}
+
 	/**
 	 * @param $key
 	 * @return bool
