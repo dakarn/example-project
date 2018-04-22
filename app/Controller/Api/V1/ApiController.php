@@ -29,7 +29,7 @@ class ApiController extends AbstractController
 	 */
 	public function getAction(): Response
 	{
-		return $this->response(new API(['fg' => '33'], []));
+		return $this->responseApiOK(['sdsd' => 'sdsd']);
 	}
 
 	/**

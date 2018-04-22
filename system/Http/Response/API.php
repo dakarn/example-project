@@ -73,7 +73,7 @@ class API implements FormatResponseInterface
 	 */
 	public function success(): void
 	{
-		$this->data = $this->success + $this->data;
+		$this->data = $this->success + ['data' => $this->data];
 	}
 
 	/**
@@ -81,6 +81,6 @@ class API implements FormatResponseInterface
 	 */
 	public function failed(): void
 	{
-		$this->data = $this->failed + $this->data;
+		$this->data = $this->failed + ['data' => $this->data];
 	}
 }

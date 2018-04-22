@@ -121,7 +121,7 @@ abstract class AbstractController implements ControllerInterface
 	 * @param array $data
 	 * @return Response
 	 */
-	protected function apiResponseOK(array $data): Response
+	protected function responseApiOK(array $data): Response
 	{
 		return $this->response(new API($data, ['type' => 'success']));
 	}
@@ -130,7 +130,7 @@ abstract class AbstractController implements ControllerInterface
 	 * @param array $data
 	 * @return Response
 	 */
-	protected function apiResponseBad(array $data): Response
+	protected function responseApiBad(array $data): Response
 	{
 		return $this->response(new API($data, ['type' => 'failed']));
 	}
