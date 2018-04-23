@@ -2,6 +2,9 @@
 
 namespace System\Database;
 
+use System\EventListener\EventTypes;
+use System\Registry;
+
 class DB
 {
     /**
@@ -42,13 +45,18 @@ class DB
 	public static function create(): \mysqli
 	{
 		if (!self::$connect instanceof \mysqli) {
+            $event = Registry::get(Registry::APP_EVENT);
+		    $event->runEvent(EventTypes::BEFORE_DB_CONNECT);
+
 			self::$connect = new \mysqli(
 				self::$configure->getHost(),
 				self::$configure->getUser(),
 				self::$configure->getPassword(),
 				self::$configure->getDatabase()
 			);
+
 			self::$connect->set_charset(self::$configure->getCharset());
+            $event->runEvent(EventTypes::AFTER_DB_CONNECT);
 		}
 
 		return self::$connect;

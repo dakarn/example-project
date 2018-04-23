@@ -32,10 +32,6 @@ class EventTypes
 
 	const AFTER_DB_CONNECT   = 'afterDBConnect';
 
-	const SUCCESS_DB_CONNECT = 'successDBConnect';
-
-	const FAILED_DB_CONNECT  = 'failedDBConnect';
-
 	const AFTER_OUTPUT_RESPONSE = 'afterOutputResponse';
 
 	const BEFORE_MIDDLEWARE = 'beforeMiddleware';

@@ -8,11 +8,10 @@
 
 namespace Http\Request;
 
+use Exception\MiddlewareException;
 use Helper\Cookie;
 use Helper\Session;
 use Middleware\StorageMiddleware;
-use App\AppKernel;
-use Exception\ResponseException;
 use Http\Response\Response;
 use Middleware\RequestHandler;
 
@@ -26,16 +25,21 @@ class ServerRequest
 	/**
 	 * @var ServerRequest
 	 */
+    private static $requestGlobal;
+
+    /**
+     * @var ServerRequest
+     */
     private static $request;
 
 	/**
 	 * @return ServerRequest
-	 * @throws ResponseException
+	 * @throws MiddlewareException
 	 */
     public function handle(): ServerRequest
     {
         if (!isset(StorageMiddleware::get()[0])) {
-            throw ResponseException::invalidResponse();
+            throw MiddlewareException::needMinOne();
         }
 
         $runHandler = new RequestHandler();
@@ -49,9 +53,33 @@ class ServerRequest
 	 */
 	public static function create(): ServerRequest
 	{
-		return self::$request instanceof ServerRequest ? self::$request : new self;
+		if (!self::$request instanceof ServerRequest) {
+			self::$request = new self();
+		}
 
+		return self::$request;
 	}
+
+	/**
+	 * @return ServerRequest
+	 */
+	public static function fromGlobal(): ServerRequest
+	{
+		if (!self::$requestGlobal instanceof ServerRequest) {
+			self::$requestGlobal = new ServerRequest();
+		}
+
+		return self::$requestGlobal;
+	}
+
+    /**
+     * @param string $param
+     * @return string
+     */
+	public function getServerParam(string $param): string
+    {
+        return $_SERVER[$param] ?? '';
+    }
 
     /**
      * @return Response

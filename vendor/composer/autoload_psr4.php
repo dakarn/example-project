@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Widget\\' => array($baseDir . '/system/Widget'),
+    'UserManager\\' => array($baseDir . '/system/UserManager'),
     'Traits\\' => array($baseDir . '/system/Traits'),
     'System\\' => array($baseDir . '/system/System'),
     'Queue\\' => array($baseDir . '/system/Queue'),

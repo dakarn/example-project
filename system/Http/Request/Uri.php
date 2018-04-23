@@ -27,10 +27,90 @@ class Uri implements UriInterface
     /**
      * @return string
      */
-	public function getUri(): string
-	{
-		return $this->uri;
-	}
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+	public function getAuthority(): string
+    {
+       return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHost(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFragment(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPort(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @return string
+     */
+    public function getQuery(): string
+    {
+        return $this->uri;
+    }
+
+    public function getScheme(): string
+    {
+        return $this->uri;
+    }
+
+    /**
+     * @param string $fragment
+     * @return UriInterface
+     */
+    public function withFragment(string $fragment): UriInterface
+    {
+        return $this;
+    }
+
+    /**
+     * @param string $url
+     * @return UriInterface
+     */
+    public function withHost(string $url): UriInterface
+    {
+        return $this;
+    }
+
+    /**
+     * @param string $query
+     * @return UriInterface
+     */
+    public function withQuery(string $query): UriInterface
+    {
+        return $this;
+    }
 
     /**
      * @param string $scheme

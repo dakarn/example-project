@@ -69,7 +69,13 @@ class Response implements ResponseInterface
 		return $this->data;
 	}
 
-	/**
+	public function getStatusCode(): string
+    {
+        return $this->status[0];
+    }
+
+
+    /**
 	 * @param FormatResponseInterface $formatted
 	 * @return Response
 	 */
@@ -90,6 +96,14 @@ class Response implements ResponseInterface
 		return $this;
 	}
 
+    /**
+     * @return string
+     */
+	public function returnOutput(): string
+	{
+		return $this->data;
+	}
+
 	/**
 	 * @param string $name
 	 * @param string $value
@@ -101,7 +115,16 @@ class Response implements ResponseInterface
 		return $this;
 	}
 
-	/**
+    /**
+     * @param string $files
+     * @return Response
+     */
+	public function withFiles(string $files): Response
+    {
+        return $this;
+    }
+
+    /**
 	 * @param string $name
 	 * @param string $value
 	 * @return Response
@@ -133,7 +156,12 @@ class Response implements ResponseInterface
 		return $this;
 	}
 
-	/**
+	public function getReasonPhrase(): string
+    {
+        return '';
+    }
+
+    /**
 	 * @return bool
 	 */
 	public function sendHeaders(): bool

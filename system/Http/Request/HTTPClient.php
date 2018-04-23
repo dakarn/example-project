@@ -8,21 +8,20 @@
 
 namespace Http\Request;
 
-use Traits\SingletonTrait;
+use Http\Response\Response;
+use Http\Response\Text;
 
-final class HTTPClient
+final class HttpClient implements HttpClientInterface
 {
-	use SingletonTrait;
+    /**
+     * @var resource
+     */
+    private $ch;
 
-	/**
-	 * @var array
-	 */
-	private $headers = [];
-
-	/**
-	 * @var array
-	 */
-	private $paramCurl = [];
+    /**
+     * @var RequestBuilderInterface
+     */
+	private $requestBuilder;
 
 	/**
 	 * @var string
@@ -34,24 +33,50 @@ final class HTTPClient
 	 */
 	private $request;
 
-	/**
-	 * @param Request $request
-	 */
-	public function doRequest(Request $request): void
+    /**
+     * @param RequestInterface $request
+     * @return HttpClient
+     */
+	public function sendRequest(RequestInterface $request): HttpClient
 	{
 		$this->request = $request;
 
-		$this->buildQuery(new RequestBuilder());
+		$this->buildQuery(new RequestBuilder($request));
 		$this->execute();
+
+		return $this;
 	}
+
+    /**
+     * @return Response
+     */
+    public function getResponse(): Response
+    {
+        return (new Response())->withBody(new Text($this->result));
+    }
+
+    /**
+     * @return bool
+     */
+	public function isOK(): bool
+    {
+        return $this->result !== false ? true : false;
+    }
+
+    /**
+     * @return bool
+     */
+	public function isNotFound(): bool
+    {
+        return $this->result === false ? true : false;
+    }
 
 	/**
 	 * @param RequestBuilderInterface $builder
 	 */
 	private function buildQuery(RequestBuilderInterface $builder): void
 	{
-		$this->headers          = $this->request->getHeaders();
-		$this->paramCurl['url'] = $this->request->getHost();
+	    $this->requestBuilder = $builder;
 	}
 
 	/**
@@ -59,16 +84,9 @@ final class HTTPClient
 	 */
 	private function execute(): void
 	{
-		$ch           = curl_init($this->paramCurl['url']);
-		$this->result = curl_exec($ch);
-		curl_close($ch);
-	}
 
-	/**
-	 * @return string
-	 */
-	public function getResult(): string
-	{
-		return $this->result;
+		$this->ch     = $this->requestBuilder->getBuilderData();
+		$this->result = curl_exec($this->ch);
+		curl_close($this->ch);
 	}
 }

@@ -8,7 +8,7 @@
 
 namespace System\EventListener;
 
-class EventManager
+class EventManager implements EventManagerInterface
 {
 	/**
 	 * @var array
@@ -35,10 +35,10 @@ class EventManager
 		return isset($this->events[$event]);
 	}
 
-	/**
-	 * @param string $event
-	 * @param EventListenerInterface $newClass
-	 */
+    /**
+     * @param string $event
+     * @param EventListenerInterface $newClass
+     */
 	public function replaceEventListener(string $event, EventListenerInterface $newClass)
 	{
 		if (isset($this->events[$event])) {

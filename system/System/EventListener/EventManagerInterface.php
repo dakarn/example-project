@@ -23,11 +23,10 @@ interface EventManagerInterface
 	 */
 	public function hasEventListener(string $event): bool;
 
-	/**
-	 * @param string $event
-	 * @param EventListenerInterface $newClass
-	 * @return mixed
-	 */
+    /**
+     * @param string $event
+     * @param EventListenerInterface $newClass
+     */
 	public function replaceEventListener(string $event, EventListenerInterface $newClass);
 
 	/**

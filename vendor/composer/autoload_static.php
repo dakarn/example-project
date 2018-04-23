@@ -15,6 +15,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             'Widget\\' => 7,
         ),
+        'U' => 
+        array (
+            'UserManager\\' => 12,
+        ),
         'T' => 
         array (
             'Traits\\' => 7,
@@ -60,6 +64,10 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'Widget\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Widget',
+        ),
+        'UserManager\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/system/UserManager',
         ),
         'Traits\\' => 
         array (

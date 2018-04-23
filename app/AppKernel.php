@@ -32,36 +32,8 @@ final class AppKernel
 	 */
 	public function installMiddlewares(): self
 	{
-		$this->middlewares[] = [
-			'autoStart' => true,
-			'class'     => MiddlewareRouting::class,
-		];
-
-		$this->middlewares[] = [
-			'autoStart' => true,
-			'class'     => MiddlewareAllowMethod::class,
-		];
-
-		$this->middlewares[] = [
-			'autoStart' => false,
-			'class'     => MiddlewareApp\MiddlewareCheckingBot::class,
-		];
-
-		$this->middlewares[] = [
-			'autoStart' => false,
-			'class'     => MiddlewareApp\MiddlewareCheckAuth::class,
-		];
-
-		$this->middlewares[] = [
-			'autoStart' => false,
-			'class'     => MiddlewareApp\MiddlewareCheckAjax::class,
-		];
-
-		$this->middlewares[] = [
-			'autoStart' => true,
-			'class'     => MiddlewareController::class,
-		];
-
+        $this->commonMiddlewares();
+        $this->customMiddlewares();
 		return $this;
 	}
 
@@ -88,4 +60,50 @@ final class AppKernel
 	{
 		return $this->middlewares;
 	}
+
+    /**
+     * @return AppKernel
+     */
+    private function commonMiddlewares(): self
+    {
+        $this->middlewares[] = [
+            'autoStart' => true,
+            'class'     => MiddlewareRouting::class,
+        ];
+
+        $this->middlewares[] = [
+            'autoStart' => true,
+            'class'     => MiddlewareAllowMethod::class,
+        ];
+
+        $this->middlewares[] = [
+            'autoStart' => true,
+            'class'     => MiddlewareController::class,
+        ];
+
+        return $this;
+    }
+
+    /**
+     * @return AppKernel
+     */
+    private function customMiddlewares(): self
+    {
+        $this->middlewares[] = [
+            'autoStart' => false,
+            'class'     => MiddlewareApp\MiddlewareCheckingBot::class,
+        ];
+
+        $this->middlewares[] = [
+            'autoStart' => false,
+            'class'     => MiddlewareApp\MiddlewareCheckAuth::class,
+        ];
+
+        $this->middlewares[] = [
+            'autoStart' => false,
+            'class'     => MiddlewareApp\MiddlewareCheckAjax::class,
+        ];
+
+        return $this;
+    }
 }

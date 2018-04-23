@@ -15,16 +15,44 @@ interface ResponseInterface
 	 */
 	public function output(): Response;
 
-	/**
+    /**
+     * @return string
+     */
+    public function returnOutput(): string;
+
+    /**
+     * @return string
+     */
+    public function getStatusCode(): string;
+
+    /**
 	 * @return string
 	 */
 	public function getBody(): string;
+
+    /**
+     * @return string
+     */
+	public function getReasonPhrase(): string;
 
 	/**
 	 * @param FormatResponseInterface $formatted
 	 * @return Response
 	 */
 	public function withBody(FormatResponseInterface $formatted): Response;
+
+    /**
+     * @param string $files
+     * @return Response
+     */
+	public function withFiles(string $files): Response;
+
+    /**
+     * @param string $code
+     * @param string $text
+     * @return Response
+     */
+	public function withStatus(string $code, string $text): Response;
 
 	/**
 	 * @param string $name
@@ -45,13 +73,6 @@ interface ResponseInterface
 	 * @return Response
 	 */
 	public function withTemplate(string $template): Response;
-
-	/**
-	 * @param string $code
-	 * @param string $text
-	 * @return Response
-	 */
-	public function withStatus(string $code, string $text): Response;
 
 	/**
 	 * @return bool

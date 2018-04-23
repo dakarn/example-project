@@ -25,15 +25,7 @@ return [
         'charset'  => 'utf8',
 	],
 	'redis' => [
-		'DEV' => [
-			'host' => '127.0.0.1',
-		],
-		'TEST' => [
-			'host' => '127.0.0.1',
-		],
-		'PROD' => [
-			'host' => '127.0.0.1',
-		]
+		'host' => '127.0.0.1',
 	],
 	'flashText' => [
 		'cssStart'  => '<div class="alert alert-%s">',

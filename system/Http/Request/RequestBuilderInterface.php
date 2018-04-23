@@ -10,5 +10,7 @@ namespace Http\Request;
 
 interface RequestBuilderInterface
 {
+    public function __construct(RequestInterface $request);
 
+    public function getBuilderData();
 }

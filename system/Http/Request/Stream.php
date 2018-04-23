@@ -93,6 +93,6 @@ class Stream implements StreamInterface
 	 */
 	public function getMetadata(): string
 	{
-
+        return '';
 	}
 }

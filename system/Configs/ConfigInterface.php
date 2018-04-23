@@ -23,6 +23,11 @@ interface ConfigInterface
 	/**
 	 * @return array
 	 */
+	public static function getExceptionHandlers(): array;
+
+	/**
+	 * @return array
+	 */
 	public static function getRouters(): array;
 
 	/**

@@ -15,6 +15,7 @@ use Middleware\StorageMiddleware;
 use Providers\StorageProviders;
 use Http\Response\Response;
 use System\Database\DB;
+use System\EventListener\EventTypes;
 use System\Logger\LoggerStorage;
 use System\Logger\LogLevel;
 
@@ -48,7 +49,7 @@ final class WebApp extends AbstractApplication
 	 */
 	public function handle(): WebApp
 	{
-		$this->request = (new ServerRequest())->handle();
+		$this->request = ServerRequest::fromGlobal()->handle();
 
 		return $this;
 	}
@@ -78,6 +79,8 @@ final class WebApp extends AbstractApplication
 
 		$this->response->sendHeaders();
 		$this->response->output();
+
+		$this->eventManager->runEvent(EventTypes::AFTER_OUTPUT_RESPONSE);
 	}
 
 	/**

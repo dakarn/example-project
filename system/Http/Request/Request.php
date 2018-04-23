@@ -11,6 +11,16 @@ namespace Http\Request;
 class Request implements RequestInterface
 {
     /**
+     * @var string
+     */
+    const
+        POST    = 'POST',
+        DELETE  = 'DELETE',
+        PUT     = 'PUT',
+        OPTIONS = 'OPTIONS',
+        GET     = 'GET';
+
+    /**
      * @var array
      */
 	protected $headers = [];
@@ -55,6 +65,11 @@ class Request implements RequestInterface
      */
     protected $proxy = '';
 
+    /**
+     * @var string
+     */
+    protected $body = '';
+
 	/**
 	 * @return Request
 	 */
@@ -76,7 +91,7 @@ class Request implements RequestInterface
 	 */
 	public function getHost(): string
 	{
-		return $this->uri->getUri();
+		return $this->uri;
 	}
 
 	/**
@@ -120,6 +135,14 @@ class Request implements RequestInterface
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getBody(): string
+	{
+		return $this->body;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getCookies(): array
@@ -151,7 +174,7 @@ class Request implements RequestInterface
      */
 	public function withUri(UriInterface $uri): self
 	{
-		$this->uri = $uri;
+		$this->uri = $uri->getUri();
 		return $this;
 	}
 
@@ -193,6 +216,26 @@ class Request implements RequestInterface
 	public function withUserAgent(string $userAgent): self
 	{
 		$this->userAgent = $userAgent;
+		return $this;
+	}
+
+    /**
+     * @param string $body
+     * @return Request
+     */
+	public function withBody(string $body): self
+	{
+		$this->body = $body;
+		return $this;
+	}
+
+    /**
+     * @param array $fields
+     * @return Request
+     */
+	public function withPostFields(array $fields): self
+	{
+		$this->body = $fields;
 		return $this;
 	}
 

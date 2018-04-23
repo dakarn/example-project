@@ -17,6 +17,7 @@
       "Traits\\": "system/Traits",
       "Widget\\": "system/Widget",
       "Configs\\": "system/Configs",
+      "UserManager\\": "system/UserManager",
       "App\\": "app"
     },
     "files": [
