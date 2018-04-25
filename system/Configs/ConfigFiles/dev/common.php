@@ -20,8 +20,8 @@ return [
 	'mysql' => [
         'host'     => '127.0.0.1',
         'user'     => 'root',
-        'database' => 'stdp_first',
-        'password' => '11111111',
+        'database' => 'teacher',
+        'password' => '234679',
         'charset'  => 'utf8',
 	],
 	'redis' => [

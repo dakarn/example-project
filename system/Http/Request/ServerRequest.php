@@ -33,6 +33,11 @@ class ServerRequest
     private static $request;
 
 	/**
+	 * @var array
+	 */
+    private $headers = [];
+
+	/**
 	 * @return ServerRequest
 	 * @throws MiddlewareException
 	 */
