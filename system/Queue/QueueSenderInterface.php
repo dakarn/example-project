@@ -15,10 +15,8 @@ interface QueueSenderInterface
 	 */
 	public function build();
 
-	/**
-	 * QueueSenderInterface constructor.
-	 * @param Queue $queue
-	 * @param array $configConnect
-	 */
-	public function __construct(Queue $queue, array $configConnect);
+    /**
+     * @return mixed
+     */
+    public function send();
 }

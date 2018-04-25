@@ -11,7 +11,7 @@ namespace Queue\Strategy;
 use AMQPConnection;
 use Queue\Queue;
 
-class RabbitReceiverStrategy extends AbstractQueueStrategy
+class RabbitReceiverStrategy extends AbstractQueueStrategy implements ReceiverStrategyInterface
 {
 	/**
 	 * @param Queue $params

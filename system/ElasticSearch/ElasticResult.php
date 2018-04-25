@@ -8,7 +8,7 @@
 
 namespace ElasticSearch;
 
-class ElasticResult
+class ElasticResult implements ElasticResultInterface
 {
 	/**
 	 * @var mixed

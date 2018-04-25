@@ -56,6 +56,18 @@ class RequestBuilder implements RequestBuilderInterface
             curl_setopt($this->ch, CURLOPT_REFERER, $request->getUserAgent());
         }
 
+        if (!empty($request->getCookies())) {
+            $cookies = '';
+            foreach($request->getCookies() as $name => $value ) {
+                $cookies .= $name . '=' . $value;
+            };
+            curl_setopt($this->ch, CURLOPT_COOKIE, $cookies);
+        }
+
+        if (!empty($request->getHeaders())) {
+            \curl_setopt($this->ch, CURLOPT_HTTPHEADER, $request->getHeaders());
+        }
+
         curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
     }

@@ -10,10 +10,11 @@ namespace Queue;
 
 use Queue\Strategy\RabbitReceiverStrategy;
 use Configs\Config;
+use Queue\Strategy\ReceiverStrategyInterface;
 use Traits\SingletonTrait;
 use Queue\Senders\RabbitQueueSender;
 
-class QueueManager
+class QueueManager implements QueueManagerInterface
 {
 	use SingletonTrait;
 
@@ -27,10 +28,10 @@ class QueueManager
 	 */
 	private $handlersTask = [];
 
-	/**
-	 * @return RabbitReceiverStrategy
-	 */
-	public function getReceiverStrategy(): RabbitReceiverStrategy
+    /**
+     * @return ReceiverStrategyInterface
+     */
+	public function getReceiverStrategy(): ReceiverStrategyInterface
 	{
 		if (!$this->strategy instanceof RabbitReceiverStrategy) {
 			$this->strategy = new RabbitReceiverStrategy(Config::get('rabbit'));
@@ -44,7 +45,7 @@ class QueueManager
 	 * @param AbstractQueueHandler $queueClass
 	 * @return QueueManager
 	 */
-	public function setQueueHandler(string $name, AbstractQueueHandler $queueClass): self
+	public function setQueueHandler(string $name, AbstractQueueHandler $queueClass): QueueManager
 	{
 		$this->handlersTask[$name] = $queueClass;
 		return $this;
@@ -54,7 +55,7 @@ class QueueManager
 	 * @param array $queueClasses
 	 * @return QueueManager
 	 */
-	public function setQueueHandlers(array $queueClasses): self
+	public function setQueueHandlers(array $queueClasses): QueueManager
 	{
 		foreach ($queueClasses as $name => $queueClass) {
 			$this->handlersTask[$name] = $queueClass;
@@ -85,11 +86,11 @@ class QueueManager
 		return true;
 	}
 
-	/**
-	 * @param Queue $queue
-	 * @return RabbitQueueSender
-	 */
-	public function sender(Queue $queue): RabbitQueueSender
+    /**
+     * @param Queue $queue
+     * @return QueueSenderInterface
+     */
+	public function sender(Queue $queue): QueueSenderInterface
 	{
 		return (new RabbitQueueSender(Config::get('rabbit')))
 			->setParams($queue)

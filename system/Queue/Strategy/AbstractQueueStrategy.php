@@ -11,7 +11,7 @@ namespace Queue\Strategy;
 use AMQPConnection;
 use Queue\Queue;
 
-abstract class AbstractQueueStrategy
+abstract class AbstractQueueStrategy implements ReceiverStrategyInterface
 {
 	/**
 	 * @var array

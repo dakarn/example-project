@@ -11,7 +11,7 @@ namespace ElasticSearch;
 use Exception\HttpException;
 use Configs\Config;
 
-class ElasticHttp
+class ElasticHttp implements ElasticHttpInterface
 {
 	/**
 	 * @var array

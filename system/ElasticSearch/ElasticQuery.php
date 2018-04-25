@@ -8,7 +8,7 @@
 
 namespace ElasticSearch;
 
-class ElasticQuery
+class ElasticQuery implements ElasticQueryInterface
 {
 	/**
 	 * @var ElasticHttp

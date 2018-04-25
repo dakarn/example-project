@@ -10,7 +10,7 @@ namespace ElasticSearch;
 
 use Traits\SingletonTrait;
 
-class ElasticSearch
+class ElasticSearch implements ElasticSearchInterface
 {
 	use SingletonTrait;
 

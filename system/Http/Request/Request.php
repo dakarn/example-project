@@ -265,7 +265,7 @@ class Request implements RequestInterface
      */
 	public function withCookie(array $cookies): self
 	{
-		$this->cookies = $cookies;
+		$this->cookies[$cookies['name']] = $cookies['value'];
 		return $this;
 	}
 }

@@ -8,7 +8,7 @@
 
 namespace System\Database;
 
-class ObjectMapper
+class ObjectMapper implements ObjectMapperInterface
 {
 
 }

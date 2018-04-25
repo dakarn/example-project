@@ -8,7 +8,7 @@
 
 namespace Exception;
 
-class ControllerException extends \Exception
+class ControllerException extends HttpException
 {
 	public static function notFoundController(array $arguments = []): self
 	{

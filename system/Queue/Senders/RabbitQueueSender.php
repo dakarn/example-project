@@ -8,10 +8,11 @@
 
 namespace Queue\Senders;
 
+use Queue\QueueSenderInterface;
 use Queue\Strategy\AbstractQueueStrategy;
 use Queue\Queue;
 
-class RabbitQueueSender extends AbstractQueueStrategy
+class RabbitQueueSender extends AbstractQueueStrategy implements QueueSenderInterface
 {
 	/**
 	 * @param Queue $params
@@ -23,10 +24,10 @@ class RabbitQueueSender extends AbstractQueueStrategy
 		return $this;
 	}
 
-	/**
-	 * @return $this
-	 */
-	public function build()
+    /**
+     * @return QueueSenderInterface
+     */
+	public function build(): QueueSenderInterface
 	{
 		$this->amqp = new \AMQPConnection($this->configConnect);
 		$this->amqp->connect();
