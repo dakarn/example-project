@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Middleware\MiddlewareAllowMethod;
-use Middleware\MiddlewareController;
-use Middleware\MiddlewareRouting;
+use Http\Middleware\MiddlewareAllowMethod;
+use Http\Middleware\MiddlewareController;
+use Http\Middleware\MiddlewareRouting;
 use System\Registry;
 
 final class AppKernel

@@ -6,7 +6,9 @@
  * Time: 18:13
  */
 
-namespace Middleware;
+namespace Http\Middleware;
+
+use Exception\MiddlewareException;
 
 class StorageMiddleware
 {
@@ -92,10 +94,16 @@ class StorageMiddleware
 	}
 
 	/**
-	 * @return array
+	 * @param int $element
+	 * @return string
+	 * @throws MiddlewareException
 	 */
-	public static function get(): array
+	public static function get(int $element): string
 	{
-		return self::$middlewareList;
+		if (!isset(self::$middlewareList[$element]['class'])) {
+			throw MiddlewareException::notFound();
+		}
+
+		return self::$middlewareList[$element]['class'];
 	}
 }

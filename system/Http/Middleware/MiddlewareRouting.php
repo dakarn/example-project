@@ -6,7 +6,7 @@
  * Time: 19:27
  */
 
-namespace Middleware;
+namespace Http\Middleware;
 
 use Exception\RoutingException;
 use Http\Request\ServerRequest;

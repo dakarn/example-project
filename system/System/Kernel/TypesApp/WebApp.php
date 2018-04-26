@@ -11,7 +11,7 @@ namespace System\Kernel\TypesApp;
 use App\AppKernel;
 use Exception\ExceptionListener\ExceptionListener;
 use Http\Request\ServerRequest;
-use Middleware\StorageMiddleware;
+use Http\Middleware\StorageMiddleware;
 use Providers\StorageProviders;
 use Http\Response\Response;
 use System\Database\DB;

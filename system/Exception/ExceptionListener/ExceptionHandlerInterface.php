@@ -10,5 +10,9 @@ namespace Exception\ExceptionListener;
 
 interface ExceptionHandlerInterface
 {
+	/**
+	 * @param \Throwable $e
+	 * @return mixed
+	 */
 	public function run(\Throwable $e);
 }

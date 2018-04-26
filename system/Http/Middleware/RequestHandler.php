@@ -6,9 +6,8 @@
  * Time: 23:57
  */
 
-namespace Middleware;
+namespace Http\Middleware;
 
-use Http\Request\Request;
 use Http\Request\ServerRequest;
 use Http\Response\Response;
 
@@ -49,7 +48,7 @@ class RequestHandler implements RequestHandlerInterface
 			return $this->response;
 		}
 
-		$classMiddleware = StorageMiddleware::get()[$curr]['class'];
+		$classMiddleware = StorageMiddleware::get($curr);
 		StorageMiddleware::next();
 
 		/** @var MiddlewareInterface $middleware */

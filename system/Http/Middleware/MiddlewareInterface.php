@@ -6,7 +6,7 @@
  * Time: 0:00
  */
 
-namespace Middleware;
+namespace Http\Middleware;
 
 use Http\Request\ServerRequest;
 

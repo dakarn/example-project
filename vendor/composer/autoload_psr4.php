@@ -12,7 +12,6 @@ return array(
     'System\\' => array($baseDir . '/system/System'),
     'Queue\\' => array($baseDir . '/system/Queue'),
     'Providers\\' => array($baseDir . '/system/Providers'),
-    'Middleware\\' => array($baseDir . '/system/Middleware'),
     'MicroServices\\' => array($baseDir . '/system/MicroServices'),
     'Http\\' => array($baseDir . '/system/Http'),
     'Helper\\' => array($baseDir . '/system/Helper'),

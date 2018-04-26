@@ -11,9 +11,9 @@ namespace Http\Request;
 use Exception\MiddlewareException;
 use Helper\Cookie;
 use Helper\Session;
-use Middleware\StorageMiddleware;
+use Http\Middleware\StorageMiddleware;
 use Http\Response\Response;
-use Middleware\RequestHandler;
+use Http\Middleware\RequestHandler;
 
 class ServerRequest
 {
@@ -43,7 +43,7 @@ class ServerRequest
 	 */
     public function handle(): ServerRequest
     {
-        if (!isset(StorageMiddleware::get()[0])) {
+        if (StorageMiddleware::count() === 0) {
             throw MiddlewareException::needMinOne();
         }
 

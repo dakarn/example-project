@@ -9,8 +9,8 @@
 namespace App\MiddlewareApp;
 
 use Http\Request\ServerRequest;
-use Middleware\MiddlewareInterface;
-use Middleware\RequestHandler;
+use Http\Middleware\MiddlewareInterface;
+use Http\Middleware\RequestHandler;
 
 class MiddlewareCheckAjax implements MiddlewareInterface
 {

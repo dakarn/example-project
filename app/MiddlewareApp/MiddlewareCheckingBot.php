@@ -9,8 +9,8 @@
 namespace App\MiddlewareApp;
 
 use Http\Request\ServerRequest;
-use Middleware\RequestHandler;
-use Middleware\MiddlewareInterface;
+use Http\Middleware\RequestHandler;
+use Http\Middleware\MiddlewareInterface;
 
 class MiddlewareCheckingBot implements MiddlewareInterface
 {

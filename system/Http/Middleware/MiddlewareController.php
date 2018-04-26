@@ -6,7 +6,7 @@
  * Time: 22:33
  */
 
-namespace Middleware;
+namespace Http\Middleware;
 
 use Http\Request\ServerRequest;
 use Http\Response\Text;

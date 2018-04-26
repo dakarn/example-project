@@ -37,7 +37,6 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         ),
         'M' => 
         array (
-            'Middleware\\' => 11,
             'MicroServices\\' => 14,
         ),
         'H' => 
@@ -84,10 +83,6 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         'Providers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system/Providers',
-        ),
-        'Middleware\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/system/Middleware',
         ),
         'MicroServices\\' => 
         array (

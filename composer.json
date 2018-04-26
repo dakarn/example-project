@@ -9,7 +9,6 @@
       "Exception\\": "system/Exception",
       "Helper\\": "system/Helper",
       "Http\\": "system/Http",
-      "Middleware\\": "system/Middleware",
       "MicroServices\\": "system/MicroServices",
       "Providers\\": "system/Providers",
       "Queue\\": "system/Queue",
