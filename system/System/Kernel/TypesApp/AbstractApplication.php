@@ -19,7 +19,7 @@ use System\Logger\LoggerAware;
 use System\Registry;
 use System\Router\Routing;
 
-abstract class AbstractApplication
+abstract class AbstractApplication implements ApplicationInterface
 {
 	/**
 	 * @var array
@@ -193,11 +193,12 @@ abstract class AbstractApplication
 		return $this->env;
 	}
 
-    /**
-     * @param \Throwable $e
-     * @throws \Throwable
-     */
-	public function outputException(\Throwable $e)
+	/**
+	 * @param \Throwable $e
+	 * @throws \Throwable
+	 * @return void
+	 */
+	public function outputException(\Throwable $e): void
 	{
 		if ($this->env == self::ENV_TYPE['DEV'] || $this->env == self::ENV_TYPE['TEST']) {
 			throw $e;
@@ -211,8 +212,9 @@ abstract class AbstractApplication
 	/**
 	 * @param string $level
 	 * @param string $message
+	 * @return void
 	 */
-	protected function log(string $level, string  $message)
+	protected function log(string $level, string  $message): void
 	{
 		LoggerAware::setlogger(new Logger())->log($level, $message);
 	}
