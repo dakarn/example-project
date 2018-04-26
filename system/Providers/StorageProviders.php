@@ -49,7 +49,7 @@ class StorageProviders
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public static function nextPosition(): void
 	{

@@ -79,7 +79,7 @@ abstract class AbstractApplication
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function outputResponse(): void
 	{
@@ -174,7 +174,7 @@ abstract class AbstractApplication
 	}
 
     /**
-     * @var void
+     * @return void
      */
 	public function isRepeatRun()
 	{
@@ -218,7 +218,7 @@ abstract class AbstractApplication
 	}
 
     /**
-     * @var void
+     * @return void
      */
 	protected function runInternal(): void
     {

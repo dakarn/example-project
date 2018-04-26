@@ -20,7 +20,7 @@ class AddWordValidator extends AbstractValidator
 	public $isUseFlashErrors = true;
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function validate(): void
 	{

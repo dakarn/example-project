@@ -47,7 +47,7 @@ class ServerRequest
             throw MiddlewareException::needMinOne();
         }
 
-        $runHandler = new RequestHandler();
+        $runHandler = new RequestHandler(new Response());
         $this->response = $runHandler->handle($this, $runHandler);
 
         return $this;

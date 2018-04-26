@@ -96,7 +96,7 @@ abstract class AbstractList
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function clearAll(): void
 	{

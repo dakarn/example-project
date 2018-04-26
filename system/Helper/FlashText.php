@@ -75,7 +75,7 @@ class FlashText
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public static function render()
 	{

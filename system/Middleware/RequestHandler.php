@@ -21,10 +21,11 @@ class RequestHandler implements RequestHandlerInterface
 
 	/**
 	 * RequestHandler constructor.
+	 * @param Response $response
 	 */
-	public function __construct()
+	public function __construct(Response $response)
 	{
-		$this->response = new Response();
+		$this->response = $response;
 	}
 
 	/**
@@ -42,9 +43,9 @@ class RequestHandler implements RequestHandlerInterface
      */
 	public function handle(ServerRequest $request, RequestHandler $handler): Response
 	{
-		$curr = StorageMiddleware::currPosition();
+		$curr = StorageMiddleware::current();
 
-		if ($curr >= StorageMiddleware::count()) {
+		if (StorageMiddleware::isEnd()) {
 			return $this->response;
 		}
 

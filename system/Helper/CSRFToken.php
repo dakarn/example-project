@@ -37,7 +37,7 @@ class CSRFToken
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function makeToken(): void
 	{

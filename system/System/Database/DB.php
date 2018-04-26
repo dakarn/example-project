@@ -25,7 +25,7 @@ class DB
 	}
 
     /**
-     * @var void
+     * @return void
      */
 	private function __clone()
 	{

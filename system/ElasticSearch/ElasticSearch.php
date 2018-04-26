@@ -108,7 +108,7 @@ class ElasticSearch implements ElasticSearchInterface
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function update()
 	{

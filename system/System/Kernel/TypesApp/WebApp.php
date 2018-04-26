@@ -55,7 +55,7 @@ final class WebApp extends AbstractApplication
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function run(): void
 	{
@@ -71,7 +71,7 @@ final class WebApp extends AbstractApplication
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function outputResponse(): void
 	{
@@ -84,7 +84,7 @@ final class WebApp extends AbstractApplication
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function terminate(): void
 	{

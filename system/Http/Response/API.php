@@ -69,7 +69,7 @@ class API implements FormatResponseInterface
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function success(): void
 	{
@@ -77,7 +77,7 @@ class API implements FormatResponseInterface
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function failed(): void
 	{

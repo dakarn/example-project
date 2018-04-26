@@ -59,7 +59,7 @@ class Util
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public static function selectLoaderClass(): void
 	{

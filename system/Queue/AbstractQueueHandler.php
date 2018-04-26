@@ -59,7 +59,7 @@ abstract class AbstractQueueHandler
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function loopObserver()
 	{

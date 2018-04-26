@@ -16,7 +16,7 @@ class EditWordValidator extends AbstractValidator
 	];
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public function validate(): void
 	{

@@ -96,7 +96,7 @@ class LauncherController implements LauncherControllerInterface
     }
 
 	/**
-	 * @var void
+	 * @return void
 	 */
     private function prepare(): void
     {

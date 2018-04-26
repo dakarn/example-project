@@ -36,6 +36,14 @@ class StorageMiddleware
 	}
 
 	/**
+	 * @return bool
+	 */
+	public static function isEnd(): bool
+	{
+		return self::$currPos >= self::count();
+	}
+
+	/**
 	 * @return array
 	 */
 	public static function deleteFirstItem(): array
@@ -62,13 +70,13 @@ class StorageMiddleware
 	/**
 	 * @return int
 	 */
-	public static function currPosition(): int
+	public static function current(): int
 	{
 		return self::$currPos;
 	}
 
 	/**
-	 * @var void
+	 * @return void
 	 */
 	public static function next(): void
 	{
