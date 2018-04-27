@@ -32,6 +32,11 @@ class CSRFToken
 	 */
 	public function setValidationData(string $tokenFromCookie, string $tokenFromPost): CSRFToken
 	{
+		if (empty($tokenFromPost) || empty($tokenFromCookie)) {
+			$this->isValid = false;
+			return $this;
+		}
+
 		$this->isValid = $tokenFromCookie === $tokenFromPost;
 		return $this;
 	}
@@ -43,6 +48,15 @@ class CSRFToken
 	{
 		$this->token = Util::generateCSRFToken();
 		Cookie::create()->set('CSRFToken', $this->token);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function returnForForm(): string
+	{
+		$this->makeToken();
+		return $this->token;
 	}
 
 	/**

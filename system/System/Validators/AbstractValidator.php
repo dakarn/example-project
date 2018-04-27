@@ -16,6 +16,16 @@ use Http\Request\ServerRequest;
 abstract class AbstractValidator implements AbstractValidatorInterface
 {
 	/**
+	 * @var string
+	 */
+	private const POST = 'POST';
+
+	/**
+	 * @var string
+	 */
+	private const GET = 'GET';
+
+	/**
 	 * @var array
 	 */
 	protected $stackErrors = [];
@@ -24,16 +34,6 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 * @var bool
 	 */
 	public $isUseFlashErrors = false;
-
-	/**
-	 * @var string
-	 */
-	private $post = 'POST';
-
-	/**
-	 * @var string
-	 */
-	private $get  = 'GET';
 
 	/**
 	 * @return array
@@ -103,7 +103,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 */
 	public function isPost(): bool
 	{
-		return ServerRequest::create()->getMethod() === $this->post;
+		return ServerRequest::create()->getMethod() === self::POST;
 	}
 
 	/**
@@ -111,7 +111,7 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 */
 	public function isGet(): bool
 	{
-		return ServerRequest::create()->getMethod() === $this->get;
+		return ServerRequest::create()->getMethod() === self::GET;
 	}
 
 	/**

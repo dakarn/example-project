@@ -18,6 +18,7 @@ include('header.html');
 		<input type="text" name="text" placeholder="Введите слово для поиска" class="form-control"><br>
 		<input type="submit" class="btn btn-success" value="Искать">
 		<input type="submit" class="btn btn-success" name="search-ajax" value="Искать по AJAX">
+		<input type="hidden" name="CSRFToken" value="<?=Helper\CSRFToken::create()->returnForForm()?>">
 	</form>
 </div>
 
