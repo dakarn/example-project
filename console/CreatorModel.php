@@ -11,9 +11,10 @@ class CreatorModel
 	/**
 	 * @var array
 	 */
-	const COMMAND = [
+	const COMMANDS = [
         '-f',
-        '-vars'
+        '-vars',
+		'-path'
     ];
 
 	/**
@@ -64,20 +65,22 @@ class CreatorModel
     	include_once '../bootstrap-cli.php';
         $this->argv = $_SERVER['argv'];
 
-        if ($this->argv[1] != self::COMMAND[0]) {
-			throw new \InvalidArgumentException('Argument "' . self::COMMAND[0]. '" with name of model not found!');
+        if ($this->argv[1] != self::COMMANDS[0]) {
+			throw new \InvalidArgumentException('Argument "' . self::COMMANDS[0]. '" with name of model not found!');
         }
 
-	    $this->createModelFile();
 	    $this->loadTemplate();
+	    $this->createModelFile();
 	    $this->addHeaderFile();
+
 	    $this->argv = array_slice($this->argv, 3);
 
-	    if ($this->argv[0] != self::COMMAND[1]) {
-	    	throw new InvalidArgumentException('Argument "' . self::COMMAND[1]. '" for create property not found!');
+	    if ($this->argv[0] != self::COMMANDS[1]) {
+	    	throw new InvalidArgumentException('Argument "' . self::COMMANDS[1]. '" for create property not found!');
 	    }
 
 	    $this->addProperties();
+	    $this->addConstruct();
         $this->addMethods();
     }
 
@@ -86,11 +89,12 @@ class CreatorModel
 	 */
 	private function loadTemplate(): void
     {
-    	$this->tpl['title']    = file_get_contents(TEMPLATE . '/creator-model/title.txt');
-    	$this->tpl['footer']   = file_get_contents(TEMPLATE . '/creator-model/footer.txt');
-    	$this->tpl['property'] = file_get_contents(TEMPLATE . '/creator-model/property.txt');
-    	$this->tpl['setter']   = file_get_contents(TEMPLATE . '/creator-model/setter.txt');
-    	$this->tpl['getter']   = file_get_contents(TEMPLATE . '/creator-model/getter.txt');
+    	$this->tpl['title']       = file_get_contents(TEMPLATE . '/creator-model/title.txt');
+    	$this->tpl['footer']      = file_get_contents(TEMPLATE . '/creator-model/footer.txt');
+    	$this->tpl['property']    = file_get_contents(TEMPLATE . '/creator-model/property.txt');
+    	$this->tpl['setter']      = file_get_contents(TEMPLATE . '/creator-model/setter.txt');
+    	$this->tpl['getter']      = file_get_contents(TEMPLATE . '/creator-model/getter.txt');
+    	$this->tpl['construct']   = file_get_contents(TEMPLATE . '/creator-model/constructor.txt');
     }
 
 	/**
@@ -100,6 +104,14 @@ class CreatorModel
     {
     	$this->filename = $this->argv[2];
         $this->file     = fopen($this->argv[2] . self::EXT, 'w+');
+    }
+
+    /**
+	 * @return void
+	 */
+	private function addConstruct(): void
+    {
+	    $this->content .= sprintf($this->tpl['construct'], $this->filename);
     }
 
 	/**
