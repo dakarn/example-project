@@ -9,8 +9,8 @@
 namespace Http\Request;
 
 use Exception\MiddlewareException;
-use Helper\Cookie;
-use Helper\Session;
+use Http\Cookie;
+use Http\Session;
 use Http\Middleware\StorageMiddleware;
 use Http\Response\Response;
 use Http\Middleware\RequestHandler;

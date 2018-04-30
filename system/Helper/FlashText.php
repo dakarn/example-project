@@ -8,6 +8,8 @@
 
 namespace Helper;
 
+use Http\Session;
+
 class FlashText
 {
 	/**

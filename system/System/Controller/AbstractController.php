@@ -9,12 +9,12 @@
 namespace System\Controller;
 
 use Exception\ControllerException;
-use Helper\Cookie;
+use Http\Cookie;
 use Http\Request\ServerRequest;
 use Http\Response\API;
 use Http\Response\FormatResponseInterface;
 use Http\Response\Response;
-use Helper\Session;
+use Http\Session;
 use System\Registry;
 use Configs\Config;
 use System\EventListener\EventManager;
