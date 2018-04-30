@@ -3,15 +3,14 @@
  * Created by PhpStorm.
  * User: user
  * Date: 30.04.2018
- * Time: 13:34
+ * Time: 13:58
  */
 
 namespace Http\Middleware;
 
-use Helper\CSRFTokenManager;
 use Http\Request\ServerRequest;
 
-class MiddlewareCSRFToken
+class MiddlewarePreController
 {
 	/**
 	 * @param ServerRequest $request
@@ -20,7 +19,6 @@ class MiddlewareCSRFToken
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
-		CSRFTokenManager::create()->makeToken();
 		return $handler->handle($request, $handler);
 	}
 }

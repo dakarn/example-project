@@ -75,7 +75,11 @@ class CSRFTokenManager
 	 */
 	public function makeToken(): void
 	{
-        $this->start();
+		if (!$this->isUserToken) {
+			return;
+		}
+
+		$this->start();
 
 		$this->token->setToken(Util::generateCSRFToken());
 		Cookie::create()->set(self::TOKEN_NAME, $this->token->getToken());
@@ -105,7 +109,10 @@ class CSRFTokenManager
 	 */
 	public function returnForForm(): string
 	{
-		$this->start();
+		if (!$this->isUserToken) {
+			return '';
+		}
+
 		return $this->token->getToken();
 	}
 
