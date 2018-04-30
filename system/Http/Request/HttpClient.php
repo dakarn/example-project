@@ -16,7 +16,7 @@ final class HttpClient implements HttpClientInterface
     /**
      * @var resource
      */
-    private $ch;
+    private $curl;
 
     /**
      * @var RequestBuilderInterface
@@ -84,9 +84,8 @@ final class HttpClient implements HttpClientInterface
 	 */
 	private function execute(): void
 	{
-
-		$this->ch     = $this->requestBuilder->getBuilderData();
-		$this->result = curl_exec($this->ch);
-		curl_close($this->ch);
+		$this->curl   = $this->requestBuilder->getBuilderData();
+		$this->result = curl_exec($this->curl);
+		curl_close($this->curl);
 	}
 }
