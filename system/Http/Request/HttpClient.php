@@ -63,6 +63,14 @@ final class HttpClient implements HttpClientInterface
         return $this->result !== false ? true : false;
     }
 
+	/**
+	 * @return string
+	 */
+    public function getStatusCode(): string
+    {
+    	return '';
+    }
+
     /**
      * @return bool
      */
