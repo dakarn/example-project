@@ -2,7 +2,7 @@
 
 include_once '../bootstrap-cli.php';
 
-use Queue\QueueManager;
+use QueueManager\QueueManager;
 use App\Console\Queue\HelloQueueHandler;
 
 QueueManager::create()

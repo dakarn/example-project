@@ -6,13 +6,13 @@
  * Time: 0:49
  */
 
-namespace Queue;
+namespace QueueManager;
 
-use Queue\Strategy\RabbitReceiverStrategy;
+use QueueManager\Strategy\RabbitReceiverStrategy;
 use Configs\Config;
-use Queue\Strategy\ReceiverStrategyInterface;
+use QueueManager\Strategy\ReceiverStrategyInterface;
 use Traits\SingletonTrait;
-use Queue\Senders\RabbitQueueSender;
+use QueueManager\Senders\RabbitQueueSender;
 
 class QueueManager implements QueueManagerInterface
 {

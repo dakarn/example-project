@@ -5,7 +5,8 @@
  * Date: 01.04.2018
  * Time: 0:49
  */
-namespace Queue;
+
+namespace QueueManager;
 
 class Queue implements QueueInterface
 {

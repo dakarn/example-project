@@ -6,11 +6,11 @@
  * Time: 16:38
  */
 
-namespace Queue\Senders;
+namespace QueueManager\Senders;
 
-use Queue\QueueSenderInterface;
-use Queue\Strategy\AbstractQueueStrategy;
-use Queue\Queue;
+use QueueManager\QueueSenderInterface;
+use QueueManager\Strategy\AbstractQueueStrategy;
+use QueueManager\Queue;
 
 class RabbitQueueSender extends AbstractQueueStrategy implements QueueSenderInterface
 {

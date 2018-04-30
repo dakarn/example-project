@@ -6,8 +6,9 @@
  * Time: 20:07
  */
 
-namespace System\Database\DBManager;
+namespace System\Database\DBManager\Mapping;
 
+use Exception\ObjectException;
 use Psr\Log\InvalidArgumentException;
 use Traits\SingletonTrait;
 
@@ -48,26 +49,33 @@ class ObjectMapper implements ObjectMapperInterface
        return $response;
     }
 
-    /**
-     * @param array $arrayData
-     * @param object $object
-     * @return object
-     */
-    public function toObject(array $arrayData, $object)
+	/**
+	 * @param array $arrayData
+	 * @param string $objectInput
+	 * @return mixed
+	 * @throws ObjectException
+	 */
+    public function toObject(array $arrayData, string $objectInput)
     {
         if (!is_array($arrayData) || empty($arrayData)) {
             throw new InvalidArgumentException('');
         }
 
+	    if (!class_exists($objectInput)) {
+		    throw ObjectException::notFound([$objectInput]);
+	    }
+
+        $objectOutput = new $objectInput();
+
         foreach ($arrayData as $property => $itemValue) {
 
             $setMethodName = self::SETTER . ucfirst($property);
 
-            if (method_exists($object, $setMethodName)) {
-                $object->$setMethodName($itemValue);
+            if (method_exists($objectInput, $setMethodName)) {
+                $objectOutput->$setMethodName($itemValue);
             }
         }
 
-        return $object;
+        return $objectOutput;
     }
 }

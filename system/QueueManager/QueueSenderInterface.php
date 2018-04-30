@@ -6,7 +6,7 @@
  * Time: 14:28
  */
 
-namespace Queue;
+namespace QueueManager;
 
 interface QueueSenderInterface
 {

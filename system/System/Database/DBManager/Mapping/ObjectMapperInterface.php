@@ -6,16 +6,16 @@
  * Time: 15:10
  */
 
-namespace System\Database\DBManager;
+namespace System\Database\DBManager\Mapping;
 
 interface ObjectMapperInterface
 {
-    /**
-     * @param array $arrayData
-     * @param $object object
-     * @return mixed
-     */
-    public function toObject(array $arrayData, $object);
+	/**
+	 * @param array $arrayData
+	 * @param string $objectInput
+	 * @return mixed
+	 */
+    public function toObject(array $arrayData, string $objectInput);
 
     /**
      * @param $object object

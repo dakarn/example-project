@@ -6,10 +6,10 @@
  * Time: 1:14
  */
 
-namespace Queue\Strategy;
+namespace QueueManager\Strategy;
 
 use AMQPConnection;
-use Queue\Queue;
+use QueueManager\Queue;
 
 abstract class AbstractQueueStrategy implements ReceiverStrategyInterface
 {

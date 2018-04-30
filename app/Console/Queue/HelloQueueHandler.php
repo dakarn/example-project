@@ -7,8 +7,8 @@
  */
 namespace App\Console\Queue;
 
-use Queue\AbstractQueueHandler;
-use Queue\Queue;
+use QueueManager\AbstractQueueHandler;
+use QueueManager\Queue;
 
 class HelloQueueHandler extends AbstractQueueHandler
 {

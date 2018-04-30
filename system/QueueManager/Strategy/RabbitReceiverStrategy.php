@@ -6,10 +6,10 @@
  * Time: 0:48
  */
 
-namespace Queue\Strategy;
+namespace QueueManager\Strategy;
 
 use AMQPConnection;
-use Queue\Queue;
+use QueueManager\Queue;
 
 class RabbitReceiverStrategy extends AbstractQueueStrategy implements ReceiverStrategyInterface
 {

@@ -27,9 +27,13 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             'System\\' => 7,
         ),
+        'R' => 
+        array (
+            'RedisQueue\\' => 11,
+        ),
         'Q' => 
         array (
-            'Queue\\' => 6,
+            'QueueManager\\' => 13,
         ),
         'P' => 
         array (
@@ -76,9 +80,13 @@ class ComposerStaticInit347f8e854fe60f47b12d522a4f0593e6
         array (
             0 => __DIR__ . '/../..' . '/system/System',
         ),
-        'Queue\\' => 
+        'RedisQueue\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/system/Queue',
+            0 => __DIR__ . '/../..' . '/system/RedisQueue',
+        ),
+        'QueueManager\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/system/QueueManager',
         ),
         'Providers\\' => 
         array (

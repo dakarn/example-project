@@ -100,7 +100,8 @@ class CSRFTokenManager
     /**
      * @return void
      */
-    public function removeToken(): void
+
+	public function removeToken(): void
     {
         Cookie::create()->remove(self::TOKEN_NAME);
     }

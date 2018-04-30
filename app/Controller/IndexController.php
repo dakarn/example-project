@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
-use App\Model\Test\ModelTest;
-use Queue\Queue;
-use Queue\QueueManager;
+use QueueManager\Queue;
+use QueueManager\QueueManager;
 use System\Controller\AbstractController;
 use App\Model\Dictionary\DictionaryRepository;
 use App\Validator\SearchWordValidator;
-use System\Database\DBManager\ObjectMapper;
+use System\Database\DBManager\Mapping\ObjectMapper;
 use System\Render;
 use Widget\WidgetFactory;
+use RedisQueue\RedisQueue;
+use App\Model\Test\ModelTest;
 
 class IndexController extends AbstractController
 {
@@ -25,7 +26,7 @@ class IndexController extends AbstractController
             'userName'  => 'dsdsdsdsd',
             'firstName' => 'aaaa',
             'lastName'  => 'ccccccc'
-        ], new ModelTest());
+        ], ModelTest::class);
 
         ObjectMapper::create()->toArray($res);
 
@@ -68,6 +69,15 @@ class IndexController extends AbstractController
 	 */
 	public function searchWordAction(): Render
 	{
+		$queueRedis = new RedisQueue('127.0.0.1', 6379);
+
+		$queue = new \RedisQueue\Queue();
+		$queue->setName('testQueue');
+
+		$queueRedis->setQueueParam($queue);
+		$queueRedis->publish('Test Hello World');
+		$queueRedis->disconnect();
+
 		$dictRepos = new DictionaryRepository();
 		$validator = new SearchWordValidator();
 

@@ -6,9 +6,9 @@
  * Time: 0:56
  */
 
-namespace Queue;
+namespace QueueManager;
 
-use Queue\Strategy\AbstractQueueStrategy;
+use QueueManager\Strategy\AbstractQueueStrategy;
 
 class NodeQueueSender extends AbstractQueueStrategy implements QueueSenderInterface
 {

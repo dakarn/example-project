@@ -6,7 +6,7 @@
  * Time: 1:03
  */
 
-namespace Queue;
+namespace QueueManager;
 
 use AMQPConnection;
 

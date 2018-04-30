@@ -6,7 +6,7 @@
  * Time: 0:55
  */
 
-namespace Queue\Strategy;
+namespace QueueManager\Strategy;
 
 class NodeReceiverStrategy extends AbstractQueueStrategy implements ReceiverStrategyInterface
 {

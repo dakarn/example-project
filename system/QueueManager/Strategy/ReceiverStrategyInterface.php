@@ -6,7 +6,7 @@
  * Time: 14:46
  */
 
-namespace Queue\Strategy;
+namespace QueueManager\Strategy;
 
 interface ReceiverStrategyInterface
 {
