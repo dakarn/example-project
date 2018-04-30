@@ -8,6 +8,9 @@
 
 namespace Helper;
 
+use System\Logger\Logger;
+use System\Logger\LoggerAware;
+
 class Util
 {
 	const DICTIONARY       = 'qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM';
@@ -71,5 +74,10 @@ class Util
 				include_once PATH_SYSTEM . 'autoload.php';
 				break;
 		}
+	}
+
+	public static function log(string $level, string  $message)
+	{
+		LoggerAware::setlogger(new Logger())->log($level, $message);
 	}
 }

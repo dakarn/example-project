@@ -9,6 +9,7 @@
 namespace Helper;
 
 use Configs\Config;
+use System\Logger\LogLevel;
 use Traits\SingletonTrait;
 use Http\Cookie;
 
@@ -34,7 +35,7 @@ class CSRFTokenManager
 	/**
 	 * @var bool
 	 */
-	private $isUserToken = false;
+	private $isUseToken = false;
 
     /**
      * @return void
@@ -45,7 +46,7 @@ class CSRFTokenManager
             $this->token = new CSRFToken();
         }
 
-	    $this->isUserToken = Config::get('common', 'useCSRFToken');
+	    $this->isUseToken = Config::get('common', 'useCSRFToken');
 
     }
 
@@ -56,7 +57,7 @@ class CSRFTokenManager
 	 */
 	public function setValidationData(string $tokenFromCookie, string $tokenFromPost): CSRFTokenManager
 	{
-		if (!$this->isUserToken) {
+		if (!$this->isUseToken) {
 			$this->isValid = true;
 			return $this;
 		}
@@ -75,7 +76,7 @@ class CSRFTokenManager
 	 */
 	public function makeToken(): void
 	{
-		if (!$this->isUserToken) {
+		if (!$this->isUseToken) {
 			return;
 		}
 
@@ -109,7 +110,7 @@ class CSRFTokenManager
 	 */
 	public function returnForForm(): string
 	{
-		if (!$this->isUserToken) {
+		if (!$this->isUseToken) {
 			return '';
 		}
 
@@ -129,6 +130,10 @@ class CSRFTokenManager
 	 */
 	public function isValid(): bool
 	{
+		if (!$this->isValid) {
+			Util::log(LogLevel::NOTICE, 'A CSRFSecure found an incorrect csrf-token!');
+		}
+
 		return $this->isValid;
 	}
 }
