@@ -18,7 +18,9 @@ class Request implements RequestInterface
         DELETE  = 'DELETE',
         PUT     = 'PUT',
         OPTIONS = 'OPTIONS',
-        GET     = 'GET';
+        GET     = 'GET',
+        PATCH   = 'PATCH',
+        CONNECT = 'CONNECT';
 
     /**
      * @var array

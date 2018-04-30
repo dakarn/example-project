@@ -4,6 +4,7 @@ namespace App;
 
 use Http\Middleware\MiddlewareAllowMethod;
 use Http\Middleware\MiddlewareController;
+use Http\Middleware\MiddlewareCSRFToken;
 use Http\Middleware\MiddlewareRouting;
 use System\Registry;
 
@@ -74,6 +75,11 @@ final class AppKernel
         $this->middlewares[] = [
             'autoStart' => true,
             'class'     => MiddlewareAllowMethod::class,
+        ];
+
+        $this->middlewares[] = [
+            'autoStart' => true,
+            'class'     => MiddlewareCSRFToken::class,
         ];
 
         $this->middlewares[] = [

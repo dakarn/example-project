@@ -9,7 +9,7 @@
 namespace System\Validators;
 
 use Helper\Cookie;
-use Helper\CSRFToken;
+use Helper\CSRFTokenManager;
 use Helper\FlashText;
 use Http\Request\ServerRequest;
 
@@ -24,6 +24,13 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 	 * @var string
 	 */
 	private const GET = 'GET';
+
+    /**
+     * @var array
+     */
+	private const DEFAULT_ERROR = [
+	    'csrfToken' => 'Отпарвлена невлидная форма'
+    ];
 
 	/**
 	 * @var array
@@ -86,16 +93,17 @@ abstract class AbstractValidator implements AbstractValidatorInterface
 		return $this->stackErrors[$field] ?? '';
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isCSRFToken(): bool
+	public function validateCSRFToken()
 	{
-		return CSRFToken::create()
+		$isValid =  CSRFTokenManager::create()
 			->setValidationData(
 				Cookie::create()->get('CSRFToken'),
 				ServerRequest::create()->takePost('CSRFToken'))
 			->isValid();
+
+		if (!$isValid) {
+            $this->stackErrors['token'] = self::DEFAULT_ERROR['csrfToken'];
+        }
 	}
 
 	/**

@@ -1,84 +1,60 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 27.03.2018
- * Time: 23:17
- */
 
 namespace Helper;
 
-use Traits\SingletonTrait;
-use Http\Request\Request;
-
 class CSRFToken
 {
-	use SingletonTrait;
+    /**
+    * @var string
+    */
+    private $token = '';
 
-	/**
-	 * @var bool
-	 */
-	private $isValid = false;
+    /**
+    * @var string
+    */
+    private $algo = 'md5';
 
-	/**
-	 * @var string
-	 */
-	private $token;
+    /**
+     * CSRFToken constructor.
+     */
+     public function __construct()
+     {
+     }
 
-	/**
-	 * @param string $tokenFromCookie
-	 * @param string $tokenFromPost
-	 * @return CSRFToken
-	 */
-	public function setValidationData(string $tokenFromCookie, string $tokenFromPost): CSRFToken
-	{
-		if (empty($tokenFromPost) || empty($tokenFromCookie)) {
-			$this->isValid = false;
-			return $this;
-		}
+    /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
 
-		$this->isValid = $tokenFromCookie === $tokenFromPost;
-		return $this;
-	}
+    /**
+     * @return string
+     */
+    public function getAlgo(): string
+    {
+        return $this->algo;
+    }
 
-	/**
-	 * @return void
-	 */
-	public function makeToken(): void
-	{
-		$token = Cookie::create()->get('CSRFToken');
+    /**
+     * @param string $token
+     * @return CSRFToken
+     */
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
 
-		if (!empty($token)) {
-			$this->token = $token;
-			return;
-		}
+    /**
+     * @param string $algo
+     * @return CSRFToken
+     */
+    public function setAlgo(string $algo): self
+    {
+        $this->algo = $algo;
+        return $this;
+    }
 
-		$this->token = Util::generateCSRFToken();
-		Cookie::create()->set('CSRFToken', $this->token);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function returnForForm(): string
-	{
-		$this->makeToken();
-		return $this->token;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getToken(): string
-	{
-		return $this->token;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isValid(): bool
-	{
-		return $this->isValid;
-	}
 }

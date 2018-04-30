@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Model\Test\ModelTest;
 use Queue\Queue;
 use Queue\QueueManager;
 use System\Controller\AbstractController;
 use App\Model\Dictionary\DictionaryRepository;
 use App\Validator\SearchWordValidator;
+use System\Database\DBManager\ObjectMapper;
 use System\Render;
 use Widget\WidgetFactory;
 
@@ -17,6 +19,16 @@ class IndexController extends AbstractController
 	 */
 	public function indexAction(): Render
 	{
+	    $res = ObjectMapper::create()->toObject([
+	        'userId'    => 14,
+            'name'      => 'dd',
+            'userName'  => 'dsdsdsdsd',
+            'firstName' => 'aaaa',
+            'lastName'  => 'ccccccc'
+        ], new ModelTest());
+
+        ObjectMapper::create()->toArray($res);
+
 		$dictRepos = new DictionaryRepository();
 
 		WidgetFactory::run('test');

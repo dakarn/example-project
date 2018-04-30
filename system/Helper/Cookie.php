@@ -57,6 +57,14 @@ class Cookie
 		return $_COOKIE;
 	}
 
+    /**
+     * @param string $key
+     */
+	public function remove(string $key)
+    {
+        setcookie($key);
+    }
+
 	/**
 	 * @param string $key
 	 * @param string $value

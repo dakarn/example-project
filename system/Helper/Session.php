@@ -57,6 +57,14 @@ class Session
 		return isset($_SESSION[$key]) ? true : false;
 	}
 
+    /**
+     * @return int
+     */
+	public function count(): int
+    {
+        return count($_SESSION);
+    }
+
 	/**
 	 * @param array $keys
 	 * @return array
@@ -74,10 +82,18 @@ class Session
 		return $foundKeys;
 	}
 
+    /**
+     * @return void
+     */
+	public function clear(): void
+    {
+        session_unset();
+    }
+
 	/**
 	 * @return array
 	 */
-	public function getAll(): array
+	public function all(): array
 	{
 		return $_SESSION;
 	}
