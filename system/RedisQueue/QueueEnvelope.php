@@ -8,7 +8,7 @@
 
 namespace RedisQueue;
 
-class InputEnvelope implements InputEnvelopeInterface
+class QueueEnvelope implements QueueEnvelopeInterface
 {
 	/**
 	 * @var string
@@ -16,12 +16,20 @@ class InputEnvelope implements InputEnvelopeInterface
 	private $body = '';
 
 	/**
-	 * InputEnvelope constructor.
-	 * @param string $body
+	 * QueueEnvelope constructor.
 	 */
-	public function __construct(string $body)
+	public function __construct()
+	{
+	}
+
+	/**
+	 * @param string $body
+	 * @return QueueEnvelope
+	 */
+	public function setBody(string $body): QueueEnvelope
 	{
 		$this->body = $body;
+		return $this;
 	}
 
 	/**
@@ -33,9 +41,17 @@ class InputEnvelope implements InputEnvelopeInterface
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getQueueName(): string
+	{
+		return '';
+	}
+
+	/**
 	 * @return bool
 	 */
-	public function isRecv(): bool
+	public function isReceived(): bool
 	{
 		return !empty($this->body);
 	}

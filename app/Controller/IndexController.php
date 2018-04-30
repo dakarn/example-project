@@ -74,8 +74,10 @@ class IndexController extends AbstractController
 		$queue = new \RedisQueue\Queue();
 		$queue->setName('testQueue');
 
+		$time = time();
+
 		$queueRedis->setQueueParam($queue);
-		$queueRedis->publish('Test Hello World');
+		$queueRedis->publish($time);
 		$queueRedis->disconnect();
 
 		$dictRepos = new DictionaryRepository();

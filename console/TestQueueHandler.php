@@ -8,16 +8,16 @@ $queue = new \RedisQueue\Queue();
 $queue->setName('testQueue');
 
 $queueRedis->setQueueParam($queue);
-$queueRedis->bind();
 
 while (true) {
 
 	$msg = $queueRedis->getStack();
 
-	if ($msg->isRecv()) {
+	if ($msg->isReceived()) {
 		echo $msg->getBody() . PHP_EOL;
+		$queueRedis->result()->done();
 	}
 
-	usleep(200000);
+	$queueRedis->pause();
 }
 

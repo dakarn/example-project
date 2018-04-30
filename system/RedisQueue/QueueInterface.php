@@ -10,5 +10,14 @@ namespace RedisQueue;
 
 interface QueueInterface
 {
+	/**
+	 * @param string $name
+	 * @return Queue
+	 */
+	public function setName(string $name): Queue;
 
+	/**
+	 * @return string
+	 */
+	public function getName(): string;
 }

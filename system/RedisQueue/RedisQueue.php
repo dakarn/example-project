@@ -8,8 +8,21 @@
 
 namespace RedisQueue;
 
+use Helper\Util;
+use System\Logger\LogLevel;
+
 class RedisQueue implements RedisQueueInterface
 {
+	/**
+	 * @var string
+	 */
+	const REQUEUE = 'requeue';
+
+	/**
+	 * @var string
+	 */
+	const QUEUE_DELETE = 'queueDelete';
+
 	/**
 	 * @var \Redis
 	 */
@@ -21,14 +34,67 @@ class RedisQueue implements RedisQueueInterface
 	private $queue;
 
 	/**
+	 * @var bool
+	 */
+	private $isDoWork = false;
+
+	/**
+	 * @var OutputResult
+	 */
+	private $outputResult;
+
+	/**
+	 * @var QueueEnvelope
+	 */
+	private $envelope;
+
+	/**
 	 * RedisQueue constructor.
 	 * @param string $host
 	 * @param int $port
 	 */
 	public function __construct(string $host, int $port)
 	{
-		$this->redis = new \Redis();
-		$this->redis->connect($host, $port);
+		try {
+			$this->redis = new \Redis();
+			$this->redis->connect($host, $port);
+		} catch (\RedisException $e) {
+			Util::log(LogLevel::EMERGENCY, $e->getMessage());
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isDoWork(): bool
+	{
+		return $this->isDoWork;
+	}
+
+	/**
+	 * @return RedisQueue
+	 */
+	public function setWorkDone(): RedisQueue
+	{
+		$this->isDoWork = false;
+		return $this;
+	}
+
+	/**
+	 * @return QueueEnvelope
+	 */
+	public function getEnvelope(): QueueEnvelope
+	{
+		return $this->envelope;
+	}
+
+	/**
+	 * @return RedisQueue
+	 */
+	public function setWorkProcess(): RedisQueue
+	{
+		$this->isDoWork = true;
+		return $this;
 	}
 
 	/**
@@ -41,26 +107,54 @@ class RedisQueue implements RedisQueueInterface
 		return $this;
 	}
 
-	public function bind()
-	{
-
-	}
-
 	/**
 	 * @param string $msg
 	 */
 	public function publish(string $msg)
 	{
-		$this->redis->lPush($this->queue->getName(), $msg);
+		$this->redis->rPush($this->queue->getName(), $msg);
 	}
 
 	/**
-	 * @return InputEnvelope
+	 * @return OutputResult
 	 */
-	public function getStack()
+	public function result(): OutputResult
 	{
-		$msg = $this->redis->rPop($this->queue->getName());
-		return new InputEnvelope($msg);
+		if (!$this->outputResult instanceof OutputResult){
+			$this->outputResult = new OutputResult($this);
+		}
+
+		return $this->outputResult;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function pause(): void
+	{
+		usleep(1000000);
+	}
+
+	/**
+	 * @return QueueEnvelope
+	 */
+	public function getStack(): QueueEnvelope
+	{
+		if (!$this->envelope instanceof QueueEnvelope){
+			$this->envelope = new QueueEnvelope();
+		}
+
+		if ($this->isDoWork) {
+			return $this->envelope->setBody('');
+		}
+
+		$this->body = $this->redis->lPop($this->queue->getName());
+
+		if (!empty($this->body)) {
+			$this->isDoWork = true;
+		}
+
+		return $this->envelope->setBody($this->body);
 	}
 
 	/**
