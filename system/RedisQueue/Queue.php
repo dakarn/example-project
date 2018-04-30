@@ -15,6 +15,10 @@ class Queue implements QueueInterface
 	 */
 	private $name;
 
+	/**
+	 * @param string $name
+	 * @return Queue
+	 */
 	public function setName(string $name): Queue
 	{
 		$this->name = $name;

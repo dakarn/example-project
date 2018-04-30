@@ -32,6 +32,9 @@ class InputEnvelope implements InputEnvelopeInterface
 		return $this->body;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function isRecv(): bool
 	{
 		return !empty($this->body);

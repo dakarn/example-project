@@ -46,12 +46,17 @@ class RedisQueue implements RedisQueueInterface
 
 	}
 
+	/**
+	 * @param string $msg
+	 */
 	public function publish(string $msg)
 	{
 		$this->redis->lPush($this->queue->getName(), $msg);
 	}
 
-
+	/**
+	 * @return InputEnvelope
+	 */
 	public function getStack()
 	{
 		$msg = $this->redis->rPop($this->queue->getName());
