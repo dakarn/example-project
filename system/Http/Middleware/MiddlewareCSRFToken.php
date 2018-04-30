@@ -21,12 +21,7 @@ class MiddlewareCSRFToken
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
-		$isUseToken = Config::get('common', 'useCSRFToken');
-
-		if ($isUseToken) {
-			CSRFTokenManager::create()->makeToken();
-		}
-
+		CSRFTokenManager::create()->makeToken();
 		return $handler->handle($request, $handler);
 	}
 }

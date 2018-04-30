@@ -6,7 +6,7 @@ return [
 		'api',
 		'default',
 	],
-	'useCSRFToken' => true,
+	'useCSRFToken' => false,
 	'service' => [
 		'autoLoad' => true,
 	],

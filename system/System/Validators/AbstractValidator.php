@@ -8,7 +8,7 @@
 
 namespace System\Validators;
 
-use Helper\Cookie;
+use Http\Cookie;
 use Helper\CSRFTokenManager;
 use Helper\FlashText;
 use Http\Request\ServerRequest;
