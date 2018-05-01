@@ -8,15 +8,15 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\QueueModelModel;
+use QueueManager\QueueModel;
 
 interface QueueSenderInterface
 {
 	/**
-	 * @param QueueModelModel $params
+	 * @param QueueModel $params
 	 * @return QueueSenderInterface
 	 */
-	public function setParams(QueueModelModel $params): QueueSenderInterface;
+	public function setParams(QueueModel $params): QueueSenderInterface;
 
 	/**
 	 * @return QueueSenderInterface
@@ -24,7 +24,8 @@ interface QueueSenderInterface
 	public function build(): QueueSenderInterface;
 
 	/**
+	 * @param bool $isClose
 	 * @return mixed
 	 */
-    public function send();
+    public function send(bool $isClose = false);
 }

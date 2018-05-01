@@ -112,10 +112,10 @@ class QueueManager implements QueueManagerInterface
 	}
 
     /**
-     * @param QueueModelModel $queue
+     * @param QueueModel $queue
      * @return QueueSenderInterface
      */
-	public function sender(QueueModelModel $queue): QueueSenderInterface
+	public function sender(QueueModel $queue): QueueSenderInterface
 	{
 		if (!$this->sender instanceof QueueSenderInterface) {
 			$this->sender = new RabbitQueueSender();

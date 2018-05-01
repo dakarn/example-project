@@ -8,15 +8,15 @@
 
 namespace QueueManager\Strategy;
 
-use QueueManager\QueueModelModel;
+use QueueManager\QueueModel;
 
 interface ReceiverStrategyInterface
 {
 	/**
-	 * @param QueueModelModel $params
+	 * @param QueueModel $params
 	 * @return ReceiverStrategyInterface
 	 */
-	public function setParams(QueueModelModel $params): ReceiverStrategyInterface;
+	public function setParams(QueueModel $params): ReceiverStrategyInterface;
 
     /**
      * @return mixed

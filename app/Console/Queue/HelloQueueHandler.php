@@ -8,7 +8,7 @@
 namespace App\Console\Queue;
 
 use QueueManager\AbstractQueueHandler;
-use QueueManager\QueueModelModel;
+use QueueManager\QueueModel;
 use QueueManager\QueueManager;
 use QueueManager\Strategy\RabbitReceiverStrategy;
 
@@ -19,9 +19,14 @@ class HelloQueueHandler extends AbstractQueueHandler
 	 */
 	private $strategy;
 
+	/**
+	 * @var \AMQPQueue
+	 */
+	private $queueInst;
+
 	public function prepare()
 	{
-		$this->queueParam = (new QueueModelModel())
+		$this->queueParam = (new QueueModel())
 			->setName('hello-queue')
 			->setFlags('')
 			->setExchangeName('hello-queue')
@@ -41,9 +46,6 @@ class HelloQueueHandler extends AbstractQueueHandler
 			->build();
 
 		$instanceConnect = $this->strategy->getCreationObject();
-		$this->amqp      = $instanceConnect['amqp'];
-		$this->channel   = $instanceConnect['channel'];
-		$this->exchange  = $instanceConnect['exchange'];
 		$this->queueInst = $instanceConnect['queue'];
 
 		return $this;
@@ -59,11 +61,8 @@ class HelloQueueHandler extends AbstractQueueHandler
 			while (true) {
 				if ($msg = $this->queueInst->get()) {
 
-					if (1 < 2) {
-						$this->strategy->sendSuccess($msg);
-					} else {
-						$this->strategy->sendFailed($msg);
-					}
+					echo $msg->getBody() . PHP_EOL;
+					$this->strategy->sendSuccess($msg);
 				}
 			}
 

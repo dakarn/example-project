@@ -11,7 +11,7 @@ namespace QueueManager;
 abstract class AbstractQueueHandler
 {
 	/**
-	 * @var QueueModelModel
+	 * @var QueueModel
 	 */
 	protected $queueParam;
 

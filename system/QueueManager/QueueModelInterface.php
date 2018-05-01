@@ -12,39 +12,39 @@ interface QueueModelInterface
 {
 	/**
 	 * @param string $name
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setName(string $name): QueueModelModel;
+	public function setName(string $name): QueueModel;
 
 	/**
 	 * @param string $name
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setData(string $name): QueueModelModel;
+	public function setData(string $name): QueueModel;
 
 	/**
 	 * @param string $routingKey
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setRoutingKey(string $routingKey): QueueModelModel;
+	public function setRoutingKey(string $routingKey): QueueModel;
 
 	/**
 	 * @param string $type
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setType(string $type): QueueModelModel;
+	public function setType(string $type): QueueModel;
 
 	/**
 	 * @param string $flags
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setFlags(string $flags): QueueModelModel;
+	public function setFlags(string $flags): QueueModel;
 
 	/**
 	 * @param string $exchangeName
-	 * @return QueueModelModel
+	 * @return QueueModel
 	 */
-	public function setExchangeName(string $exchangeName): QueueModelModel;
+	public function setExchangeName(string $exchangeName): QueueModel;
 
 	/**
 	 * @return string

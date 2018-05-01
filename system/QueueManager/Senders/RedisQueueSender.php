@@ -10,8 +10,9 @@ namespace QueueManager\Senders;
 
 use Configs\Config;
 use RedisQueue\RedisQueue;
-use QueueManager\QueueModelModel;
-use RedisQueue\Queue as QueueModel;
+use QueueManager\QueueModel;
+use RedisQueue\Queue as QueueMy;
+use RedisQueue\RedisQueueInterface;
 
 class RedisQueueSender implements QueueSenderInterface
 {
@@ -49,9 +50,13 @@ class RedisQueueSender implements QueueSenderInterface
 	 */
 	public function build(): QueueSenderInterface
 	{
+		if ($this->queueRedis instanceof RedisQueueInterface) {
+			return $this;
+		}
+
 		$this->queueRedis = new RedisQueue($this->configConnect['host'], $this->configConnect['port']);
 
-		$queue = new QueueModel();
+		$queue = new QueueMy();
 		$queue->setName($this->params->getName());
 
 		$this->queueRedis->setQueueParam($queue);
@@ -60,15 +65,25 @@ class RedisQueueSender implements QueueSenderInterface
 	}
 
 	/**
-	 * @return mixed
+	 * @param bool $isClose
+	 * @return int
 	 */
-	public function send()
+	public function send(bool $isClose = false): int
 	{
-		$time = time();
+		$answer = $this->queueRedis->publish($this->params->getData());
 
-		$answer = $this->queueRedis->publish($time);
-		$this->queueRedis->disconnect();
+		if ($isClose) {
+			$this->queueRedis->disconnect();
+		}
 
 		return $answer;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function disconnect(): void
+	{
+		$this->queueRedis->disconnect();
 	}
 }

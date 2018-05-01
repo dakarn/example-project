@@ -9,7 +9,8 @@
 namespace QueueManager\Strategy;
 
 use AMQPConnection;
-use QueueManager\QueueModelModel;
+use Configs\Config;
+use QueueManager\QueueModel;
 
 class RabbitReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -39,15 +40,20 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	private $configConnect = [];
 
 	/**
-	 * @var QueueModelModel
+	 * @var QueueModel
 	 */
 	private $params;
 
+	public function __construct()
+	{
+		$this->configConnect = Config::get('rabbit');
+	}
+
 	/**
-	 * @param QueueModelModel $params
+	 * @param QueueModel $params
 	 * @return ReceiverStrategyInterface
 	 */
-	public function setParams(QueueModelModel $params): ReceiverStrategyInterface
+	public function setParams(QueueModel $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		return $this;
@@ -58,7 +64,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	public function build()
 	{
-		if (!$this->params instanceof QueueModelModel) {
+		if (!$this->params instanceof QueueModel) {
 			throw new \LogicException('Object data for connection with QueueServer do not filled!');
 		}
 
@@ -91,12 +97,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	public function getCreationObject(): array
 	{
-		return [
-			'amqp'     => $this->amqp,
-			'channel'  => $this->channel,
-			'exchange' => $this->exchange,
-			'queue'    => $this->queueInst,
-		];
+		return ['queue' => $this->queueInst];
 	}
 
 	/**
@@ -141,6 +142,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 		$this->queueInst = new \AMQPQueue($this->channel);
 
 		$this->queueInst->setName($this->params->getName());
+		$this->queueInst->declareQueue();
 		$this->queueInst->bind($this->params->getExchangeName(), $this->params->getRoutingKey());
 
 		return $this;

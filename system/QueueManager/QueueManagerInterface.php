@@ -43,8 +43,8 @@ interface QueueManagerInterface
     public function runHandler(string $name): bool;
 
     /**
-     * @param QueueModelModel $queue
+     * @param QueueModel $queue
      * @return QueueSenderInterface
      */
-    public function sender(QueueModelModel $queue): QueueSenderInterface;
+    public function sender(QueueModel $queue): QueueSenderInterface;
 }
