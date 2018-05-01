@@ -66,6 +66,10 @@ class RabbitQueueSender implements QueueSenderInterface
      */
 	public function build(): QueueSenderInterface
 	{
+		if ($this->amqp instanceof \AMQPConnection) {
+			return $this;
+		}
+
 		$this->amqp = new \AMQPConnection($this->configConnect);
 		$this->amqp->connect();
 
@@ -84,13 +88,25 @@ class RabbitQueueSender implements QueueSenderInterface
 	}
 
 	/**
+	 * @param bool $isClose
 	 * @return bool
 	 */
-	public function send(): bool
+	public function send(bool $isClose = false)
 	{
 		$result = $this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
-		$this->amqp->disconnect();
+
+		if ($isClose) {
+			$this->amqp->disconnect();
+		}
 
 		return $result;
+	}
+
+	/**
+	 * @return void
+	 */
+	public function disconnect(): void
+	{
+		$this->amqp->disconnect();
 	}
 }

@@ -44,6 +44,9 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	private $params;
 
+	/**
+	 * RabbitReceiverStrategy constructor.
+	 */
 	public function __construct()
 	{
 		$this->configConnect = Config::get('rabbit');

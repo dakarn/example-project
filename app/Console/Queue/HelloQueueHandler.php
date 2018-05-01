@@ -24,7 +24,10 @@ class HelloQueueHandler extends AbstractQueueHandler
 	 */
 	private $queueInst;
 
-	public function prepare()
+	/**
+	 * @return void
+	 */
+	public function prepare(): void
 	{
 		$this->queueParam = (new QueueModel())
 			->setName('hello-queue')

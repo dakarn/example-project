@@ -8,8 +8,15 @@
 
 namespace QueueManager\Strategy;
 
+use QueueManager\QueueModel;
+
 class NodeReceiverStrategy implements ReceiverStrategyInterface
 {
+	public function setParams(QueueModel $params): ReceiverStrategyInterface
+	{
+		return $this;
+	}
+
 	public function build()
 	{
 

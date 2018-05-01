@@ -20,8 +20,14 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	private $params;
 
+	/**
+	 * @var RedisQueue
+	 */
 	private $queueRedis;
 
+	/**
+	 * @var array
+	 */
 	private $configConnect;
 
 	public function __construct()

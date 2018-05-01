@@ -20,7 +20,10 @@ class RedisQueueHandler extends AbstractQueueHandler
 	 */
 	protected $queueInst;
 
-	public function prepare()
+	/**
+	 * @return void
+	 */
+	public function prepare(): void
 	{
 		$this->queueParam = (new QueueModel())->setName('testQueue');
 	}
@@ -54,7 +57,7 @@ class RedisQueueHandler extends AbstractQueueHandler
 				$this->queueInst->result()->done();
 			}
 
-			$this->queueInst->pause(500);
+			$this->queueInst->pause(100);
 		}
 
 		return true;

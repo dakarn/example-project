@@ -39,6 +39,10 @@ class RedisQueueSender implements QueueSenderInterface
 		$this->configConnect = Config::get('redis-queue');
 	}
 
+	/**
+	 * @param QueueModel $params
+	 * @return QueueSenderInterface
+	 */
 	public function setParams(QueueModel $params): QueueSenderInterface
 	{
 		$this->params = $params;
