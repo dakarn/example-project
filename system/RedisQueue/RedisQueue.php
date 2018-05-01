@@ -148,13 +148,13 @@ class RedisQueue implements RedisQueueInterface
 			return $this->envelope->setBody('');
 		}
 
-		$this->body = $this->redis->lPop($this->queue->getName());
+		$body = $this->redis->lPop($this->queue->getName());
 
-		if (!empty($this->body)) {
+		if (!empty($body)) {
 			$this->isDoWork = true;
 		}
 
-		return $this->envelope->setBody($this->body);
+		return $this->envelope->setBody($body);
 	}
 
 	/**

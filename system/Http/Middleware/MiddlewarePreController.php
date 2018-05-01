@@ -8,6 +8,7 @@
 
 namespace Http\Middleware;
 
+use Helper\CSRFTokenManager;
 use Http\Request\ServerRequest;
 
 class MiddlewarePreController
@@ -19,6 +20,7 @@ class MiddlewarePreController
 	 */
 	public function process(ServerRequest $request, RequestHandler $handler)
 	{
+		CSRFTokenManager::create()->makeToken();
 		return $handler->handle($request, $handler);
 	}
 }
