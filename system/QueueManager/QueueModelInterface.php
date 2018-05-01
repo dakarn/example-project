@@ -8,43 +8,43 @@
 
 namespace QueueManager;
 
-interface QueueInterface
+interface QueueModelInterface
 {
 	/**
 	 * @param string $name
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setName(string $name): Queue;
+	public function setName(string $name): QueueModelModel;
 
 	/**
 	 * @param string $name
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setData(string $name): Queue;
+	public function setData(string $name): QueueModelModel;
 
 	/**
 	 * @param string $routingKey
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setRoutingKey(string $routingKey): Queue;
+	public function setRoutingKey(string $routingKey): QueueModelModel;
 
 	/**
 	 * @param string $type
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setType(string $type): Queue;
+	public function setType(string $type): QueueModelModel;
 
 	/**
 	 * @param string $flags
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setFlags(string $flags): Queue;
+	public function setFlags(string $flags): QueueModelModel;
 
 	/**
 	 * @param string $exchangeName
-	 * @return Queue
+	 * @return QueueModelModel
 	 */
-	public function setExchangeName(string $exchangeName): Queue;
+	public function setExchangeName(string $exchangeName): QueueModelModel;
 
 	/**
 	 * @return string

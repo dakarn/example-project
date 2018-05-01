@@ -26,7 +26,7 @@ class QueueManager implements QueueManagerInterface
 	/**
 	 * @var array
 	 */
-	private $handlersTask = [];
+	private $handlers = [];
 
 	/**
 	 * @var QueueSenderInterface
@@ -67,23 +67,23 @@ class QueueManager implements QueueManagerInterface
 
 	/**
 	 * @param string $name
-	 * @param AbstractQueueHandler $queueClass
+	 * @param AbstractQueueHandler $queueHandler
 	 * @return QueueManager
 	 */
-	public function setQueueHandler(string $name, AbstractQueueHandler $queueClass): QueueManager
+	public function setQueueHandler(string $name, AbstractQueueHandler $queueHandler): QueueManager
 	{
-		$this->handlersTask[$name] = $queueClass;
+		$this->handlers[$name] = $queueHandler;
 		return $this;
 	}
 
 	/**
-	 * @param array $queueClasses
+	 * @param array $queueHandlers
 	 * @return QueueManager
 	 */
-	public function setQueueHandlers(array $queueClasses): QueueManager
+	public function setQueueHandlers(array $queueHandlers): QueueManager
 	{
-		foreach ($queueClasses as $name => $queueClass) {
-			$this->handlersTask[$name] = $queueClass;
+		foreach ($queueHandlers as $name => $queueClass) {
+			$this->handlers[$name] = $queueClass;
 		}
 
 		return $this;
@@ -103,19 +103,19 @@ class QueueManager implements QueueManagerInterface
 	 */
 	public function runHandler(string $name): bool
 	{
-		if (empty($this->handlersTask[$name])) {
+		if (empty($this->handlers[$name])) {
 			throw new \LogicException('Handlers for queue was not setup or do not added!');
 		}
 
-		$this->handlersTask[$name]->prepareObject()->loopObserver();
+		$this->handlers[$name]->prepareObject()->loopObserver();
 		return true;
 	}
 
     /**
-     * @param Queue $queue
+     * @param QueueModelModel $queue
      * @return QueueSenderInterface
      */
-	public function sender(Queue $queue): QueueSenderInterface
+	public function sender(QueueModelModel $queue): QueueSenderInterface
 	{
 		if (!$this->sender instanceof QueueSenderInterface) {
 			$this->sender = new RabbitQueueSender();

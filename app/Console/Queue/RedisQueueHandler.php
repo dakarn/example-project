@@ -3,7 +3,7 @@
 namespace App\Console\Queue;
 
 use QueueManager\AbstractQueueHandler;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 use QueueManager\QueueManager;
 use QueueManager\Strategy\RedisReceiverStrategy;
 use RedisQueue\RedisQueue;
@@ -22,7 +22,7 @@ class RedisQueueHandler extends AbstractQueueHandler
 
 	public function prepare()
 	{
-		$this->queueParam = (new Queue())->setName('testQueue');
+		$this->queueParam = (new QueueModelModel())->setName('testQueue');
 	}
 
 	/**

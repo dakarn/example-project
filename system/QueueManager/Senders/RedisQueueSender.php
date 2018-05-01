@@ -10,13 +10,13 @@ namespace QueueManager\Senders;
 
 use Configs\Config;
 use RedisQueue\RedisQueue;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 use RedisQueue\Queue as QueueModel;
 
 class RedisQueueSender implements QueueSenderInterface
 {
 	/**
-	 * @var Queue
+	 * @var QueueModel
 	 */
 	private $params;
 
@@ -38,7 +38,7 @@ class RedisQueueSender implements QueueSenderInterface
 		$this->configConnect = Config::get('redis-queue');
 	}
 
-	public function setParams(Queue $params): QueueSenderInterface
+	public function setParams(QueueModel $params): QueueSenderInterface
 	{
 		$this->params = $params;
 		return $this;

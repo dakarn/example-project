@@ -8,11 +8,11 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 
 class NodeQueueSender implements QueueSenderInterface
 {
-	public function setParams(Queue $params): QueueSenderInterface
+	public function setParams(QueueModelModel $params): QueueSenderInterface
 	{
 		return $this;
 	}

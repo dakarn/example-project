@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 use QueueManager\QueueManager;
 use QueueManager\Senders\RedisQueueSender;
 use System\Controller\AbstractController;
@@ -34,7 +34,7 @@ class IndexController extends AbstractController
 
 		WidgetFactory::run('test');
 
-		$send = (new Queue())
+		$send = (new QueueModelModel())
 			->setName('hello-queue')
 			->setFlags('')
 			->setExchangeName('hello-queue')
@@ -69,7 +69,7 @@ class IndexController extends AbstractController
 	 */
 	public function searchWordAction(): Render
 	{
-		$send = (new Queue())->setName('testQueue');
+		$send = (new QueueModelModel())->setName('testQueue');
 
 		QueueManager::create()
 			->setSender(new RedisQueueSender())

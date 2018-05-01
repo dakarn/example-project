@@ -8,7 +8,7 @@
 namespace App\Console\Queue;
 
 use QueueManager\AbstractQueueHandler;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 use QueueManager\QueueManager;
 use QueueManager\Strategy\RabbitReceiverStrategy;
 
@@ -21,7 +21,7 @@ class HelloQueueHandler extends AbstractQueueHandler
 
 	public function prepare()
 	{
-		$this->queueParam = (new Queue())
+		$this->queueParam = (new QueueModelModel())
 			->setName('hello-queue')
 			->setFlags('')
 			->setExchangeName('hello-queue')

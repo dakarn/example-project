@@ -9,7 +9,7 @@
 namespace QueueManager\Strategy;
 
 use AMQPConnection;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 
 class RabbitReceiverStrategy implements ReceiverStrategyInterface
 {
@@ -39,15 +39,15 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	private $configConnect = [];
 
 	/**
-	 * @var Queue
+	 * @var QueueModelModel
 	 */
 	private $params;
 
 	/**
-	 * @param Queue $params
+	 * @param QueueModelModel $params
 	 * @return ReceiverStrategyInterface
 	 */
-	public function setParams(Queue $params): ReceiverStrategyInterface
+	public function setParams(QueueModelModel $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		return $this;
@@ -58,7 +58,7 @@ class RabbitReceiverStrategy implements ReceiverStrategyInterface
 	 */
 	public function build()
 	{
-		if (!$this->params instanceof Queue) {
+		if (!$this->params instanceof QueueModelModel) {
 			throw new \LogicException('Object data for connection with QueueServer do not filled!');
 		}
 

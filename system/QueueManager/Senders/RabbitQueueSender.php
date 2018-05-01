@@ -9,7 +9,7 @@
 namespace QueueManager\Senders;
 
 use Configs\Config;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 
 class RabbitQueueSender implements QueueSenderInterface
 {
@@ -39,7 +39,7 @@ class RabbitQueueSender implements QueueSenderInterface
 	private $configConnect = [];
 
 	/**
-	 * @var Queue
+	 * @var QueueModelModel
 	 */
 	private $params;
 
@@ -52,10 +52,10 @@ class RabbitQueueSender implements QueueSenderInterface
 	}
 
 	/**
-	 * @param Queue $params
+	 * @param QueueModelModel $params
 	 * @return QueueSenderInterface
 	 */
-	public function setParams(Queue $params): QueueSenderInterface
+	public function setParams(QueueModelModel $params): QueueSenderInterface
 	{
 		$this->params = $params;
 		return $this;

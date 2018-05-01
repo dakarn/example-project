@@ -9,14 +9,14 @@
 namespace QueueManager\Strategy;
 
 use Configs\Config;
-use QueueManager\Queue;
+use QueueManager\QueueModelModel;
 use RedisQueue\Queue as QueueRedis;
 use RedisQueue\RedisQueue;
 
 class RedisReceiverStrategy implements ReceiverStrategyInterface
 {
 	/**
-	 * @var Queue
+	 * @var QueueModelModel
 	 */
 	private $params;
 
@@ -30,10 +30,10 @@ class RedisReceiverStrategy implements ReceiverStrategyInterface
 	}
 
 	/**
-	 * @param Queue $params
+	 * @param QueueModelModel $params
 	 * @return ReceiverStrategyInterface
 	 */
-	public function setParams(Queue $params): ReceiverStrategyInterface
+	public function setParams(QueueModelModel $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		return $this;
