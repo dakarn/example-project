@@ -8,7 +8,7 @@
 
 namespace QueueManager\Strategy;
 
-class NodeReceiverStrategy extends AbstractQueueStrategy implements ReceiverStrategyInterface
+class NodeReceiverStrategy implements ReceiverStrategyInterface
 {
 	public function build()
 	{

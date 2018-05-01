@@ -8,6 +8,7 @@
 
 namespace QueueManager;
 
+use QueueManager\Senders\QueueSenderInterface;
 use QueueManager\Strategy\ReceiverStrategyInterface;
 
 interface QueueManagerInterface
@@ -15,7 +16,7 @@ interface QueueManagerInterface
     /**
      * @return ReceiverStrategyInterface
      */
-    public function getReceiverStrategy(): ReceiverStrategyInterface;
+    public function getReceiver(): ReceiverStrategyInterface;
 
     /**
      * @param string $name

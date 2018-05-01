@@ -109,10 +109,11 @@ class RedisQueue implements RedisQueueInterface
 
 	/**
 	 * @param string $msg
+	 * @return int
 	 */
-	public function publish(string $msg)
+	public function publish(string $msg): int
 	{
-		$this->redis->rPush($this->queue->getName(), $msg);
+		return $this->redis->rPush($this->queue->getName(), $msg);
 	}
 
 	/**
@@ -128,11 +129,11 @@ class RedisQueue implements RedisQueueInterface
 	}
 
 	/**
-	 * @return void
+	 * @param int $pause
 	 */
-	public function pause(): void
+	public function pause(int $pause = 1000000): void
 	{
-		usleep(1000000);
+		usleep($pause);
 	}
 
 	/**

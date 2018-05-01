@@ -8,8 +8,6 @@
 
 namespace QueueManager;
 
-use AMQPConnection;
-
 abstract class AbstractQueueHandler
 {
 	/**
@@ -18,42 +16,12 @@ abstract class AbstractQueueHandler
 	protected $queueParam;
 
 	/**
-	 * @var AMQPConnection
-	 */
-	protected $amqp;
-
-	/**
-	 * @var \AMQPExchange
-	 */
-	protected $exchange;
-
-	/**
-	 * @var \AMQPChannel
-	 */
-	protected $channel;
-
-	/**
-	 * @var \AMQPQueue
-	 */
-	protected $queueInst;
-
-	/**
 	 * @return AbstractQueueHandler
 	 */
 	public function prepareObject(): self
 	{
+		$this->prepare();
 		$this->before();
-
-		$strategy = QueueManager::create()->getReceiverStrategy();
-		$strategy
-			->setParams($this->queueParam)
-			->build();
-
-		$instanceConnect = $strategy->getCreationObject();
-		$this->amqp      = $instanceConnect['amqp'];
-		$this->channel   = $instanceConnect['channel'];
-		$this->exchange  = $instanceConnect['exchange'];
-		$this->queueInst = $instanceConnect['queue'];
 
 		return $this;
 	}
@@ -63,24 +31,7 @@ abstract class AbstractQueueHandler
 	 */
 	public function loopObserver()
 	{
-		try {
-
-			while (true) {
-				if ($msg = $this->queueInst->get()) {
-
-					if ($this->run($msg)) {
-						QueueManager::create()->getReceiverStrategy()->sendSuccess($msg);
-					} else {
-						QueueManager::create()->getReceiverStrategy()->sendFailed($msg);
-					}
-				}
-			}
-
-			$this->after();
-
-		}  catch(\Throwable $e) {
-			echo $e->getMessage() . PHP_EOL;
-		}
+		$this->run();
 	}
 
 	/**
@@ -89,10 +40,14 @@ abstract class AbstractQueueHandler
 	abstract public function before();
 
 	/**
-	 * @param \AMQPEnvelope $queue
+	 * @return mixed
+	 */
+	abstract public function prepare();
+
+	/**
 	 * @return bool
 	 */
-	abstract public function run(\AMQPEnvelope $queue): bool;
+	abstract public function run(): bool;
 
 	/**
 	 * @return mixed

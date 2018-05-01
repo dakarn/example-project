@@ -8,17 +8,54 @@
 
 namespace QueueManager\Senders;
 
-use QueueManager\QueueSenderInterface;
-use QueueManager\Strategy\AbstractQueueStrategy;
+use Configs\Config;
 use QueueManager\Queue;
 
-class RabbitQueueSender extends AbstractQueueStrategy implements QueueSenderInterface
+class RabbitQueueSender implements QueueSenderInterface
 {
 	/**
-	 * @param Queue $params
-	 * @return RabbitQueueSender
+	 * @var \AMQPConnection
 	 */
-	public function setParams(Queue $params): self
+	private $amqp;
+
+	/**
+	 * @var \AMQPExchange
+	 */
+	private $exchange;
+
+	/**
+	 * @var \AMQPChannel
+	 */
+	private $channel;
+
+	/**
+	 * @var \AMQPQueue
+	 */
+	private $queueInst;
+
+	/**
+	 * @var array
+	 */
+	private $configConnect = [];
+
+	/**
+	 * @var Queue
+	 */
+	private $params;
+
+	/**
+	 * RabbitQueueSender constructor.
+	 */
+	public function __construct()
+	{
+		$this->configConnect = Config::get('rabbit');
+	}
+
+	/**
+	 * @param Queue $params
+	 * @return QueueSenderInterface
+	 */
+	public function setParams(Queue $params): QueueSenderInterface
 	{
 		$this->params = $params;
 		return $this;
@@ -49,7 +86,7 @@ class RabbitQueueSender extends AbstractQueueStrategy implements QueueSenderInte
 	/**
 	 * @return bool
 	 */
-	public function send()
+	public function send(): bool
 	{
 		$result = $this->exchange->publish($this->params->getData(), $this->params->getRoutingKey());
 		$this->amqp->disconnect();

@@ -11,13 +11,43 @@ namespace QueueManager\Strategy;
 use AMQPConnection;
 use QueueManager\Queue;
 
-class RabbitReceiverStrategy extends AbstractQueueStrategy implements ReceiverStrategyInterface
+class RabbitReceiverStrategy implements ReceiverStrategyInterface
 {
 	/**
-	 * @param Queue $params
-	 * @return RabbitReceiverStrategy
+	 * @var \AMQPConnection
 	 */
-	public function setParams(Queue $params): self
+	private $amqp;
+
+	/**
+	 * @var \AMQPExchange
+	 */
+	private $exchange;
+
+	/**
+	 * @var \AMQPChannel
+	 */
+	private $channel;
+
+	/**
+	 * @var \AMQPQueue
+	 */
+	private $queueInst;
+
+	/**
+	 * @var array
+	 */
+	private $configConnect = [];
+
+	/**
+	 * @var Queue
+	 */
+	private $params;
+
+	/**
+	 * @param Queue $params
+	 * @return ReceiverStrategyInterface
+	 */
+	public function setParams(Queue $params): ReceiverStrategyInterface
 	{
 		$this->params = $params;
 		return $this;

@@ -6,19 +6,24 @@
  * Time: 0:56
  */
 
-namespace QueueManager;
+namespace QueueManager\Senders;
 
-use QueueManager\Strategy\AbstractQueueStrategy;
+use QueueManager\Queue;
 
-class NodeQueueSender extends AbstractQueueStrategy implements QueueSenderInterface
+class NodeQueueSender implements QueueSenderInterface
 {
-	public function build()
+	public function setParams(Queue $params): QueueSenderInterface
 	{
-
+		return $this;
 	}
 
-	public function send()
-    {
+	public function build(): QueueSenderInterface
+	{
+		return $this;
+	}
 
+	public function send(): bool
+    {
+		return true;
     }
 }

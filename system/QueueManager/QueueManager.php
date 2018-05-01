@@ -8,11 +8,11 @@
 
 namespace QueueManager;
 
-use QueueManager\Strategy\RabbitReceiverStrategy;
-use Configs\Config;
+use QueueManager\Senders\RabbitQueueSender;
 use QueueManager\Strategy\ReceiverStrategyInterface;
 use Traits\SingletonTrait;
-use QueueManager\Senders\RabbitQueueSender;
+use QueueManager\Senders\QueueSenderInterface;
+use QueueManager\Strategy\RabbitReceiverStrategy;
 
 class QueueManager implements QueueManagerInterface
 {
@@ -21,23 +21,48 @@ class QueueManager implements QueueManagerInterface
 	/**
 	 * @var RabbitReceiverStrategy
 	 */
-	private $strategy;
+	private $receiver;
 
 	/**
 	 * @var array
 	 */
 	private $handlersTask = [];
 
+	/**
+	 * @var QueueSenderInterface
+	 */
+	private $sender;
+
     /**
      * @return ReceiverStrategyInterface
      */
-	public function getReceiverStrategy(): ReceiverStrategyInterface
+	public function getReceiver(): ReceiverStrategyInterface
 	{
-		if (!$this->strategy instanceof RabbitReceiverStrategy) {
-			$this->strategy = new RabbitReceiverStrategy(Config::get('rabbit'));
+		if (!$this->receiver instanceof ReceiverStrategyInterface) {
+			$this->receiver = new RabbitReceiverStrategy();
 		}
 
-		return $this->strategy;
+		return $this->receiver;
+	}
+
+	/**
+	 * @param QueueSenderInterface $sender
+	 * @return QueueManager
+	 */
+	public function setSender(QueueSenderInterface $sender): QueueManager
+	{
+		$this->sender = new $sender();
+		return $this;
+	}
+
+	/**
+	 * @param ReceiverStrategyInterface $receiverStrategy
+	 * @return QueueManager
+	 */
+	public function setReceiver(ReceiverStrategyInterface $receiverStrategy): QueueManager
+	{
+		$this->receiver = $receiverStrategy;
+		return $this;
 	}
 
 	/**
@@ -92,7 +117,11 @@ class QueueManager implements QueueManagerInterface
      */
 	public function sender(Queue $queue): QueueSenderInterface
 	{
-		return (new RabbitQueueSender(Config::get('rabbit')))
+		if (!$this->sender instanceof QueueSenderInterface) {
+			$this->sender = new RabbitQueueSender();
+		}
+
+		return $this->sender
 			->setParams($queue)
 			->build();
 	}

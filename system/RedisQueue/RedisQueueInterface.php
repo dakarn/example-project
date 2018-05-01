@@ -45,8 +45,9 @@ interface RedisQueueInterface
 
 	/**
 	 * @param string $msg
+	 * @return int
 	 */
-	public function publish(string $msg);
+	public function publish(string $msg): int;
 
 	/**
 	 * @return OutputResult
