@@ -54,7 +54,7 @@ class RedisQueueHandler extends AbstractQueueHandler
 
 			if ($msg->isReceived()) {
 				echo $msg->getBody() . PHP_EOL;
-				$this->queueInst->result()->done();
+				$this->queueInst->sendResult()->done();
 			}
 
 			$this->queueInst->pause(100);

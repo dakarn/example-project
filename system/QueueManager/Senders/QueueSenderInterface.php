@@ -28,4 +28,10 @@ interface QueueSenderInterface
 	 * @return mixed
 	 */
     public function send(bool $isClose = false);
+
+	/**
+	 * @param string $data
+	 * @return QueueSenderInterface
+	 */
+    public function setDataForSend(string $data): QueueSenderInterface;
 }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use QueueManager\QueueModel;
 use QueueManager\QueueManager;
 use QueueManager\Senders\RedisQueueSender;
+use RedisQueue\RedisQueue;
 use System\Controller\AbstractController;
 use App\Model\Dictionary\DictionaryRepository;
 use App\Validator\SearchWordValidator;
@@ -70,16 +71,22 @@ class IndexController extends AbstractController
 	public function searchWordAction(): Render
 	{
 		$send = (new QueueModel())
-			->setData('2' . time())
+			->setData(time())
 			->setName('testQueue');
 
+		/** @var RedisQueueSender $manager */
 		$manager = QueueManager::create()
 			->setSender(new RedisQueueSender())
 			->sender($send);
 
-		for ($i = 0; $i < 2000; $i++) {
-			$manager->send();
+		$manager->send();
+
+		if ($manager->getResult()) {
+			echo 'Success';
+		} else {
+			echo 'Failed';
 		}
+
 
 		$dictRepos = new DictionaryRepository();
 		$validator = new SearchWordValidator();

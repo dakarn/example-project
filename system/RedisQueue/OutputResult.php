@@ -26,12 +26,19 @@ class OutputResult implements OutputResultInterface
 		$this->redisQueue = $redisQueue;
 	}
 
-	public function done()
+	/**
+	 * @return void
+	 */
+	public function done(): void
 	{
 		$this->redisQueue->setWorkDone();
+		$this->redisQueue->sendStatusTask(true);
 	}
 
-	public function failed(string $typeRequeue)
+	/**
+	 * @param string $typeRequeue
+	 */
+	public function failed(string $typeRequeue = RedisQueue::QUEUE_DELETE): void
 	{
 		switch ($typeRequeue) {
 			case RedisQueue::QUEUE_DELETE:
@@ -40,9 +47,10 @@ class OutputResult implements OutputResultInterface
 				$this->redisQueue->publish($this->redisQueue->getEnvelope()->getBody());
 				break;
 			default:
-				throw new InvalidArgumentException('This queue response no support!');
+				throw new InvalidArgumentException('The queue no support this failed type!');
 		}
 
 		$this->redisQueue->setWorkDone();
+		$this->redisQueue->sendStatusTask(false);
 	}
 }

@@ -69,6 +69,16 @@ class RedisQueueSender implements QueueSenderInterface
 	}
 
 	/**
+	 * @param string $data
+	 * @return QueueSenderInterface
+	 */
+	public function setDataForSend(string $data): QueueSenderInterface
+	{
+		$this->params->setData($data);
+		return $this;
+	}
+
+	/**
 	 * @param bool $isClose
 	 * @return int
 	 */
@@ -81,6 +91,14 @@ class RedisQueueSender implements QueueSenderInterface
 		}
 
 		return $answer;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResult(): string
+	{
+		return $this->queueRedis->getResult();
 	}
 
 	/**

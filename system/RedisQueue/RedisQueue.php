@@ -24,6 +24,11 @@ class RedisQueue implements RedisQueueInterface
 	const QUEUE_DELETE = 'queueDelete';
 
 	/**
+	 * @var string
+	 */
+	const FORMAT_SEND = '{"hash": "%s", "data": %s}';
+
+	/**
 	 * @var \Redis
 	 */
 	private $redis;
@@ -49,6 +54,11 @@ class RedisQueue implements RedisQueueInterface
 	private $envelope;
 
 	/**
+	 * @var string
+	 */
+	private $idHash = '';
+
+	/**
 	 * RedisQueue constructor.
 	 * @param string $host
 	 * @param int $port
@@ -58,6 +68,10 @@ class RedisQueue implements RedisQueueInterface
 		try {
 			$this->redis = new \Redis();
 			$this->redis->connect($host, $port);
+
+			if (!$this->envelope instanceof QueueEnvelope){
+				$this->envelope = new QueueEnvelope();
+			}
 		} catch (\RedisException $e) {
 			Util::log(LogLevel::EMERGENCY, $e->getMessage());
 		}
@@ -81,14 +95,6 @@ class RedisQueue implements RedisQueueInterface
 	}
 
 	/**
-	 * @return QueueEnvelope
-	 */
-	public function getEnvelope(): QueueEnvelope
-	{
-		return $this->envelope;
-	}
-
-	/**
 	 * @return RedisQueue
 	 */
 	public function setWorkProcess(): RedisQueue
@@ -108,24 +114,68 @@ class RedisQueue implements RedisQueueInterface
 	}
 
 	/**
+	 * @return QueueEnvelope
+	 */
+	public function getEnvelope(): QueueEnvelope
+	{
+		return $this->envelope;
+	}
+
+	/**
 	 * @param string $msg
 	 * @return int
 	 */
 	public function publish(string $msg): int
 	{
-		return $this->redis->rPush($this->queue->getName(), $msg);
+		return $this->redis->rPush($this->queue->getName(), $this->generateData($msg));
 	}
 
 	/**
 	 * @return OutputResult
 	 */
-	public function result(): OutputResult
+	public function sendResult(): OutputResult
 	{
 		if (!$this->outputResult instanceof OutputResult){
 			$this->outputResult = new OutputResult($this);
 		}
 
 		return $this->outputResult;
+	}
+
+	/**
+	 * @param int $timeout second
+	 * @return string
+	 */
+	public function getResult(int $timeout = 5): string
+	{
+		$currentTime = 0;
+		$timeout     = $timeout * 100000;
+
+		while (true) {
+
+			if ($currentTime >= $timeout) {
+				return '';
+			}
+
+			$value = $this->redis->get($this->idHash);
+
+			if ($value !== false) {
+				return $value;
+			}
+
+			$currentTime += 100;
+			usleep(100);
+		}
+
+		return '';
+	}
+
+	/**
+	 * @param string $status
+	 */
+	public function sendStatusTask(string $status): void
+	{
+		$this->redis->set($this->idHash, $status);
 	}
 
 	/**
@@ -141,10 +191,6 @@ class RedisQueue implements RedisQueueInterface
 	 */
 	public function getStack(): QueueEnvelope
 	{
-		if (!$this->envelope instanceof QueueEnvelope){
-			$this->envelope = new QueueEnvelope();
-		}
-
 		if ($this->isDoWork) {
 			return $this->envelope->setBody('');
 		}
@@ -155,7 +201,9 @@ class RedisQueue implements RedisQueueInterface
 			$this->isDoWork = true;
 		}
 
-		return $this->envelope->setBody($body);
+		$bodyJson     = json_decode($body, true);
+		$this->idHash = $bodyJson['hash'];
+		return $this->envelope->setBody((string) $bodyJson['data']);
 	}
 
 	/**
@@ -166,5 +214,15 @@ class RedisQueue implements RedisQueueInterface
 		if ($this->redis instanceof \Redis) {
 			$this->redis->close();
 		}
+	}
+
+	/**
+	 * @param string $msg
+	 * @return string
+	 */
+	private function generateData(string $msg): string
+	{
+		$this->idHash = microtime(true) . random_int(1, 1000);
+		return sprintf(self::FORMAT_SEND, $this->idHash, $msg);
 	}
 }

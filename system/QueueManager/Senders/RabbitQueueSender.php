@@ -88,6 +88,16 @@ class RabbitQueueSender implements QueueSenderInterface
 	}
 
 	/**
+	 * @param string $data
+	 * @return QueueSenderInterface
+	 */
+	public function setDataForSend(string $data): QueueSenderInterface
+	{
+		$this->params->setData($data);
+		return $this;
+	}
+
+	/**
 	 * @param bool $isClose
 	 * @return bool
 	 */

@@ -52,7 +52,7 @@ interface RedisQueueInterface
 	/**
 	 * @return OutputResult
 	 */
-	public function result(): OutputResult;
+	public function sendResult(): OutputResult;
 
 	/**
 	 * @return void

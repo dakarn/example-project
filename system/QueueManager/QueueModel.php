@@ -18,7 +18,7 @@ class QueueModel implements QueueModelInterface
 	/**
 	 * @var string
 	 */
-	private $dataForSend;
+	private $dataForSend = '';
 
 	/**
 	 * @var string

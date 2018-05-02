@@ -18,7 +18,7 @@ class QueueEnvelope implements QueueEnvelopeInterface
 	/**
 	 * @var string
 	 */
-	private $hash = '';
+	private $idHash = '';
 
 	/**
 	 * QueueEnvelope constructor.
@@ -48,18 +48,18 @@ class QueueEnvelope implements QueueEnvelopeInterface
 	/**
 	 * @return string
 	 */
-	public function getHash(): string
+	public function getIdHash(): string
 	{
-		return $this->hash;
+		return $this->idHash;
 	}
 
 	/**
-	 * @param string $hash
+	 * @param string $idHash
 	 * @return string
 	 */
-	public function setHash(string $hash): string
+	public function setIdHash(string $idHash): string
 	{
-		$this->hash = $hash;
+		$this->idHash = $idHash;
 		return $this;
 	}
 

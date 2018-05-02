@@ -16,6 +16,11 @@ class Queue implements QueueInterface
 	private $name;
 
 	/**
+	 * @var string
+	 */
+	private $routing;
+
+	/**
 	 * @param string $name
 	 * @return Queue
 	 */
@@ -31,6 +36,20 @@ class Queue implements QueueInterface
 	public function getName(): string
 	{
 		return $this->name;
+	}
+
+	public function setRoutingKey(string $routing): Queue
+	{
+		$this->routing = $routing;
+		return $this;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getRoutingKey(): string
+	{
+		return $this->routing;
 	}
 
 }
