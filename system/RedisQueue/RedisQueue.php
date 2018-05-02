@@ -59,6 +59,16 @@ class RedisQueue implements RedisQueueInterface
 	private $idHash = '';
 
 	/**
+	 * @var Client
+	 */
+	private $client;
+
+	/**
+	 * @var Server
+	 */
+	private $server;
+
+	/**
 	 * RedisQueue constructor.
 	 * @param string $host
 	 * @param int $port
@@ -69,9 +79,9 @@ class RedisQueue implements RedisQueueInterface
 			$this->redis = new \Redis();
 			$this->redis->connect($host, $port);
 
-			if (!$this->envelope instanceof QueueEnvelope){
-				$this->envelope = new QueueEnvelope();
-			}
+			$this->envelope = new QueueEnvelope();
+			$this->client   = new Client($this->redis);
+			$this->server   = new Server($this->redis);
 		} catch (\RedisException $e) {
 			Util::log(LogLevel::EMERGENCY, $e->getMessage());
 		}
