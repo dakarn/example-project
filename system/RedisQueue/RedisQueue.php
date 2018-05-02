@@ -203,7 +203,9 @@ class RedisQueue implements RedisQueueInterface
 
 		$bodyJson     = json_decode($body, true);
 		$this->idHash = $bodyJson['hash'];
-		return $this->envelope->setBody((string) $bodyJson['data']);
+		$this->envelope->setBody((string) $bodyJson['data']);
+
+		return $this->envelope;
 	}
 
 	/**
