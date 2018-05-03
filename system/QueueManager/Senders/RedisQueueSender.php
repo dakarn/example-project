@@ -84,7 +84,7 @@ class RedisQueueSender implements QueueSenderInterface
 	 */
 	public function send(bool $isClose = false): int
 	{
-		$answer = $this->queueRedis->publish($this->params->getData());
+		$answer = $this->queueRedis->client()->publish($this->params->getData());
 
 		if ($isClose) {
 			$this->queueRedis->disconnect();
@@ -98,7 +98,7 @@ class RedisQueueSender implements QueueSenderInterface
 	 */
 	public function getResult(): string
 	{
-		return $this->queueRedis->getResult();
+		return $this->queueRedis->client()->getResult();
 	}
 
 	/**

@@ -8,61 +8,106 @@
 
 namespace RedisQueue;
 
-class Server
+class Server implements ServerInterface
 {
-	private $redis;
+    /**
+     * @var string
+     */
+    const REQUEUE = 'requeue';
 
-	public function __construct(\Redis $redis)
+    /**
+     * @var string
+     */
+    const QUEUE_DELETE = 'queueDelete';
+
+    /**
+     * @var \Redis
+     */
+    private $redis;
+
+    /**
+     * @var
+     */
+    private $outputResult;
+
+    /**
+     * @var bool
+     */
+    private $isDoWork = false;
+
+    /**
+     * @var
+     */
+    private $idHash;
+
+    /**
+     * @var RedisQueue
+     */
+    private $redisQueue;
+
+    /**
+     * @var QueueEnvelope
+     */
+    private $envelope;
+
+    /**
+     * Server constructor.
+     * @param \Redis $redis
+     * @param RedisQueue $redisQueue
+     */
+    public function __construct(\Redis $redis, RedisQueue $redisQueue)
 	{
-		$this->redis = $redis;
+	    $this->redisQueue = $redisQueue;
+		$this->redis      = $redis;
+		$this->envelope = new QueueEnvelope();
 	}
 
-	/**
-	 * @param string $status
-	 */
-	public function sendStatusTask(string $status): void
+    /**
+     * @param string $status
+     */
+    public function sendStatusTask(string $status): void
 	{
 		$this->redis->set($this->idHash, $status);
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isDoWork(): bool
+    /**
+     * @return bool
+     */
+    public function isDoWork(): bool
 	{
 		return $this->isDoWork;
 	}
 
-	/**
-	 * @param int $pause
-	 */
-	public function pause(int $pause = 1000000): void
+    /**
+     * @param int $pause
+     */
+    public function pause(int $pause = 1000000): void
 	{
 		usleep($pause);
 	}
 
-	/**
-	 * @return RedisQueue
-	 */
-	public function setWorkDone(): RedisQueue
+    /**
+     * @return $this
+     */
+    public function setWorkDone()
 	{
 		$this->isDoWork = false;
 		return $this;
 	}
 
-	/**
-	 * @return RedisQueue
-	 */
-	public function setWorkProcess(): RedisQueue
+    /**
+     * @return $this
+     */
+    public function setWorkProcess()
 	{
 		$this->isDoWork = true;
 		return $this;
 	}
 
-	/**
-	 * @return OutputResult
-	 */
-	public function sendResult(): OutputResult
+    /**
+     * @return OutputResult
+     */
+    public function sendResult()
 	{
 		if (!$this->outputResult instanceof OutputResult){
 			$this->outputResult = new OutputResult($this);
@@ -71,16 +116,16 @@ class Server
 		return $this->outputResult;
 	}
 
-	/**
-	 * @return QueueEnvelope
-	 */
-	public function getStack(): QueueEnvelope
+    /**
+     * @return QueueEnvelope
+     */
+    public function getStack(): QueueEnvelope
 	{
 		if ($this->isDoWork) {
 			return $this->envelope->setBody('');
 		}
 
-		$body = $this->redis->lPop($this->queue->getName());
+		$body = $this->redis->lPop($this->redisQueue->getQueueParam()->getName());
 
 		if (!empty($body)) {
 			$this->isDoWork = true;

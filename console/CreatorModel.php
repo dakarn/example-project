@@ -66,7 +66,7 @@ class CreatorModel
         $this->argv = $_SERVER['argv'];
 
         if ($this->argv[1] != self::COMMANDS[0]) {
-			throw new \InvalidArgumentException('Argument "' . self::COMMANDS[0]. '" with name of model not found!');
+			throw new \InvalidArgumentException('Argument "' . self::COMMANDS[0]. '" with name of model not found!' . PHP_EOL);
         }
 
 	    $this->loadTemplate();
@@ -76,7 +76,7 @@ class CreatorModel
 	    $this->argv = array_slice($this->argv, 3);
 
 	    if ($this->argv[0] != self::COMMANDS[1]) {
-	    	throw new InvalidArgumentException('Argument "' . self::COMMANDS[1]. '" for create property not found!');
+	    	throw new InvalidArgumentException('Argument "' . self::COMMANDS[1]. '" for create property not found!'. PHP_EOL);
 	    }
 
 	    $this->addProperties();

@@ -81,13 +81,6 @@ class IndexController extends AbstractController
 
 		$manager->send();
 
-		if ($manager->getResult()) {
-			echo 'Success';
-		} else {
-			echo 'Failed';
-		}
-
-
 		$dictRepos = new DictionaryRepository();
 		$validator = new SearchWordValidator();
 

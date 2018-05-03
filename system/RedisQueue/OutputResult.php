@@ -13,15 +13,15 @@ use Psr\Log\InvalidArgumentException;
 class OutputResult implements OutputResultInterface
 {
 	/**
-	 * @var RedisQueue
+	 * @var Server
 	 */
 	private $redisQueue;
 
-	/**
-	 * OutputResult constructor.
-	 * @param RedisQueue $redisQueue
-	 */
-	public function __construct(RedisQueue $redisQueue)
+    /**
+     * OutputResult constructor.
+     * @param Server $redisQueue
+     */
+	public function __construct(Server $redisQueue)
 	{
 		$this->redisQueue = $redisQueue;
 	}

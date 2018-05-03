@@ -10,11 +10,11 @@ namespace RedisQueue;
 
 interface OutputResultInterface
 {
-	/**
-	 * OutputResultInterface constructor.
-	 * @param RedisQueue $redisQueue
-	 */
-	public function __construct(RedisQueue $redisQueue);
+    /**
+     * OutputResultInterface constructor.
+     * @param Server $redisQueue
+     */
+	public function __construct(Server $redisQueue);
 
 	/**
 	 * @return mixed
