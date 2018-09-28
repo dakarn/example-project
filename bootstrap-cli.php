@@ -1,5 +1,5 @@
 <?php
-
+//Test
 define('PATH_SYSTEM', __DIR__ . '/system/');
 define('PATH_APP', __DIR__  . '/app/');
 define('PSR_4', true);
